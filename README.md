@@ -29,7 +29,7 @@ Lyrargon 主题目前仍处于 Beta 测试阶段，可能存在许多 Bug 或不
 
 # 文档
 
-[Argon-Theme 文档 : https://lyrargon.wenlei.top](https://lyrargon.wenlei.top/)
+Lyrargon-Theme 文档 :[https://lyrargon.wenlei.top](https://lyrargon.wenlei.top/)
 
 # 暂时性功能缺失&缺陷
 
