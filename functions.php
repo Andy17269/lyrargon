@@ -116,7 +116,7 @@ switch ($argon_update_source) {
 		$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 			'https://lyra-api.wenlei.top/theme/info.json',
 			get_template_directory() . '/functions.php',
-			'argon'
+			''
 		);
 		break;
 	case "github":
@@ -124,7 +124,7 @@ switch ($argon_update_source) {
 		$argonThemeUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 			'https://raw.githubusercontent.com/Andy17269/lyrargon/master/info.json',
 			get_template_directory() . '/functions.php',
-			'argon'
+			''
 		);
 }
 
