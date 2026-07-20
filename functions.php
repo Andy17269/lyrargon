@@ -1340,7 +1340,7 @@ require_once(get_template_directory() . '/parsedown.php');
 function comment_markdown_parse($comment_content){
 	//HTML 过滤
 	global $allowedtags;
-	//$comment_content = wp_kses($comment_content, $allowedtags);
+	$comment_content = wp_kses($comment_content, $allowedtags);
 	//允许评论中额外的 HTML Tag
 	$allowedtags['pre'] = array('class' => array());
 	$allowedtags['i'] = array('class' => array(), 'aria-hidden' => array());
@@ -2493,32 +2493,50 @@ function shortcode_checkbox($attr,$content=""){
 add_shortcode('alert','shortcode_alert');
 function shortcode_alert($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
-	$out = "<div class='alert";
-	$color = isset( $attr['color'] ) ? $attr['color'] : 'indigo';
-	switch ($color){
-		case 'indigo':
-			$out .= " alert-primary";
-			break;
-		case 'green':
-			$out .= " alert-success";
-			break;
-		case 'red':
-			$out .= " alert-danger";
-			break;
-		case 'orange':
-			$out .= " alert-warning";
-			break;
-		case 'blue':
-			$out .= " alert-info";
-			break;
-		case 'black':
-			$out .= " alert-default";
-			break;
-		default:
-			$out .= " alert-primary";
-			break;
+
+	// 未定义颜色时使用后台设置的主题色
+	$theme_color = get_option('argon_theme_color', '#2196f3');
+	$color = isset( $attr['color'] ) ? $attr['color'] : $theme_color;
+
+	// color=blue 使用 #2196F3
+	if ($color === 'blue') {
+		$color = '#2196F3';
 	}
-	$out .= "'>";
+
+	// 支持自定义十六进制颜色值, 例如 [alert color="#2196F3"]
+	if (preg_match('/^#([a-f0-9]{3}|[a-f0-9]{6})$/i', $color)) {
+		$hex = ltrim($color, '#');
+		if (strlen($hex) == 3) {
+			$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+		}
+		$r = hexdec(substr($hex, 0, 2));
+		$g = hexdec(substr($hex, 2, 2));
+		$b = hexdec(substr($hex, 4, 2));
+		$out = "<div class='alert' style='background-color: rgba({$r}, {$g}, {$b}, 0.1); border-left: 4px solid {$color}; color: {$color};'>";
+	} else {
+		$out = "<div class='alert";
+		switch ($color){
+			case 'indigo':
+				$out .= " alert-primary";
+				break;
+			case 'green':
+				$out .= " alert-success";
+				break;
+			case 'red':
+				$out .= " alert-danger";
+				break;
+			case 'orange':
+				$out .= " alert-warning";
+				break;
+			case 'black':
+				$out .= " alert-default";
+				break;
+			default:
+				$out .= " alert-primary";
+				break;
+		}
+		$out .= "'>";
+	}
 	if (isset($attr['icon'])){
 		$out .= "<span class='alert-inner--icon'><i class='fa fa-" . $attr['icon'] . "'></i></span>";
 	}

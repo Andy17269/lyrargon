@@ -37,7 +37,7 @@ function my_custom_block_cgb_block_assets() {
 		//null // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
 	);
 	wp_localize_script(
-		'my_custom_block-cgb-block-js',
+		'argon-gutenberg-block-js',
 		'cgbGlobal',
 		[
 			'pluginDirPath' => plugin_dir_path( __DIR__ ),

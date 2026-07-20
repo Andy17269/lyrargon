@@ -87,38 +87,94 @@ function argon_emoji_manager_page() {
                         $config = json_decode($config_content, true);
                         if (!$config || !isset($config['groupname']) || !isset($config['list'])) {
                             $messages[] = '<div class="error"><p>config.json 格式错误！</p></div>';
+                        } elseif (!is_string($config['groupname']) || empty(trim($config['groupname']))) {
+                            $messages[] = '<div class="error"><p>config.json 中 groupname 无效！</p></div>';
+                        } elseif (!is_array($config['list'])) {
+                            $messages[] = '<div class="error"><p>config.json 中 list 格式无效！</p></div>';
                         } else {
-                            // 确定最终文件夹名
-                            if (isset($config['foldername']) && !empty($config['foldername'])) {
-                                $folder_name = sanitize_title($config['foldername']);
-                                // 防止同名文件夹冲突
-                                if ($wp_filesystem->exists($base_dir . '/' . $folder_name)) {
-                                    $folder_name .= '_' . wp_generate_password(4, false);
+                            // --- 安全检查：检测 src 中的路径穿越（../） ---
+                            $traversal_found = false;
+                            foreach ($config['list'] as $item) {
+                                if ($item['type'] === 'sticker' && isset($item['src']) && is_string($item['src'])) {
+                                    // 检查是否包含 ../ 或绝对路径
+                                    if (preg_match('#\.\./|\.\.\\\\|^/#', $item['src'])) {
+                                        $traversal_found = true;
+                                        break;
+                                    }
+                                    // 检查是否包含空字节或危险字符
+                                    if (strpos($item['src'], "\0") !== false || preg_match('#[<>"\']#', $item['src'])) {
+                                        $traversal_found = true;
+                                        break;
+                                    }
                                 }
+                            }
+                            if ($traversal_found) {
+                                $messages[] = '<div class="error"><p>config.json 中存在不安全的 src 路径（包含 ../ 或绝对路径），已拒绝安装！</p></div>';
                             } else {
-                                $folder_name = sanitize_title($config['groupname']) . '_' . wp_generate_password(4, false);
-                            }
-                            
-                            $final_dir = $base_dir . '/' . $folder_name;
-                            
-                            // 移动文件
-                            $wp_filesystem->move($temp_dir, $final_dir);
-                            
-                            // 修正 src 路径
-                            $pack_url = $base_url . '/' . $folder_name;
-                            foreach ($config['list'] as &$item) {
-                                if ($item['type'] === 'sticker' && isset($item['src']) && !preg_match('/^http/', $item['src'])) {
-                                    $item['src'] = $pack_url . '/' . ltrim($item['src'], '/');
+                                // --- 安全检查：检测同包内是否有重复 code ---
+                                $codes = array();
+                                $duplicate_code_found = false;
+                                foreach ($config['list'] as $item) {
+                                    if ($item['type'] === 'sticker' && isset($item['code']) && is_string($item['code'])) {
+                                        $code = trim($item['code']);
+                                        if (!empty($code)) {
+                                            if (isset($codes[$code])) {
+                                                $duplicate_code_found = true;
+                                                break;
+                                            }
+                                            $codes[$code] = true;
+                                        }
+                                    }
+                                }
+                                if ($duplicate_code_found) {
+                                    $messages[] = '<div class="error"><p>config.json 中存在重复的 sticker code，已拒绝安装！</p></div>';
+                                } else {
+                                    // --- 安全检查：检测是否已有同名表情包 ---
+                                    $existing_emojis = get_option('argon_custom_emojis', array());
+                                    $duplicate_groupname = false;
+                                    foreach ($existing_emojis as $existing_pack) {
+                                        if (isset($existing_pack['groupname']) && $existing_pack['groupname'] === $config['groupname']) {
+                                            $duplicate_groupname = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($duplicate_groupname) {
+                                        $messages[] = '<div class="error"><p>同名表情包“' . esc_html($config['groupname']) . '”已存在，请先删除旧版本再安装！</p></div>';
+                                    } else {
+                                        // 确定最终文件夹名
+                                        if (isset($config['foldername']) && !empty($config['foldername'])) {
+                                            $folder_name = sanitize_title($config['foldername']);
+                                            // 防止同名文件夹冲突
+                                            if ($wp_filesystem->exists($base_dir . '/' . $folder_name)) {
+                                                $folder_name .= '_' . wp_generate_password(4, false);
+                                            }
+                                        } else {
+                                            $folder_name = sanitize_title($config['groupname']) . '_' . wp_generate_password(4, false);
+                                        }
+                                        
+                                        $final_dir = $base_dir . '/' . $folder_name;
+                                        
+                                        // 移动文件
+                                        $wp_filesystem->move($temp_dir, $final_dir);
+                                        
+                                        // 修正 src 路径
+                                        $pack_url = $base_url . '/' . $folder_name;
+                                        foreach ($config['list'] as &$item) {
+                                            if ($item['type'] === 'sticker' && isset($item['src']) && !preg_match('/^http/', $item['src'])) {
+                                                $item['src'] = $pack_url . '/' . ltrim($item['src'], '/');
+                                            }
+                                        }
+                                        
+                                        // 存入数据库
+                                        $config['folder'] = $folder_name;
+                                        $custom_emojis = get_option('argon_custom_emojis', array());
+                                        $custom_emojis[] = $config;
+                                        update_option('argon_custom_emojis', $custom_emojis);
+                                        
+                                        $messages[] = '<div class="updated"><p>表情包“' . esc_html($config['groupname']) . '”已安装。</p></div>';
+                                    }
                                 }
                             }
-                            
-                            // 存入数据库
-                            $config['folder'] = $folder_name;
-                            $custom_emojis = get_option('argon_custom_emojis', array());
-                            $custom_emojis[] = $config;
-                            update_option('argon_custom_emojis', $custom_emojis);
-                            
-                            $messages[] = '<div class="updated"><p>表情包【' . esc_html($config['groupname']) . '】已安装。</p></div>';
                         }
                     }
                 }
@@ -314,9 +370,8 @@ function argon_emoji_manager_page() {
             <div>
                 <h1 class="argon-emojis-title">
                     Lyrargon 表情包管理
-                    <a href="https://wrgon.wenlei.top/stickers" target="_blank" rel="noopener noreferrer">获取表情包 →</a>
+                    <a href="https://lyrargon.wenlei.top/stickers" target="_blank" rel="noopener noreferrer">获取表情包 →</a>
                 </h1>
-                <p class="argon-emojis-subtitle">安装、查看和删除自定义表情包，整体视觉与主题设置页保持一致。</p>
             </div>
         </div>
 
@@ -333,7 +388,6 @@ function argon_emoji_manager_page() {
             <section class="argon-emojis-card">
                 <div class="argon-emojis-card-header">
                     <h2>已安装的表情包</h2>
-                    <p>这里列出所有已安装的自定义表情包，并支持直接删除。</p>
                 </div>
                 <div class="argon-emojis-table-wrap">
                     <table class="argon-emojis-table">
@@ -347,7 +401,7 @@ function argon_emoji_manager_page() {
                         </thead>
                         <tbody>
                             <?php if (empty($custom_emojis)): ?>
-                                <tr><td colspan="4" class="argon-emojis-empty">目前未安装自定义表情包。</td></tr>
+                                <tr><td colspan="4" class="argon-emojis-empty">尚未安装自定义表情包。</td></tr>
                             <?php else: ?>
                                 <?php foreach ($custom_emojis as $index => $pack): ?>
                                     <tr>
@@ -371,8 +425,8 @@ function argon_emoji_manager_page() {
 
             <section class="argon-emojis-card">
                 <div class="argon-emojis-card-header">
-                    <h2>上传安装新表情包</h2>
-                    <p>支持 ZIP 格式压缩包，上传后会自动解压并写入配置。</p>
+                    <h2>添加新表情包</h2>
+                    <p>仅支持 ZIP 格式压缩包，上传后将自动安装。</p>
                 </div>
                 <form class="argon-emojis-upload" method="post" action="" enctype="multipart/form-data">
                     <?php wp_nonce_field('argon_upload_emoji', 'argon_emoji_nonce'); ?>

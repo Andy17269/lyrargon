@@ -75,7 +75,7 @@
 	</div>
 </div>
 <?php 
-	wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/js/argon.min.js", null, $GLOBALS['theme_version'], true);
+	wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/js/argon.min.js", array('jquery'), $GLOBALS['theme_version'], true);
 ?>
 <?php wp_footer(); ?>
 </body>
