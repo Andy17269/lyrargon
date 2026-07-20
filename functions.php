@@ -139,16 +139,16 @@ function post_analytics_info(){
 				)
 			)
 		);
-		$result = file_get_contents('http://api.solstice23.top/argon_analytics/index.php?domain=' . urlencode($_SERVER['HTTP_HOST']) . '&version='. urlencode($GLOBALS['theme_version']), false, $contexts);
+		$result = file_get_contents('http://lyra-api.wenlei.top/theme-analytics.php?domain=' . urlencode($_SERVER['HTTP_HOST']) . '&version='. urlencode($GLOBALS['theme_version']), false, $contexts);
 		update_option('argon_has_inited', 'true');
 		return $result;
 	}else{
 		update_option('argon_has_inited', 'true');
 	}
 }
-if (get_option('argon_has_inited') != 'true'){
-	post_analytics_info();
-}
+//if (get_option('argon_has_inited') != 'true'){
+//	post_analytics_info();
+//}
 //时区修正
 if (get_option('argon_enable_timezone_fix') == 'true'){
 	date_default_timezone_set('UTC');
