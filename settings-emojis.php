@@ -6,6 +6,9 @@ function argon_emoji_manager_page() {
         wp_die(__('您没有权限访问此页面。'));
     }
 
+    // 确保 Media Library 脚本已加载
+    wp_enqueue_media();
+
     $upload_dir = wp_upload_dir();
     $base_dir = $upload_dir['basedir'] . '/wrgon-emojis';
     $base_url = $upload_dir['baseurl'] . '/wrgon-emojis';
@@ -189,6 +192,49 @@ function argon_emoji_manager_page() {
         }
     }
 
+    // 处理编辑表情包名称
+    if (isset($_POST['edit_emoji_name']) && isset($_POST['emoji_pack_index']) && isset($_POST['emoji_groupname'])) {
+        $edit_index = intval($_POST['emoji_pack_index']);
+        check_admin_referer('argon_edit_emoji_' . $edit_index, 'argon_emoji_edit_nonce');
+        $new_name = trim(wp_unslash($_POST['emoji_groupname']));
+        $custom_emojis_temp = get_option('argon_custom_emojis', array());
+        if (isset($custom_emojis_temp[$edit_index]) && !empty($new_name)) {
+            $custom_emojis_temp[$edit_index]['groupname'] = $new_name;
+            update_option('argon_custom_emojis', $custom_emojis_temp);
+            $messages[] = '<div class="updated"><p>表情包名称已更新。</p></div>';
+        } else {
+            $messages[] = '<div class="error"><p>名称不能为空！</p></div>';
+        }
+    }
+
+    // 处理编辑表情 src
+    if (isset($_POST['edit_emoji_stickers']) && isset($_POST['emoji_pack_index']) && isset($_POST['sticker'])) {
+        $edit_index = intval($_POST['emoji_pack_index']);
+        check_admin_referer('argon_edit_emoji_' . $edit_index, 'argon_emoji_edit_nonce');
+        $custom_emojis_temp = get_option('argon_custom_emojis', array());
+        if (isset($custom_emojis_temp[$edit_index]) && is_array($_POST['sticker'])) {
+            $sticker_updates = $_POST['sticker'];
+            $updated = false;
+            foreach ($sticker_updates as $sidx => $update) {
+                $sidx_int = intval($sidx);
+                if (isset($custom_emojis_temp[$edit_index]['list'][$sidx_int])) {
+                    if (isset($update['src']) && !empty($update['src'])) {
+                        $custom_emojis_temp[$edit_index]['list'][$sidx_int]['src'] = esc_url_raw(trim($update['src']));
+                        $updated = true;
+                    }
+                    if (isset($update['title']) && !empty($update['title'])) {
+                        $custom_emojis_temp[$edit_index]['list'][$sidx_int]['title'] = sanitize_text_field(trim($update['title']));
+                        $updated = true;
+                    }
+                }
+            }
+            if ($updated) {
+                update_option('argon_custom_emojis', $custom_emojis_temp);
+                $messages[] = '<div class="updated"><p>表情图片已更新。</p></div>';
+            }
+        }
+    }
+
     $custom_emojis = get_option('argon_custom_emojis', array());
     ?>
     <style>
@@ -331,6 +377,22 @@ function argon_emoji_manager_page() {
             color: #dc2626 !important;
             text-decoration: none;
             font-weight: 600;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        .argon-emojis-link-edit {
+            color: #2271b1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .argon-emojis-link-edit:hover {
+            color: #135e96;
+        }
+        .argon-emojis-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
         }
         .argon-emojis-upload {
             padding: 18px;
@@ -363,14 +425,178 @@ function argon_emoji_manager_page() {
                 align-items: flex-start;
             }
         }
+
+        /* --- 编辑页面样式 --- */
+        .argon-emoji-edit-page {
+            max-width: 780px;
+            margin: 0;
+        }
+        .argon-emoji-edit-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #475569;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: all 0.15s ease;
+        }
+        .argon-emoji-edit-back:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #0f172a;
+        }
+        .argon-emoji-edit-form-wrap {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+            padding: 24px;
+        }
+        .argon-emoji-edit-form-wrap .edit-field {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .argon-emoji-edit-form-wrap .edit-field label {
+            min-width: 100px;
+            font-weight: 600;
+            color: #334155;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .argon-emoji-edit-form-wrap .edit-field input[type="text"] {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .argon-emoji-edit-form-wrap .edit-field input[type="text"]:focus {
+            border-color: #2271b1;
+            box-shadow: 0 0 0 1px #2271b1;
+            outline: none;
+        }
+        .argon-emoji-edit-form-wrap .edit-field-desc label {
+            color: #64748b;
+        }
+        .argon-emoji-desc-text {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .argon-emoji-edit-stickers {
+            display: grid;
+            gap: 12px;
+        }
+        .argon-emoji-edit-sticker {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+        .argon-emoji-edit-sticker .sticker-preview {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+        }
+        .argon-emoji-edit-sticker .sticker-code {
+            font-family: monospace;
+            font-size: 13px;
+            color: #64748b;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 3px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .argon-emoji-edit-sticker .sticker-src-field {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            gap: 6px;
+        }
+        .argon-emoji-edit-sticker .sticker-src-field input[type="url"] {
+            flex: 1;
+            min-width: 0;
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+        .argon-emoji-edit-sticker .sticker-src-field input[type="url"]:focus {
+            border-color: #2271b1;
+            box-shadow: 0 0 0 1px #2271b1;
+            outline: none;
+        }
+        .argon-emoji-edit-sticker .media-select-btn {
+            flex-shrink: 0;
+            padding: 5px 14px;
+            font-size: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background: #fff;
+            cursor: pointer;
+            color: #475569;
+            white-space: nowrap;
+        }
+        .argon-emoji-edit-sticker .media-select-btn:hover {
+            background: #f1f5f9;
+        }
+        .argon-emoji-edit-stickers-title {
+            font-weight: 600;
+            color: #334155;
+            font-size: 14px;
+            margin: 0 0 4px;
+            padding: 0;
+        }
+        .argon-emoji-edit-submit-wrap {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .argon-emoji-edit-submit-wrap .button-primary {
+            background: linear-gradient(180deg, #2f9af3 0%, #1686ea 100%);
+            border-color: #1686ea;
+            box-shadow: 0 10px 24px rgba(33, 150, 243, 0.16);
+        }
+        .argon-emoji-edit-submit-wrap .button-primary:hover,
+        .argon-emoji-edit-submit-wrap .button-primary:focus {
+            background: linear-gradient(180deg, #3aa2fb 0%, #1686ea 100%);
+            border-color: #1686ea;
+        }
     </style>
+
+    <?php
+    // 检查是否进入编辑模式
+    $edit_mode = isset($_GET['edit_pack']) && is_numeric($_GET['edit_pack']);
+    $edit_index = $edit_mode ? intval($_GET['edit_pack']) : -1;
+    $edit_pack = $edit_mode && isset($custom_emojis[$edit_index]) ? $custom_emojis[$edit_index] : null;
+    ?>
 
     <div class="wrap argon-emojis-page">
         <div class="argon-emojis-header">
             <div>
                 <h1 class="argon-emojis-title">
                     Lyrargon 表情包管理
+                    <?php if (!$edit_mode): ?>
                     <a href="https://lyrargon.wenlei.top/stickers" target="_blank" rel="noopener noreferrer">获取表情包 →</a>
+                    <?php endif; ?>
                 </h1>
             </div>
         </div>
@@ -384,6 +610,53 @@ function argon_emoji_manager_page() {
             </div>
         <?php endif; ?>
 
+        <?php if ($edit_mode && $edit_pack): ?>
+
+        <!-- ===== 编辑模式 ===== -->
+        <div class="argon-emoji-edit-page">
+            <a href="?page=argon_emoji_manager" class="argon-emoji-edit-back">&larr; 返回表情包列表</a>
+
+            <div class="argon-emoji-edit-form-wrap">
+                <form method="post" action="?page=argon_emoji_manager&edit_pack=<?php echo $edit_index; ?>">
+                    <?php wp_nonce_field('argon_edit_emoji_' . $edit_index, 'argon_emoji_edit_nonce'); ?>
+                    <input type="hidden" name="emoji_pack_index" value="<?php echo $edit_index; ?>" />
+
+                    <div class="edit-field">
+                        <label for="emoji_groupname">表情包名称</label>
+                        <input type="text" id="emoji_groupname" name="emoji_groupname" value="<?php echo esc_attr($edit_pack['groupname']); ?>" required />
+                    </div>
+                    <?php if (isset($edit_pack['description']) && !empty($edit_pack['description'])): ?>
+                    <div class="edit-field edit-field-desc">
+                        <label>表情包描述</label>
+                        <span class="argon-emoji-desc-text"><?php echo esc_html($edit_pack['description']); ?></span>
+                    </div>
+                    <?php endif; ?>
+
+                    <p class="argon-emoji-edit-stickers-title">表情图片（共 <?php echo count($edit_pack['list']); ?> 个）</p>
+                    <div class="argon-emoji-edit-stickers">
+                        <?php foreach ($edit_pack['list'] as $sidx => $sticker): ?>
+                        <div class="argon-emoji-edit-sticker">
+                            <img class="sticker-preview" src="<?php echo esc_url($sticker['src'] ?? ''); ?>" alt="" onerror="this.style.display='none'" />
+                            <span class="sticker-code">:<?php echo esc_html($sticker['code'] ?? ''); ?>:</span>
+                            <div class="sticker-src-field">
+                                <input type="url" name="sticker[<?php echo $sidx; ?>][src]" value="<?php echo esc_url($sticker['src'] ?? ''); ?>" placeholder="图片 URL" />
+                                <button type="button" class="media-select-btn" data-target="sticker[<?php echo $sidx; ?>][src]">媒体库</button>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div class="argon-emoji-edit-submit-wrap">
+                        <button type="submit" name="edit_emoji_name" class="button button-primary">保存名称</button>
+                        <button type="submit" name="edit_emoji_stickers" class="button button-primary">保存图片</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <?php else: ?>
+
+        <!-- ===== 列表模式 ===== -->
         <div class="argon-emojis-grid">
             <section class="argon-emojis-card">
                 <div class="argon-emojis-card-header">
@@ -409,11 +682,14 @@ function argon_emoji_manager_page() {
                                         <td><?php echo esc_html(isset($pack['description']) ? $pack['description'] : '-'); ?></td>
                                         <td><?php echo count($pack['list']); ?> 个</td>
                                         <td>
-                                            <form class="argon-emojis-delete-form" method="post" action="" onsubmit="return confirm('确定要删除此表情包及相关文件吗？');">
-                                                <?php wp_nonce_field('argon_delete_emoji', 'argon_emoji_nonce'); ?>
-                                                <input type="hidden" name="emoji_pack_index" value="<?php echo $index; ?>" />
-                                                <button type="submit" name="delete_emoji_pack" class="button button-link-delete">删除</button>
-                                            </form>
+                                            <div class="argon-emojis-actions">
+                                                <a href="?page=argon_emoji_manager&edit_pack=<?php echo $index; ?>" class="argon-emojis-link-edit">编辑</a>
+                                                <form class="argon-emojis-delete-form" method="post" action="" style="display:inline;" onsubmit="return confirm('确定要删除此表情包及相关文件吗？');">
+                                                    <?php wp_nonce_field('argon_delete_emoji', 'argon_emoji_nonce'); ?>
+                                                    <input type="hidden" name="emoji_pack_index" value="<?php echo $index; ?>" />
+                                                    <button type="submit" name="delete_emoji_pack" class="button-link-delete">删除</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -426,7 +702,6 @@ function argon_emoji_manager_page() {
             <section class="argon-emojis-card">
                 <div class="argon-emojis-card-header">
                     <h2>添加新表情包</h2>
-                    <p>仅支持 ZIP 格式压缩包，上传后将自动安装。</p>
                 </div>
                 <form class="argon-emojis-upload" method="post" action="" enctype="multipart/form-data">
                     <?php wp_nonce_field('argon_upload_emoji', 'argon_emoji_nonce'); ?>
@@ -439,7 +714,48 @@ function argon_emoji_manager_page() {
                 </form>
             </section>
         </div>
+
+        <?php endif; ?>
     </div>
+
+    <script type="text/javascript">
+    (function($){
+        // Media Library 选择器（编辑页面使用）
+        var fileFrame = null;
+        $(document).on('click', '.media-select-btn', function(e){
+            e.preventDefault();
+            var btn = $(this);
+            var targetName = btn.data('target');
+            var input = $('input[name="' + targetName + '"]');
+
+            if (fileFrame) {
+                fileFrame.open();
+                return;
+            }
+
+            fileFrame = wp.media({
+                title: '选择表情图片',
+                button: { text: '使用此图片' },
+                multiple: false,
+                library: { type: 'image' }
+            });
+
+            fileFrame.on('select', function(){
+                var attachment = fileFrame.state().get('selection').first().toJSON();
+                if (input.length) {
+                    input.val(attachment.url);
+                    var preview = btn.closest('.argon-emoji-edit-sticker').find('.sticker-preview');
+                    if (preview.length) {
+                        preview.attr('src', attachment.url).show();
+                    }
+                }
+            });
+
+            fileFrame.open();
+        });
+    })(jQuery);
+    </script>
+
     <?php
 }
 ?>
