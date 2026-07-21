@@ -5,16 +5,16 @@
 		<div class="card-body">
 			<h3 class="text-black mr-2 d-inline-block">	<?php echo get_search_query();?> </h3>
 			<p class="lead text-black mt-0 d-inline-block">
-				<?php _e('的搜索结果', 'argon');?>
+				<?php _e('的搜索结果', 'lyrargon');?>
 			</p>
 			<?php 
-				if (get_option('argon_enable_search_filters', 'true') == 'true'){ ?>
+				if (get_option('lyrargon_enable_search_filters', 'true') == 'true'){ ?>
 					<div class="search-filters">
 						<?php
 							$all_post_types= get_post_types(array(
 								'public'   => true,
 							), 'objects');
-							$search_filters_type = explode(',', get_option('argon_search_filters_type', '*post,*page,shuoshuo'));
+							$search_filters_type = explode(',', get_option('lyrargon_search_filters_type', '*post,*page,shuoshuo'));
 							$current_filters_type = argon_get_search_post_type_array();
 							foreach ($search_filters_type as $filter_type) {
 								if ($filter_type[0] == '*'){ $filter_type = substr($filter_type, 1); }
@@ -38,7 +38,7 @@
 			<?php } ?>
 			<p class="text-black mt-3 mb-0 opacity-8">
 				<i class="fa fa-file-o mr-1"></i>
-				<?php global $wp_query; echo $wp_query -> found_posts; ?> <?php _e('个结果', 'argon');?>
+				<?php global $wp_query; echo $wp_query -> found_posts; ?> <?php _e('个结果', 'lyrargon');?>
 			</p>
 		</div>
 	</div>
@@ -55,7 +55,7 @@
 				if (get_post_type() == 'shuoshuo'){
 					get_template_part( 'template-parts/content-shuoshuo-preview' );
 				}else{
-					get_template_part( 'template-parts/content-preview', get_option('argon_article_list_layout', '1'));
+					get_template_part( 'template-parts/content-preview', get_option('lyrargon_article_list_layout', '1'));
 				}
 			endwhile;
 		?>

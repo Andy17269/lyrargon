@@ -18,7 +18,7 @@ Template Name: 留言板 (请打开页面的评论功能)
 
 			get_template_part( 'template-parts/content', 'page' );
 
-			if (get_option("argon_show_sharebtn") != 'false') {
+			if (get_option("lyrargon_show_sharebtn") != 'false') {
 				get_template_part( 'template-parts/share' );
 			}
 

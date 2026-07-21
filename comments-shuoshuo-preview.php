@@ -12,7 +12,7 @@
 				wp_list_comments(
 					array(
 						'type'      => 'comment',
-						'callback'  => 'argon_comment_shuoshuo_preview_format'
+						'callback'  => 'lyrargon_comment_shuoshuo_preview_format'
 					)
 				);
 			?>

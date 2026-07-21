@@ -1,12 +1,12 @@
 <article class="post post-full card bg-white shadow-sm border-0" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="post-header text-center<?php if (argon_has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){echo " post-header-with-thumbnail";}?>">
+	<header class="post-header text-center<?php if (argon_has_post_thumbnail() && get_option('lyrargon_show_thumbnail_in_banner_in_content_page') != 'true'){echo " post-header-with-thumbnail";}?>">
 		<?php
-			if (argon_has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){
+			if (argon_has_post_thumbnail() && get_option('lyrargon_show_thumbnail_in_banner_in_content_page') != 'true'){
 				$thumbnail_url = argon_get_post_thumbnail();
 				echo "<img class='post-thumbnail' src='" . $thumbnail_url . "'></img>";
 				echo "<div class='post-header-text-container'>";
 			}
-			if (argon_has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') == 'true'){
+			if (argon_has_post_thumbnail() && get_option('lyrargon_show_thumbnail_in_banner_in_content_page') == 'true'){
 				$thumbnail_url = argon_get_post_thumbnail();
 				echo "
 				<style>
@@ -19,7 +19,7 @@
 		<a class="post-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		<div class="post-meta">
 			<?php
-				$metaList = explode('|', get_option('argon_article_meta', 'time|views|comments|categories'));
+				$metaList = explode('|', get_option('lyrargon_article_meta', 'time|views|comments|categories'));
 				if (is_sticky() && is_home() && ! is_paged()){
 					array_unshift($metaList, "sticky");
 				}
@@ -39,12 +39,12 @@
 					echo get_article_meta($metaList[$i]);
 				}
 			?>
-			<?php if (!post_password_required() && get_option("argon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) {
+			<?php if (!post_password_required() && get_option("lyrargon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) {
 				echo get_article_reading_time_meta(get_the_content());
 			} ?>
 		</div>
 		<?php
-			if (has_post_thumbnail() && get_option('argon_show_thumbnail_in_banner_in_content_page') != 'true'){
+			if (has_post_thumbnail() && get_option('lyrargon_show_thumbnail_in_banner_in_content_page') != 'true'){
 				echo "</div>";
 			}
 		?>
@@ -54,14 +54,14 @@
 		<?php if (post_password_required()){ ?>
 			<div class="text-center container">
 				<form action="<?php echo $GLOBALS['wp_path']; ?>wp-login.php?action=postpass" class="post-password-form" method="post">
-					<div class="post-password-form-text"><?php _e('这是一篇受密码保护的文章，您需要提供访问密码', 'argon');?></div>
+					<div class="post-password-form-text"><?php _e('这是一篇受密码保护的文章，您需要提供访问密码', 'lyrargon');?></div>
 					<div class="row">
 						<div class="form-group col-lg-6 col-md-8 col-sm-10 col-xs-12 post-password-form-input">
 							<div class="input-group input-group-alternative">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-key"></i></span>
 								</div>
-								<input name="post_password" class="form-control" placeholder="<?php _e('密码', 'argon');?>" type="password" value="<?php if (current_user_can('level_7')){global $post;if (isset($post -> post_password)){echo esc_attr($post->post_password);}} ?>">
+								<input name="post_password" class="form-control" placeholder="<?php _e('密码', 'lyrargon');?>" type="password" value="<?php if (current_user_can('level_7')){global $post;if (isset($post -> post_password)){echo esc_attr($post->post_password);}} ?>">
 							</div>
 							<?php
 								$post_password_hint = get_post_meta(get_the_ID(), 'password_hint', true);
@@ -71,7 +71,7 @@
 							?>
 						</div>
 					</div>
-					<input class="btn btn-primary" type="submit" name="Submit" value="<?php _e('确认', 'argon');?>">
+					<input class="btn btn-primary" type="submit" name="Submit" value="<?php _e('确认', 'lyrargon');?>">
 				</form>
 			</div>
 		<?php
@@ -95,11 +95,11 @@
 		}
 	?>
 
-	<?php if (get_option("argon_donate_qrcode_url") != '') { ?>
+	<?php if (get_option("lyrargon_donate_qrcode_url") != '') { ?>
 		<div class="post-donate">
-			<button class="btn donate-btn btn-danger"><?php _e('赞赏', 'argon');?></button>
+			<button class="btn donate-btn btn-danger"><?php _e('赞赏', 'lyrargon');?></button>
 			<div class="donate-qrcode card shadow-sm bg-white">
-				<img src="<?php echo get_option("argon_donate_qrcode_url"); ?>">
+				<img src="<?php echo get_option("lyrargon_donate_qrcode_url"); ?>">
 			</div>
 		</div>
 	<?php } ?>

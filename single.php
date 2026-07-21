@@ -12,7 +12,7 @@
 
 			get_template_part( 'template-parts/content', 'single' );
 
-			if (get_option("argon_show_sharebtn") != 'false') {
+			if (get_option("lyrargon_show_sharebtn") != 'false') {
 				get_template_part( 'template-parts/share' );
 			}
 
@@ -24,12 +24,12 @@
 				if (get_previous_post() || get_next_post()){
 					echo '<div class="post-navigation card shadow-sm">';
 					if (get_previous_post()){ 
-						previous_post_link('<div class="post-navigation-item post-navigation-pre"><span class="page-navigation-extra-text"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>' . __("上一篇", 'argon') . '</span>%link</div>' , '%title');
+						previous_post_link('<div class="post-navigation-item post-navigation-pre"><span class="page-navigation-extra-text"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>' . __("上一篇", 'lyrargon') . '</span>%link</div>' , '%title');
 					}else{
 						echo '<div class="post-navigation-item post-navigation-pre"></div>';
 					}
 					if (get_next_post()){
-						next_post_link('<div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">' . __("下一篇", 'argon') . ' <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span>%link</div>' , '%title');
+						next_post_link('<div class="post-navigation-item post-navigation-next"><span class="page-navigation-extra-text">' . __("下一篇", 'lyrargon') . ' <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></span>%link</div>' , '%title');
 					}else{
 						echo '<div class="post-navigation-item post-navigation-next"></div>';
 					}
@@ -37,7 +37,7 @@
 				}
 			}
 
-			$relatedPosts = get_option('argon_related_post', 'disabled');
+			$relatedPosts = get_option('lyrargon_related_post', 'disabled');
 			if ($relatedPosts != "disabled"){
 				global $post;
 				$cat_array = array();
@@ -59,9 +59,9 @@
 					}
 				}	
 				$query = new WP_Query(array(
-					'posts_per_page' => get_option('argon_related_post_limit' , '10'),
-					'order' => get_option('argon_related_post_sort_order', 'DESC'),
-					'orderby' => get_option('argon_related_post_sort_orderby', 'date'),
+					'posts_per_page' => get_option('lyrargon_related_post_limit' , '10'),
+					'order' => get_option('lyrargon_related_post_sort_order', 'DESC'),
+					'orderby' => get_option('lyrargon_related_post_sort_orderby', 'date'),
 					'meta_key' => 'views',
 					'post__not_in' => array($post -> ID),
 					'tax_query' => array(
@@ -83,7 +83,7 @@
 					echo '<div class="related-posts card shadow-sm">
                     <h2 class="post-comment-title" style="margin-top: 1.2rem;margin-left: 1.5rem;margin-right: 1.5rem;">
                     <i class="fa fa-book"></i>
-			        <span>' . __("推荐文章", 'argon') . '</span>
+			        <span>' . __("推荐文章", 'lyrargon') . '</span>
 		            </h2>
 		            <div style="overflow-x: auto;padding: 1.5rem;padding-top: 0.8rem;padding-bottom: 0.8rem;}">';
 					while ($query -> have_posts()) {

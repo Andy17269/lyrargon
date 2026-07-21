@@ -1,6 +1,6 @@
 <?php
 	global $emotionListDefault;
-	$emotionList = apply_filters("argon_emotion_list", $emotionListDefault);
+	$emotionList = apply_filters("lyrargon_emotion_list", $emotionListDefault);
 ?>
 <div id="emotion_keyboard" class="emotion-keyboard card shadow-sm bg-white">
 	<div class="emotion-keyboard-content">

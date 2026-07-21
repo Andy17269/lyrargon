@@ -62,7 +62,7 @@ function filter_block_categories_when_post_provided( $block_categories, $editor_
         array_push(
             $block_categories,
             array(
-                'slug'  => 'argon',
+                'slug'  => 'lyrargon',
                 'title' => 'Argon',
                 'icon'  => null,
 			),

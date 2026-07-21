@@ -18,7 +18,7 @@ Template Name: 归档时间轴
 
 				get_template_part( 'template-parts/content', 'timeline' );
 
-				if (get_option("argon_show_sharebtn") != 'false') {
+				if (get_option("lyrargon_show_sharebtn") != 'false') {
 					get_template_part( 'template-parts/share' );
 				}
 

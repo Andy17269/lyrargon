@@ -1,23 +1,49 @@
 <?php
 if (version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' )) {
-	echo "<div style='background: #2196f3;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0;z-index: 2147483647;'>" . __("Lyrargon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress", 'argon') . "</div>";
+	echo "<div style='background: #2196f3;color: #fff;font-size: 30px;padding: 50px 30px;position: fixed;width: 100%;left: 0;right: 0;bottom: 0;z-index: 2147483647;'>" . __("Lyrargon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress", 'lyrargon') . "</div>";
 }
+
+// ========== 数据库迁移：argon_* → lyrargon_* ==========
+// 旧版使用 argon_ 前缀存储选项，新版统一改为 lyrargon_。
+// 此函数在主题加载时自动运行，将旧选项复制到新名称下。
+function lyrargon_migrate_old_options() {
+	$migrated = get_option('lyrargon_db_version');
+	if (!empty($migrated)) {
+		return; // 已迁移过
+	}
+	global $wpdb;
+	$rows = $wpdb->get_results(
+		"SELECT option_name, option_value FROM {$wpdb->options}
+		 WHERE option_name LIKE 'argon\_%'"
+	);
+	$count = 0;
+	foreach ($rows as $row) {
+		$new_name = 'lyrargon_' . substr($row->option_name, 6);
+		if (get_option($new_name) === false) {
+			update_option($new_name, maybe_unserialize($row->option_value));
+			$count++;
+		}
+	}
+	update_option('lyrargon_db_version', $GLOBALS['theme_version']);
+}
+lyrargon_migrate_old_options();
+
 function theme_slug_setup() {
 	add_theme_support('title-tag');
 	add_theme_support('post-thumbnails');
-	load_theme_textdomain('argon', get_template_directory() . '/languages');
+	load_theme_textdomain('lyrargon', get_template_directory() . '/languages');
 }
 add_action('after_setup_theme','theme_slug_setup');
 
 $argon_version = !(wp_get_theme() -> Template) ? wp_get_theme() -> Version : wp_get_theme(wp_get_theme() -> Template) -> Version;
 $GLOBALS['theme_version'] = $argon_version;
-$argon_assets_path = get_option("argon_assets_path");
+$argon_assets_path = get_option("lyrargon_assets_path");
 switch ($argon_assets_path) {
 	case "lyrargon":
 		$GLOBALS['assets_path'] = "https://lyra-api.wenlei.top/lyrargon/v" . $argon_version;
 		break;
 	case "custom":
-		$GLOBALS['assets_path'] = preg_replace('/\/$/', '', get_option("argon_custom_assets_path"));
+		$GLOBALS['assets_path'] = preg_replace('/\/$/', '', get_option("lyrargon_custom_assets_path"));
 		$GLOBALS['assets_path'] = preg_replace('/%theme_version%/', $argon_version, $GLOBALS['assets_path']);
 		break;
 	default:
@@ -50,7 +76,7 @@ function argon_get_locate(){
 	}
 }
 function theme_locale_hook($locate, $domain){
-	if ($domain == 'argon'){
+	if ($domain == 'lyrargon'){
 		return argon_locate_filter($locate);
 	}
 	return $locate;
@@ -58,57 +84,57 @@ function theme_locale_hook($locate, $domain){
 add_filter('theme_locale', 'theme_locale_hook', 10, 2);
 
 //更新主题版本后的兼容
-$argon_last_version = get_option("argon_last_version");
+$argon_last_version = get_option("lyrargon_last_version");
 if ($argon_last_version == ""){
 	$argon_last_version = "0.0";
 }
 if (version_compare($argon_last_version, $GLOBALS['theme_version'], '<' )){
 	if (version_compare($argon_last_version, '0.940', '<')){
-		if (get_option('argon_mathjax_v2_enable') == 'true' && get_option('argon_mathjax_enable') != 'true'){
-			update_option("argon_math_render", 'mathjax2');
+		if (get_option('lyrargon_mathjax_v2_enable') == 'true' && get_option('lyrargon_mathjax_enable') != 'true'){
+			update_option("lyrargon_math_render", 'mathjax2');
 		}
-		if (get_option('argon_mathjax_enable') == 'true'){
-			update_option("argon_math_render", 'mathjax3');
+		if (get_option('lyrargon_mathjax_enable') == 'true'){
+			update_option("lyrargon_math_render", 'mathjax3');
 		}
 	}
 	if (version_compare($argon_last_version, '0.970', '<')){
-		if (get_option('argon_show_author') == 'true'){
-			update_option("argon_article_meta", 'time|views|comments|categories|author');
+		if (get_option('lyrargon_show_author') == 'true'){
+			update_option("lyrargon_article_meta", 'time|views|comments|categories|author');
 		}
 	}
 	if (version_compare($argon_last_version, '1.1.0', '<')){
-		if (get_option('argon_enable_zoomify') != 'false'){
-			update_option("argon_enable_fancybox", 'true');
-			update_option("argon_enable_zoomify", 'false');
+		if (get_option('lyrargon_enable_zoomify') != 'false'){
+			update_option("lyrargon_enable_fancybox", 'true');
+			update_option("lyrargon_enable_zoomify", 'false');
 		}
 	}
 	if (version_compare($argon_last_version, '1.3.4', '<')){
-		switch (get_option('argon_search_post_filter', 'post,page')){
+		switch (get_option('lyrargon_search_post_filter', 'post,page')){
 			case 'post,page':
-				update_option("argon_enable_search_filters", 'true');
-				update_option("argon_search_filters_type", '*post,*page,shuoshuo');
+				update_option("lyrargon_enable_search_filters", 'true');
+				update_option("lyrargon_search_filters_type", '*post,*page,shuoshuo');
 				break;
 			case 'post,page,shuoshuo':
-				update_option("argon_enable_search_filters", 'true');
-				update_option("argon_search_filters_type", '*post,*page,*shuoshuo');
+				update_option("lyrargon_enable_search_filters", 'true');
+				update_option("lyrargon_search_filters_type", '*post,*page,*shuoshuo');
 				break;
 			case 'post,page,hide_shuoshuo':
-				update_option("argon_enable_search_filters", 'true');
-				update_option("argon_search_filters_type", '*post,*page');
+				update_option("lyrargon_enable_search_filters", 'true');
+				update_option("lyrargon_search_filters_type", '*post,*page');
 				break;
 			case 'off':
 			default:
-				update_option("argon_enable_search_filters", 'false');
+				update_option("lyrargon_enable_search_filters", 'false');
 				break;
 		}		
 	}
-	update_option("argon_last_version", $GLOBALS['theme_version']);
+	update_option("lyrargon_last_version", $GLOBALS['theme_version']);
 }
 
 
 //检测更新
 require_once(get_template_directory() . '/theme-update-checker/plugin-update-checker.php');
-$argon_update_source = get_option('argon_update_source');
+$argon_update_source = get_option('lyrargon_update_source');
 switch ($argon_update_source) {
 	case "stop":
 		break;
@@ -140,26 +166,26 @@ function post_analytics_info(){
 			)
 		);
 		$result = file_get_contents('http://lyra-api.wenlei.top/theme-analytics.php?domain=' . urlencode($_SERVER['HTTP_HOST']) . '&version='. urlencode($GLOBALS['theme_version']), false, $contexts);
-		update_option('argon_has_inited', 'true');
+		update_option('lyrargon_has_inited', 'true');
 		return $result;
 	}else{
-		update_option('argon_has_inited', 'true');
+		update_option('lyrargon_has_inited', 'true');
 	}
 }
-//if (get_option('argon_has_inited') != 'true'){
+//if (get_option('lyrargon_has_inited') != 'true'){
 //	post_analytics_info();
 //}
 //时区修正
-if (get_option('argon_enable_timezone_fix') == 'true'){
+if (get_option('lyrargon_enable_timezone_fix') == 'true'){
 	date_default_timezone_set('UTC');
 }
 //注册小工具
 function argon_widgets_init() {
 	register_sidebar(
 		array(
-			'name'          => __('左侧栏小工具', 'argon'),
+			'name'          => __('左侧栏小工具', 'lyrargon'),
 			'id'            => 'leftbar-tools',
-			'description'   => __( '左侧栏小工具 (如果设置会在侧栏增加一个 Tab)', 'argon'),
+			'description'   => __( '左侧栏小工具 (如果设置会在侧栏增加一个 Tab)', 'lyrargon'),
 			'before_widget' => '<div id="%1$s" class="widget %2$s card bg-white border-0">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h6 class="font-weight-bold text-black">',
@@ -168,9 +194,9 @@ function argon_widgets_init() {
 	);
 	register_sidebar(
 		array(
-			'name'          => __('右侧栏小工具', 'argon'),
+			'name'          => __('右侧栏小工具', 'lyrargon'),
 			'id'            => 'rightbar-tools',
-			'description'   => __( '右侧栏小工具 (在 "Lyrargon 主题选项" 中选择 "三栏布局" 才会显示)', 'argon'),
+			'description'   => __( '右侧栏小工具 (在 "Lyrargon 主题选项" 中选择 "三栏布局" 才会显示)', 'lyrargon'),
 			'before_widget' => '<div id="%1$s" class="widget %2$s card shadow-sm bg-white border-0">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h6 class="font-weight-bold text-black">',
@@ -179,9 +205,9 @@ function argon_widgets_init() {
 	);
 	register_sidebar(
 		array(
-			'name'          => __('站点概览额外内容', 'argon'),
+			'name'          => __('站点概览额外内容', 'lyrargon'),
 			'id'            => 'leftbar-siteinfo-extra-tools',
-			'description'   => __( '站点概览额外内容', 'argon'),
+			'description'   => __( '站点概览额外内容', 'lyrargon'),
 			'before_widget' => '<div id="%1$s" class="widget %2$s card bg-white border-0">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h6 class="font-weight-bold text-black">',
@@ -189,20 +215,20 @@ function argon_widgets_init() {
 		)
 	);
 }
-add_action('widgets_init', 'argon_widgets_init');
+add_action('widgets_init', 'lyrargon_widgets_init');
 //注册新后台主题配色方案
 function argon_add_admin_color(){
 	wp_admin_css_color(
-		'argon',
+		'lyrargon',
 		'Lyrargon',
 		get_bloginfo('template_directory') . "/admin.css",
 		array("#2196f3", "#324cdc", "#e8ebfb"),
 		array('base' => '#525f7f', 'focus' => '#2196f3', 'current' => '#fff')
 	);
 }
-add_action('admin_init', 'argon_add_admin_color');
+add_action('admin_init', 'lyrargon_add_admin_color');
 function argon_admin_themecolor_css(){
-	$themecolor = get_option("argon_theme_color", "#2196f3");
+	$themecolor = get_option("lyrargon_theme_color", "#2196f3");
 	$RGB = hexstr2rgb($themecolor);
 	$HSL = rgb2hsl($RGB['R'], $RGB['G'], $RGB['B']);
 	echo "
@@ -218,11 +244,11 @@ function argon_admin_themecolor_css(){
 			}
 		</style>
 	";
-	if (get_option("argon_enable_immersion_color", "false") == "true"){
+	if (get_option("lyrargon_enable_immersion_color", "false") == "true"){
 		echo "<script> document.documentElement.classList.add('immersion-color'); </script>";
 	}
 }
-add_filter('admin_head', 'argon_admin_themecolor_css');
+add_filter('admin_head', 'lyrargon_admin_themecolor_css');
 function array_remove(&$arr, $item){
 	$pos = array_search($item, $arr);
 	if ($pos !== false){
@@ -270,11 +296,11 @@ function argon_has_post_thumbnail($postID = 0){
 	if (has_post_thumbnail()){
 		return true;
 	}
-	$argon_first_image_as_thumbnail = get_post_meta($postID, 'argon_first_image_as_thumbnail', true);
+	$argon_first_image_as_thumbnail = get_post_meta($postID, 'lyrargon_first_image_as_thumbnail', true);
 	if ($argon_first_image_as_thumbnail == ""){
 		$argon_first_image_as_thumbnail = "default";
 	}
-	if ($argon_first_image_as_thumbnail == "true" || ($argon_first_image_as_thumbnail == "default" && get_option("argon_first_image_as_thumbnail_by_default", "false") == "true")){
+	if ($argon_first_image_as_thumbnail == "true" || ($argon_first_image_as_thumbnail == "default" && get_option("lyrargon_first_image_as_thumbnail_by_default", "false") == "true")){
 		if (argon_get_first_image_of_article() != false){
 			return true;
 		}
@@ -287,20 +313,20 @@ function argon_get_post_thumbnail($postID = 0){
 		$postID = $post -> ID;
 	}
 	if (has_post_thumbnail()){
-		return apply_filters("argon_post_thumbnail", wp_get_attachment_image_src(get_post_thumbnail_id($postID), "full")[0]);
+		return apply_filters("lyrargon_post_thumbnail", wp_get_attachment_image_src(get_post_thumbnail_id($postID), "full")[0]);
 	}
-	return apply_filters("argon_post_thumbnail", argon_get_first_image_of_article());
+	return apply_filters("lyrargon_post_thumbnail", argon_get_first_image_of_article());
 }
 //文末附加内容
 function get_additional_content_after_post(){
 	global $post;
 	$postID = $post -> ID;
-	$res = get_post_meta($post -> ID, 'argon_after_post', true);
+	$res = get_post_meta($post -> ID, 'lyrargon_after_post', true);
 	if ($res == "--none--"){
 		return "";
 	}
 	if ($res == ""){
-		$res = get_option("argon_additional_content_after_post");
+		$res = get_option("lyrargon_additional_content_after_post");
 	}
 	$res = str_replace("\n", "</br>", $res);
 	$res = str_replace("%url%", get_permalink($postID), $res);
@@ -391,10 +417,10 @@ function get_random_token(){
 	return md5(uniqid(microtime(true), true));
 }
 function set_user_token_cookie(){
-	if (!isset($_COOKIE["argon_user_token"]) || strlen($_COOKIE["argon_user_token"]) != 32){
+	if (!isset($_COOKIE["lyrargon_user_token"]) || strlen($_COOKIE["lyrargon_user_token"]) != 32){
 		$newToken = get_random_token();
-		setcookie("argon_user_token", $newToken, time() + 10 * 365 * 24 * 60 * 60, "/");
-		$_COOKIE["argon_user_token"] = $newToken;
+		setcookie("lyrargon_user_token", $newToken, time() + 10 * 365 * 24 * 60 * 60, "/");
+		$_COOKIE["lyrargon_user_token"] = $newToken;
 	}
 }
 function session_init(){
@@ -415,10 +441,10 @@ function get_seo_description(){
 		if (!post_password_required()){
 			return htmlspecialchars(mb_substr(str_replace("\n", '', strip_tags($post -> post_content)), 0, 50)) . "...";
 		}else{
-			return __("这是一个加密页面，需要密码来查看", 'argon');
+			return __("这是一个加密页面，需要密码来查看", 'lyrargon');
 		}
 	}else{
-		return get_option('argon_seo_description');
+		return get_option('lyrargon_seo_description');
 	}
 }
 //页面 Keywords
@@ -452,13 +478,13 @@ function get_seo_keywords(){
 	if (is_tax()){
 		return single_term_title('', false);
 	}
-	return get_option('argon_seo_keywords');
+	return get_option('lyrargon_seo_keywords');
 }
 //页面分享预览图
 function get_og_image(){
 	global $post;
 	$postID = $post -> ID;
-	$argon_first_image_as_thumbnail = get_post_meta($postID, 'argon_first_image_as_thumbnail', 'true');
+	$argon_first_image_as_thumbnail = get_post_meta($postID, 'lyrargon_first_image_as_thumbnail', 'true');
 	if (has_post_thumbnail() || $argon_first_image_as_thumbnail == 'true'){
 		return argon_get_post_thumbnail($postID);
 	}
@@ -569,20 +595,20 @@ function get_article_words_total($str){
 	return $res['cn'] + $res['en'] + $res['code'];
 }
 function get_reading_time($len){
-	$speedcn = get_option('argon_reading_speed', 300);
-	$speeden = get_option('argon_reading_speed_en', 160);
-	$speedcode = get_option('argon_reading_speed_code', 20);
+	$speedcn = get_option('lyrargon_reading_speed', 300);
+	$speeden = get_option('lyrargon_reading_speed_en', 160);
+	$speedcode = get_option('lyrargon_reading_speed_code', 20);
 	$reading_time = $len['cn'] / $speedcn + $len['en'] / $speeden + $len['code'] / $speedcode;
 	if ($reading_time < 0.3){
-		return __("几秒读完", 'argon');
+		return __("几秒读完", 'lyrargon');
 	}
 	if ($reading_time < 1){
-		return __("1 分钟内", 'argon');
+		return __("1 分钟内", 'lyrargon');
 	}
 	if ($reading_time < 60){
-		return ceil($reading_time) . " " . __("分钟", 'argon');
+		return ceil($reading_time) . " " . __("分钟", 'lyrargon');
 	}
-	return round($reading_time / 60 , 1) . " " . __("小时", 'argon');
+	return round($reading_time / 60 , 1) . " " . __("小时", 'lyrargon');
 }
 //当前文章是否可以生成目录
 function have_catalog(){
@@ -607,19 +633,19 @@ function get_article_meta($type){
 	if ($type == 'sticky'){
 		return '<div class="post-meta-detail post-meta-detail-stickey">
 					<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-					' . _x('置顶', 'pinned', 'argon') . '
+					' . _x('置顶', 'pinned', 'lyrargon') . '
 				</div>';
 	}
 	if ($type == 'needpassword'){
 		return '<div class="post-meta-detail post-meta-detail-needpassword">
 					<i class="fa fa-lock" aria-hidden="true"></i>
-					' . __('需要密码', 'argon') . '
+					' . __('需要密码', 'lyrargon') . '
 				</div>';
 	}
 	if ($type == 'time'){
 		return '<div class="post-meta-detail post-meta-detail-time">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
+					<time title="' . __('发布于', 'lyrargon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'lyrargon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
 						get_the_time('Y-n-d G:i') . '
 					</time>
 				</div>';
@@ -627,7 +653,7 @@ function get_article_meta($type){
 	if ($type == 'edittime'){
 		return '<div class="post-meta-detail post-meta-detail-edittime">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					<time title="' . __('发布于', 'argon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'argon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
+					<time title="' . __('发布于', 'lyrargon') . ' ' . get_the_time('Y-n-d G:i:s') . ' | ' . __('编辑于', 'lyrargon') . ' ' . get_the_modified_time('Y-n-d G:i:s') . '">' .
 						get_the_modified_time('Y-n-d G:i') . '
 					</time>
 				</div>';
@@ -673,16 +699,16 @@ function get_article_meta($type){
 }
 //获取文章字数统计和预计阅读时间
 function get_article_reading_time_meta($post_content_full){
-	$post_content_full = apply_filters("argon_html_before_wordcount", $post_content_full);
+	$post_content_full = apply_filters("lyrargon_html_before_wordcount", $post_content_full);
 	$words = get_article_words($post_content_full);
 	$res = '</br><div class="post-meta-detail post-meta-detail-words">
 		<i class="fa fa-file-word-o" aria-hidden="true"></i>';
 	if ($words['code'] > 0){
-		$res .= '<span title="' . sprintf(__( '包含 %d 行代码', 'argon'), $words['code']) . '">';
+		$res .= '<span title="' . sprintf(__( '包含 %d 行代码', 'lyrargon'), $words['code']) . '">';
 	}else{
 		$res .= '<span>';
 	}
-	$res .= ' ' . get_article_words_total($post_content_full) . " " . __("字", 'argon');
+	$res .= ' ' . get_article_words_total($post_content_full) . " " . __("字", 'lyrargon');
 	$res .= '</span>
 		</div>
 		<div class="post-meta-devide">|</div>
@@ -699,7 +725,7 @@ function is_readingtime_meta_hidden(){
 		return true;
 	}
 	global $post;
-	if (get_post_meta($post -> ID, 'argon_hide_readingtime', true) == 'true'){
+	if (get_post_meta($post -> ID, 'lyrargon_hide_readingtime', true) == 'true'){
 		return true;
 	}
 	return false;
@@ -707,7 +733,7 @@ function is_readingtime_meta_hidden(){
 //当前文章是否隐藏 发布时间和分类 (简洁 Meta)
 function is_meta_simple(){
 	global $post;
-	if (get_post_meta($post -> ID, 'argon_meta_simple', true) == 'true'){
+	if (get_post_meta($post -> ID, 'lyrargon_meta_simple', true) == 'true'){
 		return true;
 	}
 	return false;
@@ -718,7 +744,7 @@ function get_post_title_by_id($id){
 }
 //解析 UA 和相应图标
 require_once(get_template_directory() . '/useragent-parser.php');
-$argon_comment_ua = get_option("argon_comment_ua");
+$argon_comment_ua = get_option("lyrargon_comment_ua");
 $argon_comment_show_ua = Array();
 if (strpos($argon_comment_ua, 'platform') !== false){
 	$argon_comment_show_ua['platform'] = true;
@@ -757,7 +783,7 @@ function parse_ua_and_icon($userAgent){
 		}
 	}
 	$out .= "</div>";
-	return apply_filters("argon_comment_ua_icon", $out);
+	return apply_filters("lyrargon_comment_ua_icon", $out);
 }
 //发送邮件
 function send_mail($to, $subject, $content){
@@ -768,10 +794,10 @@ function check_email_address($email){
 }
 //检验评论 Token 和用户 Token 是否一致
 function check_comment_token($id){
-	if (strlen($_COOKIE['argon_user_token']) != 32){
+	if (strlen($_COOKIE['lyrargon_user_token']) != 32){
 		return false;
 	}
-	if ($_COOKIE['argon_user_token'] != get_comment_meta($id, "user_token", true)){
+	if ($_COOKIE['lyrargon_user_token'] != get_comment_meta($id, "user_token", true)){
 		return false;
 	}
 	return true;
@@ -810,7 +836,7 @@ function user_can_view_comment($id){
 	if (current_user_can("manage_options")){
 		return true;
 	}
-	if ($_COOKIE['argon_user_token'] == get_comment_meta($id, "private_mode", true)){
+	if ($_COOKIE['lyrargon_user_token'] == get_comment_meta($id, "private_mode", true)){
 		return true;
 	}
 	return false;
@@ -828,7 +854,7 @@ add_filter('comment_author_rss' , 'remove_rss_private_comment_title_and_author')
 function remove_rss_private_comment_content($str){
 	global $comment;
 	if (is_comment_private_mode($comment -> comment_ID)){
-		$comment -> comment_content = __('该评论为悄悄话', 'argon');
+		$comment -> comment_content = __('该评论为悄悄话', 'lyrargon');
 		return $comment -> comment_content;
 	}
 	return $str;
@@ -836,7 +862,7 @@ function remove_rss_private_comment_content($str){
 add_filter('comment_text_rss' , 'remove_rss_private_comment_content');
 //评论回复信息
 function get_comment_parent_info($comment){
-	if (!$GLOBALS['argon_comment_options']['show_comment_parent_info']){
+	if (!$GLOBALS['lyrargon_comment_options']['show_comment_parent_info']){
 		return "";
 	}
 	if ($comment -> comment_parent == 0){
@@ -847,7 +873,7 @@ function get_comment_parent_info($comment){
 }
 //是否可以查看评论编辑记录
 function can_visit_comment_edit_history($id){
-	$who_can_visit_comment_edit_history = get_option("argon_who_can_visit_comment_edit_history");
+	$who_can_visit_comment_edit_history = get_option("lyrargon_who_can_visit_comment_edit_history");
 	if ($who_can_visit_comment_edit_history == ""){
 		$who_can_visit_comment_edit_history = "admin";
 	}
@@ -889,7 +915,7 @@ function get_comment_edit_history(){
 						<div class='comment-edit-history-id'>
 							#" . $position . "
 						</div>
-						" . ($edition -> isfirst ? "<span class='badge badge-primary badge-admin'>" . __("最初版本", 'argon') . "</span>" : "") . "
+						" . ($edition -> isfirst ? "<span class='badge badge-primary badge-admin'>" . __("最初版本", 'lyrargon') . "</span>" : "") . "
 					</div>
 					<div class='comment-edit-history-time'>" . date('Y-m-d H:i:s', $edition -> time) . "</div>
 					<div class='comment-edit-history-content'>" . str_replace("\n", "</br>", $edition -> content) . "</div>
@@ -933,16 +959,16 @@ function argon_get_comment_text($comment_ID = 0, $args = array()) {
 		'/<img src="(.*?)" alt="(.*?)" \/>/',
 		'<a href="$1" title="$2" data-fancybox="comment-' . $comment -> comment_ID . '-image" class="comment-image" rel="nofollow">
 			<i class="fa fa-image" aria-hidden="true"></i>
-			' . __('查看图片', 'argon') . '
+			' . __('查看图片', 'lyrargon') . '
 			<img src="" alt="$2" class="comment-image-preview">
 			<i class="comment-image-preview-mask"></i>
 		</a>',
 		$comment_text
 	);
 	//表情
-	if (get_option("argon_comment_emotion_keyboard", "true") != "false"){
+	if (get_option("lyrargon_comment_emotion_keyboard", "true") != "false"){
 		global $emotionListDefault;
-		$emotionList = apply_filters("argon_emotion_list", $emotionListDefault);
+		$emotionList = apply_filters("lyrargon_emotion_list", $emotionListDefault);
 		foreach ($emotionList as $groupIndex => $group){ 
 			foreach ($group['list'] as $index => $emotion){
 				if ($emotion['type'] != 'sticker'){
@@ -986,14 +1012,14 @@ function set_comment_upvotes($id){
 	return $upvotes;
 }
 function is_comment_upvoted($id){
-	$upvotedList = isset( $_COOKIE['argon_comment_upvoted'] ) ? $_COOKIE['argon_comment_upvoted'] : '';
+	$upvotedList = isset( $_COOKIE['lyrargon_comment_upvoted'] ) ? $_COOKIE['lyrargon_comment_upvoted'] : '';
 	if (in_array($id, explode(',', $upvotedList))){
 		return true;
 	}
 	return false;
 }
 function upvote_comment(){
-	if (get_option("argon_enable_comment_upvote", "false") != "true"){
+	if (get_option("lyrargon_enable_comment_upvote", "false") != "true"){
 		return;
 	}
 	header('Content-Type:application/json; charset=utf-8');
@@ -1002,34 +1028,34 @@ function upvote_comment(){
 	if ($comment == null){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('评论不存在', 'argon'),
+			'msg' => __('评论不存在', 'lyrargon'),
 			'total_upvote' => 0
 		)));
 	}
-	$upvotedList = isset( $_COOKIE['argon_comment_upvoted'] ) ? $_COOKIE['argon_comment_upvoted'] : '';
+	$upvotedList = isset( $_COOKIE['lyrargon_comment_upvoted'] ) ? $_COOKIE['lyrargon_comment_upvoted'] : '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('该评论已被赞过', 'argon'),
+			'msg' => __('该评论已被赞过', 'lyrargon'),
 			'total_upvote' => get_comment_upvotes($ID)
 		)));
 	}
 	set_comment_upvotes($ID);
-	setcookie('argon_comment_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
+	setcookie('lyrargon_comment_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
 	exit(json_encode(array(
 		'ID' => $ID,
 		'status' => 'success',
-		'msg' => __('点赞成功', 'argon'),
+		'msg' => __('点赞成功', 'lyrargon'),
 		'total_upvote' => format_number_in_kilos(get_comment_upvotes($ID))
 	)));
 }
 add_action('wp_ajax_upvote_comment' , 'upvote_comment');
 add_action('wp_ajax_nopriv_upvote_comment' , 'upvote_comment');
 //评论样式格式化
-$GLOBALS['argon_comment_options']['enable_upvote'] = (get_option("argon_enable_comment_upvote", "false") == "true");
-$GLOBALS['argon_comment_options']['enable_pinning'] = (get_option("argon_enable_comment_pinning", "false") == "true");
-$GLOBALS['argon_comment_options']['current_user_can_moderate_comments'] = current_user_can('moderate_comments');
-$GLOBALS['argon_comment_options']['show_comment_parent_info'] = (get_option("argon_show_comment_parent_info", "true") == "true");
+$GLOBALS['lyrargon_comment_options']['enable_upvote'] = (get_option("lyrargon_enable_comment_upvote", "false") == "true");
+$GLOBALS['lyrargon_comment_options']['enable_pinning'] = (get_option("lyrargon_enable_comment_pinning", "false") == "true");
+$GLOBALS['lyrargon_comment_options']['current_user_can_moderate_comments'] = current_user_can('moderate_comments');
+$GLOBALS['lyrargon_comment_options']['show_comment_parent_info'] = (get_option("lyrargon_show_comment_parent_info", "true") == "true");
 function argon_comment_format($comment, $args, $depth){
 	global $comment_enable_upvote, $comment_enable_pinning;
 	$GLOBALS['comment'] = $comment;
@@ -1042,7 +1068,7 @@ function argon_comment_format($comment, $args, $depth){
 					echo get_avatar($comment, 40);
 				}?>
 			</div>
-			<?php if ($GLOBALS['argon_comment_options']['enable_upvote']){ ?>
+			<?php if ($GLOBALS['lyrargon_comment_options']['enable_upvote']){ ?>
 				<button class="comment-upvote btn btn-icon btn-outline-primary btn-sm <?php echo (is_comment_upvoted(get_comment_ID()) ? 'upvoted' : ''); ?>" type="button" data-id="<?php comment_ID(); ?>">
 					<span class="btn-inner--icon"><i class="fa fa-caret-up"></i></span>
 					<span class="btn-inner--text">
@@ -1056,17 +1082,17 @@ function argon_comment_format($comment, $args, $depth){
 				<div class="comment-name">
 					<div class="comment-author"><?php echo get_comment_author_link();?></div>
 					<?php if (user_can($comment -> user_id , "update_core")){
-						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
+						echo '<span class="badge badge-primary badge-admin">' . __('博主', 'lyrargon') . '</span>';}
 					?>
 					<?php echo get_comment_parent_info($comment); ?>
-					<?php if ($GLOBALS['argon_comment_options']['enable_pinning'] && get_comment_meta(get_comment_ID(), "pinned", true) == "true"){
-						echo '<span class="badge badge-danger badge-pinned"><i class="fa fa-thumb-tack" aria-hidden="true"></i> ' . _x('置顶', 'pinned', 'argon') . '</span>';
+					<?php if ($GLOBALS['lyrargon_comment_options']['enable_pinning'] && get_comment_meta(get_comment_ID(), "pinned", true) == "true"){
+						echo '<span class="badge badge-danger badge-pinned"><i class="fa fa-thumb-tack" aria-hidden="true"></i> ' . _x('置顶', 'pinned', 'lyrargon') . '</span>';
 					}?>
 					<?php if (is_comment_private_mode(get_comment_ID()) && user_can_view_comment(get_comment_ID())){
-						echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'argon') . '</span>';}
+						echo '<span class="badge badge-success badge-private-comment">' . __('悄悄话', 'lyrargon') . '</span>';}
 					?>
 					<?php if ($comment -> comment_approved == 0){
-						echo '<span class="badge badge-warning badge-unapproved">' . __('待审核', 'argon') . '</span>';}
+						echo '<span class="badge badge-warning badge-unapproved">' . __('待审核', 'lyrargon') . '</span>';}
 					?>
 					<?php
 						echo parse_ua_and_icon($comment -> comment_agent);
@@ -1075,11 +1101,11 @@ function argon_comment_format($comment, $args, $depth){
 				<div class="comment-info">
 					<?php if (get_comment_meta(get_comment_ID(), "edited", true) == "true") { ?>
 						<div class="comment-edited<?php if (can_visit_comment_edit_history(get_comment_ID())){echo ' comment-edithistory-accessible';}?>">
-							<i class="fa fa-pencil" aria-hidden="true"></i><?php _e('已编辑', 'argon')?>
+							<i class="fa fa-pencil" aria-hidden="true"></i><?php _e('已编辑', 'lyrargon')?>
 						</div>
 					<?php } ?>
 					<div class="comment-time">
-						<span class="human-time" data-time="<?php echo get_comment_time('U', true);?>"><?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . __("前", "argon");?></span>
+						<span class="human-time" data-time="<?php echo get_comment_time('U', true);?>"><?php echo human_time_diff(get_comment_time('U') , current_time('timestamp')) . __("前", "lyrargon");?></span>
 						<div class="comment-time-details"><?php echo get_comment_time('Y-n-d G:i:s');?></div>
 					</div>
 				</div>
@@ -1090,17 +1116,17 @@ function argon_comment_format($comment, $args, $depth){
 			<div class="comment-item-source" style="display: none;" aria-hidden="true"><?php echo htmlspecialchars(get_comment_meta(get_comment_ID(), "comment_content_source", true));?></div>
 
 			<div class="comment-operations">
-				<?php if ($GLOBALS['argon_comment_options']['enable_pinning'] && $GLOBALS['argon_comment_options']['current_user_can_moderate_comments'] && is_comment_pinable(get_comment_ID())) {
+				<?php if ($GLOBALS['lyrargon_comment_options']['enable_pinning'] && $GLOBALS['lyrargon_comment_options']['current_user_can_moderate_comments'] && is_comment_pinable(get_comment_ID())) {
 					if (get_comment_meta(get_comment_ID(), "pinned", true) == "true") { ?>
-						<button class="comment-unpin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('取消置顶', 'argon')?></button>
+						<button class="comment-unpin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('取消置顶', 'lyrargon')?></button>
 					<?php } else { ?>
-						<button class="comment-pin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _ex('置顶', 'to pin', 'argon')?></button>
+						<button class="comment-pin btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _ex('置顶', 'to pin', 'lyrargon')?></button>
 				<?php }
 					} ?>
-				<?php if ((check_comment_token(get_comment_ID()) || check_login_user_same($comment -> user_id)) && (get_option("argon_comment_allow_editing") != "false")) { ?>
-					<button class="comment-edit btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('编辑', 'argon')?></button>
+				<?php if ((check_comment_token(get_comment_ID()) || check_login_user_same($comment -> user_id)) && (get_option("lyrargon_comment_allow_editing") != "false")) { ?>
+					<button class="comment-edit btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button" style="margin-right: 2px;"><?php _e('编辑', 'lyrargon')?></button>
 				<?php } ?>
-				<button class="comment-reply btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button"><?php _e('回复', 'argon')?></button>
+				<button class="comment-reply btn btn-sm btn-outline-primary" data-id="<?php comment_ID(); ?>" type="button"><?php _e('回复', 'lyrargon')?></button>
 			</div>
 		</div>
 	</li>
@@ -1115,10 +1141,10 @@ function argon_comment_shuoshuo_preview_format($comment, $args, $depth){
 			<span class="shuoshuo-comment-item-title">
 				<?php echo get_comment_author_link();?>
 				<?php if( user_can($comment -> user_id , "update_core") ){
-					echo '<span class="badge badge-primary badge-admin">' . __('博主', 'argon') . '</span>';}
+					echo '<span class="badge badge-primary badge-admin">' . __('博主', 'lyrargon') . '</span>';}
 				?>
 				<?php if( $comment -> comment_approved == 0 ){
-					echo '<span class="badge badge-warning badge-unapproved">' . __('待审核', 'argon') . '</span>';}
+					echo '<span class="badge badge-warning badge-unapproved">' . __('待审核', 'lyrargon') . '</span>';}
 				?>
 				:
 			</span>
@@ -1224,7 +1250,7 @@ class captcha_calculation{ //数字验证码
 function wrong_captcha(){
 	exit(json_encode(array(
 		'status' => 'failed',
-		'msg' => __('验证码错误', 'argon'),
+		'msg' => __('验证码错误', 'lyrargon'),
 		'isAdmin' => current_user_can('level_7')
 	)));
 	//wp_die('验证码错误，评论失败');
@@ -1238,7 +1264,7 @@ function get_comment_captcha_answer(){
 	return $captcha -> getAnswer();
 }
 function check_comment_captcha($comment){
-	if (get_option('argon_comment_need_captcha') == 'false'){
+	if (get_option('lyrargon_comment_need_captcha') == 'false'){
 		return $comment;
 	}
 	$answer = $_POST['comment_captcha'];
@@ -1254,7 +1280,7 @@ function check_comment_captcha($comment){
 add_filter('preprocess_comment' , 'check_comment_captcha');
 
 function ajax_get_captcha(){
-	if (get_option('argon_get_captcha_by_ajax', 'false') != 'true') {
+	if (get_option('lyrargon_get_captcha_by_ajax', 'false') != 'true') {
 		return;
 	}
 	exit(json_encode(array(
@@ -1271,12 +1297,12 @@ function ajax_post_comment(){
 			//如果父级评论是悄悄话模式且当前 Token 与父级不相同则返回
 			exit(json_encode(array(
 				'status' => 'failed',
-				'msg' =>  __('不能回复其他人的悄悄话评论', 'argon'),
+				'msg' =>  __('不能回复其他人的悄悄话评论', 'lyrargon'),
 				'isAdmin' => current_user_can('level_7')
 			)));
 		}
 	}
-	if (get_option('argon_comment_enable_qq_avatar') == 'true'){
+	if (get_option('lyrargon_comment_enable_qq_avatar') == 'true'){
 		if (check_qqnumber($_POST['email'])){
 			$_POST['qq'] = $_POST['email'];
 			$_POST['email'] .= "@qq.com";
@@ -1299,7 +1325,7 @@ function ajax_post_comment(){
 	$user = wp_get_current_user();
 	do_action('set_comment_cookies', $comment, $user);
 	if (isset($_POST['qq'])){
-		if (!empty($_POST['qq']) && get_option('argon_comment_enable_qq_avatar') == 'true'){
+		if (!empty($_POST['qq']) && get_option('lyrargon_comment_enable_qq_avatar') == 'true'){
 			$_comment = $comment;
 			$_comment -> comment_author_email = $_POST['qq'] . "@avatarqq.com";
 			do_action('set_comment_cookies', $_comment, $user);
@@ -1308,7 +1334,7 @@ function ajax_post_comment(){
 	$html = wp_list_comments(
 		array(
 			'type'      => 'comment',
-			'callback'  => 'argon_comment_format',
+			'callback'  => 'lyrargon_comment_format',
 			'echo'      => false
 		),
 		array($comment)
@@ -1374,7 +1400,7 @@ function post_comment_preprocessing($comment){
 	//保存评论未经 Markdown 解析的源码
 	$_POST['comment_content_source'] = $comment['comment_content'];
 	//Markdown
-	if ($_POST['use_markdown'] == 'true' && get_option("argon_comment_allow_markdown") != "false"){
+	if ($_POST['use_markdown'] == 'true' && get_option("lyrargon_comment_allow_markdown") != "false"){
 		$comment['comment_content'] = comment_markdown_parse($comment['comment_content']);
 	}
 	return $comment;
@@ -1382,7 +1408,7 @@ function post_comment_preprocessing($comment){
 add_filter('preprocess_comment' , 'post_comment_preprocessing');
 //发送评论通知邮件
 function comment_mail_notify($comment){
-	if (get_option("argon_comment_allow_mailnotice") != "true"){
+	if (get_option("lyrargon_comment_allow_mailnotice") != "true"){
 		return;
 	}
 	if ($comment == null){
@@ -1401,12 +1427,12 @@ function comment_mail_notify($comment){
 	$emailTo = "$parentName <$parentEmail>";
 	if (get_comment_meta($parentID, "enable_mailnotice", true) == "true"){
 		if (check_email_address($parentEmail)){
-			$title = __("您在", 'argon') . " 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 " . __("的评论有了新的回复", 'argon');
-			$fullTitle = __("您在", 'argon') . " 「" . get_post_title_by_id($commentPostID) . "」 " . __("的评论有了新的回复", 'argon');
+			$title = __("您在", 'lyrargon') . " 「" . wp_trim_words(get_post_title_by_id($commentPostID), 20) . "」 " . __("的评论有了新的回复", 'lyrargon');
+			$fullTitle = __("您在", 'lyrargon') . " 「" . get_post_title_by_id($commentPostID) . "」 " . __("的评论有了新的回复", 'lyrargon');
 			$content = htmlspecialchars(get_comment_meta($id, "comment_content_source", true));
 			$link = get_permalink($commentPostID) . "#comment-" . $id;
 			$unsubscribeLink = site_url("unsubscribe-comment-mailnotice?comment=" . $parentID . "&token=" . get_comment_meta($parentID, "mailnotice_unsubscribe_key", true));
-			$themecolor = get_option('argon_theme_color', '#2196f3');
+			$themecolor = get_option('lyrargon_theme_color', '#2196f3');
 			$html = '
 					<!DOCTYPE html>
 					<html>
@@ -1418,7 +1444,7 @@ function comment_mail_notify($comment){
 								<div style="font-size:30px;text-align:center;margin-bottom:15px;">' . htmlspecialchars($fullTitle)  .'</div>
 								<div style="background: rgba(0, 0, 0, .15);height: 1px;width: 300px;margin: auto;margin-bottom: 35px;"></div>
 								<div style="font-size: 18px;border-left: 4px solid rgba(0, 0, 0, .15);width: max-content;width: -moz-max-content;margin: auto;padding: 20px 30px;background: rgba(0,0,0,.08);border-radius: 6px;box-shadow: 0 2px 4px rgba(0,0,0,.075)!important;min-width: 60%;max-width: 90%;margin-bottom: 40px;">
-									<div style="margin-bottom: 10px;"><strong><span style="color: ' . $themecolor . ';">@' . htmlspecialchars($commentAuthor) . '</span> ' . __('回复了你', "argon") . ':</strong></div>
+									<div style="margin-bottom: 10px;"><strong><span style="color: ' . $themecolor . ';">@' . htmlspecialchars($commentAuthor) . '</span> ' . __('回复了你', "lyrargon") . ':</strong></div>
 									' . str_replace('\n', '<div></div>', $content) . ' 
 								</div>
 								<table width="100%" style="border-collapse:collapse;border:none;empty-cells:show;max-width:100%;box-sizing:border-box" cellspacing="0" cellpadding="0">
@@ -1429,7 +1455,7 @@ function comment_mail_notify($comment){
 													<tbody style="box-sizing:border-box">
 														<tr style="box-sizing:border-box">
 															<td style="box-sizing:border-box">
-																<a href="' . $link . '" style="display: block; line-height: 1; color: #fff;background-color: ' . $themecolor . ';border-color: ' . $themecolor . ';box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none; margin: 10px;">' . __('前往查看', "argon") . '</a>
+																<a href="' . $link . '" style="display: block; line-height: 1; color: #fff;background-color: ' . $themecolor . ';border-color: ' . $themecolor . ';box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);padding: 15px 25px;font-size: 18px;border-radius: 4px;text-decoration: none; margin: 10px;">' . __('前往查看', "lyrargon") . '</a>
 															</td>
 														</tr>
 													</tbody>
@@ -1446,7 +1472,7 @@ function comment_mail_notify($comment){
 													<tbody style="box-sizing:border-box">
 														<tr style="box-sizing:border-box">
 															<td style="box-sizing:border-box">
-																<a href="' . $unsubscribeLink . '" style="display: block; line-height: 1;color: ' . $themecolor . ';font-size: 16px;text-decoration: none; margin: 10px;">' . __('退订该评论的邮件提醒', "argon") . '</a>
+																<a href="' . $unsubscribeLink . '" style="display: block; line-height: 1;color: ' . $themecolor . ';font-size: 16px;text-decoration: none; margin: 10px;">' . __('退订该评论的邮件提醒', "lyrargon") . '</a>
 															</td>
 														</tr>
 													</tbody>
@@ -1458,7 +1484,7 @@ function comment_mail_notify($comment){
 							</div>
 						</body>
 					</html>';
-			$html = apply_filters("argon_comment_mail_notification_content", $html); 
+			$html = apply_filters("lyrargon_comment_mail_notification_content", $html); 
 			send_mail($emailTo, $title, $html);
 		}
 	}
@@ -1474,7 +1500,7 @@ function post_comment_updatemetas($id){
 	update_comment_meta($id, "comment_content_source", $_POST['comment_content_source']);
 	//评论者 Token
 	set_user_token_cookie();
-	update_comment_meta($id, "user_token", $_COOKIE["argon_user_token"]);
+	update_comment_meta($id, "user_token", $_COOKIE["lyrargon_user_token"]);
 	//保存初次编辑记录
 	$editHistory = array(array(
 		'content' => $_POST['comment_content_source'],
@@ -1483,14 +1509,14 @@ function post_comment_updatemetas($id){
 	));
 	update_comment_meta($id, "comment_edit_history", addslashes(json_encode($editHistory, JSON_UNESCAPED_UNICODE)));
 	//是否启用 Markdown
-	if ($_POST['use_markdown'] == 'true' && get_option("argon_comment_allow_markdown") != "false"){
+	if ($_POST['use_markdown'] == 'true' && get_option("lyrargon_comment_allow_markdown") != "false"){
 		update_comment_meta($id, "use_markdown", "true");
 	}else{
 		update_comment_meta($id, "use_markdown", "false");
 	}
 	//是否启用悄悄话模式
-	if ($_POST['private_mode'] == 'true' && get_option("argon_comment_allow_privatemode") == "true"){
-		update_comment_meta($id, "private_mode", $_COOKIE["argon_user_token"]);
+	if ($_POST['private_mode'] == 'true' && get_option("lyrargon_comment_allow_privatemode") == "true"){
+		update_comment_meta($id, "private_mode", $_COOKIE["lyrargon_user_token"]);
 	}else{
 		update_comment_meta($id, "private_mode", "false");
 	}
@@ -1503,7 +1529,7 @@ function post_comment_updatemetas($id){
 		update_comment_meta($id, "private_mode", "false");
 	}
 	//是否启用邮件通知
-	if ($_POST['enable_mailnotice'] == 'true' && get_option("argon_comment_allow_mailnotice") == "true"){
+	if ($_POST['enable_mailnotice'] == 'true' && get_option("lyrargon_comment_allow_mailnotice") == "true"){
 		update_comment_meta($id, "enable_mailnotice", "true");
 		update_comment_meta($id, "mailnotice_unsubscribe_key", $mailnoticeUnsubscribeKey);
 	}else{
@@ -1514,7 +1540,7 @@ function post_comment_updatemetas($id){
 		comment_mail_notify($comment);
 	}
 	//保存 QQ 号
-	if (get_option('argon_comment_enable_qq_avatar') == 'true'){
+	if (get_option('lyrargon_comment_enable_qq_avatar') == 'true'){
 		if (!empty($_POST['qq'])){
 			update_comment_meta($id, "qq_number", $_POST['qq']);
 		}
@@ -1522,14 +1548,14 @@ function post_comment_updatemetas($id){
 }
 add_action('comment_post' , 'post_comment_updatemetas');
 add_action('comment_unapproved_to_approved', 'comment_mail_notify');
-add_rewrite_rule('^unsubscribe-comment-mailnotice/?(.*)$', '/wp-content/themes/argon/unsubscribe-comment-mailnotice.php$1', 'top');
+add_rewrite_rule('^unsubscribe-comment-mailnotice/?(.*)$', '/wp-content/themes/' . get_template() . '/unsubscribe-comment-mailnotice.php$1', 'top');
 //编辑评论
 function user_edit_comment(){
 	header('Content-Type:application/json; charset=utf-8');
-	if (get_option("argon_comment_allow_editing") == "false"){
+	if (get_option("lyrargon_comment_allow_editing") == "false"){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('博主关闭了编辑评论功能', 'argon')
+			'msg' => __('博主关闭了编辑评论功能', 'lyrargon')
 		)));
 	}
 	$id = $_POST["id"];
@@ -1538,13 +1564,13 @@ function user_edit_comment(){
 	if (!check_comment_token($id) && !check_login_user_same(get_comment_user_id_by_id($id))){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('您不是这条评论的作者或 Token 已过期', 'argon')
+			'msg' => __('您不是这条评论的作者或 Token 已过期', 'lyrargon')
 		)));
 	}
 	if ($_POST["comment"] == ""){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('新的评论为空', 'argon')
+			'msg' => __('新的评论为空', 'lyrargon')
 		)));
 	}
 	if (get_comment_meta($id, "use_markdown", true) == "true"){
@@ -1570,7 +1596,7 @@ function user_edit_comment(){
 		update_comment_meta($id, "comment_edit_history", addslashes(json_encode($editHistory, JSON_UNESCAPED_UNICODE)));
 		exit(json_encode(array(
 			'status' => 'success',
-			'msg' => __('编辑评论成功', 'argon'),
+			'msg' => __('编辑评论成功', 'lyrargon'),
 			'new_comment' => apply_filters('comment_text', argon_get_comment_text($id), $id),
 			'new_comment_source' => htmlspecialchars(stripslashes($contentSource)),
 			'can_visit_edit_history' => can_visit_comment_edit_history($id)
@@ -1578,7 +1604,7 @@ function user_edit_comment(){
 	}else{
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('编辑评论失败，可能原因: 与原评论相同', 'argon'),
+			'msg' => __('编辑评论失败，可能原因: 与原评论相同', 'lyrargon'),
 		)));
 	}
 }
@@ -1587,16 +1613,16 @@ add_action('wp_ajax_nopriv_user_edit_comment', 'user_edit_comment');
 //置顶评论
 function pin_comment(){
 	header('Content-Type:application/json; charset=utf-8');
-	if (get_option("argon_enable_comment_pinning") == "false"){
+	if (get_option("lyrargon_enable_comment_pinning") == "false"){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('博主关闭了评论置顶功能', 'argon')
+			'msg' => __('博主关闭了评论置顶功能', 'lyrargon')
 		)));
 	}
 	if (!current_user_can("moderate_comments")){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('您没有权限进行此操作', 'argon')
+			'msg' => __('您没有权限进行此操作', 'lyrargon')
 		)));
 	}
 	$id = $_POST["id"];
@@ -1605,25 +1631,25 @@ function pin_comment(){
 	if ($newPinnedStat == $origPinnedStat){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => $newPinnedStat ? __('评论已经是置顶状态', 'argon') : __('评论已经是取消置顶状态', 'argon')
+			'msg' => $newPinnedStat ? __('评论已经是置顶状态', 'lyrargon') : __('评论已经是取消置顶状态', 'lyrargon')
 		)));
 	}
 	if (get_comment($id) -> comment_parent != 0){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('不能置顶子评论', 'argon')
+			'msg' => __('不能置顶子评论', 'lyrargon')
 		)));
 	}
 	if (is_comment_private_mode($id)){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('不能置顶悄悄话', 'argon')
+			'msg' => __('不能置顶悄悄话', 'lyrargon')
 		)));
 	}
 	update_comment_meta($id, "pinned", $newPinnedStat ? "true" : "false");
 	exit(json_encode(array(
 		'status' => 'success',
-		'msg' => $newPinnedStat ? __('置顶评论成功', 'argon') : __('取消置顶成功', 'argon'),
+		'msg' => $newPinnedStat ? __('置顶评论成功', 'lyrargon') : __('取消置顶成功', 'lyrargon'),
 	)));
 }
 add_action('wp_ajax_pin_comment', 'pin_comment');
@@ -1789,14 +1815,14 @@ function argon_get_comments(){
 	$comment_query = new WP_Comment_Query;
 	$comments = $comment_query -> query($args);
 	
-	if (get_option("argon_enable_comment_pinning", "false") == "true"){
-		usort($comments, "argon_comment_cmp");
+	if (get_option("lyrargon_enable_comment_pinning", "false") == "true"){
+		usort($comments, "lyrargon_comment_cmp");
 	}else{
 		$comments = array_reverse($comments);
 	}
 	
 	//向评论数组中填充 placeholder comments 以填满第一页
-	if (get_option("argon_comment_pagination_type", "feed") == "page"){
+	if (get_option("lyrargon_comment_pagination_type", "feed") == "page"){
 		return $comments;
 	}
 	if (!isset($_GET['fill_first_page']) && strpos(parse_url($_SERVER['REQUEST_URI'])['path'], 'comment-page-') !== false){
@@ -1847,20 +1873,20 @@ if (!function_exists('check_qqnumber')){
 }
 //获取顶部 Banner 背景图（用户指定或必应日图）
 function get_banner_background_url(){
-	$url = get_option("argon_banner_background_url");
+	$url = get_option("lyrargon_banner_background_url");
 	if ($url == "--bing--"){
-		$lastUpdated = get_option("argon_bing_banner_background_last_updated_time");
+		$lastUpdated = get_option("lyrargon_bing_banner_background_last_updated_time");
 		if ($lastUpdated == ""){
 			$lastUpdated = 0;
 		}
 		$now = time();
 		if ($now - $lastUpdated < 3600){
-			return get_option("argon_bing_banner_background_last_updated_url");
+			return get_option("lyrargon_bing_banner_background_last_updated_url");
 		}else{
 			$data = json_decode(@file_get_contents('https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1') , true);
 			$url = "//bing.com" . $data['images'][0]['url'];
-			update_option("argon_bing_banner_background_last_updated_time" , $now);
-			update_option("argon_bing_banner_background_last_updated_url" , $url);
+			update_option("lyrargon_bing_banner_background_last_updated_time" , $now);
+			update_option("lyrargon_bing_banner_background_last_updated_url" , $url);
 			return $url;
 		}
 	}else{
@@ -1869,7 +1895,7 @@ function get_banner_background_url(){
 }
 //Lazyload 对 <img> 标签预处理以加载 Lazyload
 function argon_lazyload($content){
-	$lazyload_loading_style = get_option('argon_lazyload_loading_style');
+	$lazyload_loading_style = get_option('lyrargon_lazyload_loading_style');
 	if ($lazyload_loading_style == ''){
 		$lazyload_loading_style = 'none';
 	}
@@ -1884,7 +1910,7 @@ function argon_lazyload($content){
 }
 function argon_fancybox($content){
 	if(!is_feed() && !is_robots() && !is_home()){
-		if (get_option('argon_enable_lazyload') != 'false'){
+		if (get_option('lyrargon_enable_lazyload') != 'false'){
 			$content = preg_replace('/<img(.*?)data-original=[\'"](.*?)[\'"](.*?)((\/>)|>|(<\/img>))/i',"<div class='fancybox-wrapper lazyload-container-unload' data-fancybox='post-images' href='$2'>$0</div>" , $content);
 		}else{
 			$content = preg_replace('/<img(.*?)src=[\'"](.*?)[\'"](.*?)((\/>)|>|(<\/img>))/i',"<div class='fancybox-wrapper' data-fancybox='post-images' href='$2'>$0</div>" , $content);
@@ -1893,14 +1919,14 @@ function argon_fancybox($content){
 	return $content;
 }
 function the_content_filter($content){
-	if (get_option('argon_enable_lazyload') != 'false'){
+	if (get_option('lyrargon_enable_lazyload') != 'false'){
 		$content = argon_lazyload($content);
 	}
-	if (get_option('argon_enable_fancybox') != 'false' && get_option('argon_enable_zoomify') == 'false'){
+	if (get_option('lyrargon_enable_fancybox') != 'false' && get_option('lyrargon_enable_zoomify') == 'false'){
 		$content = argon_fancybox($content);
 	}
 	global $post;
-	$custom_css = get_post_meta($post -> ID, 'argon_custom_css', true);
+	$custom_css = get_post_meta($post -> ID, 'lyrargon_custom_css', true);
 	if (!empty($custom_css)){
 		$content .= "<style>" . $custom_css . "</style>";
 	}
@@ -1910,7 +1936,7 @@ function the_content_filter($content){
 add_filter('the_content' , 'the_content_filter',20);
 //使用 CDN 加速 gravatar
 function gravatar_cdn($url){
-	$cdn = get_option('argon_gravatar_cdn', 'gravatar.pho.ink/avatar/');
+	$cdn = get_option('lyrargon_gravatar_cdn', 'gravatar.pho.ink/avatar/');
 	$cdn = str_replace("http://", "", $cdn);
 	$cdn = str_replace("https://", "", $cdn);
 	if (substr($cdn, -1) != '/'){
@@ -1919,7 +1945,7 @@ function gravatar_cdn($url){
 	$url = preg_replace("/\/\/(.*?).gravatar.com\/avatar\//", "//" . $cdn, $url);
 	return $url;
 }
-if (get_option('argon_gravatar_cdn' , '') != ''){
+if (get_option('lyrargon_gravatar_cdn' , '') != ''){
 	add_filter('get_avatar_url', 'gravatar_cdn');
 }
 function text_gravatar($url){
@@ -1927,7 +1953,7 @@ function text_gravatar($url){
 	$url .= '&d=404';
 	return $url;
 }
-if (get_option('argon_text_gravatar', 'false') == 'true' && !is_admin()){
+if (get_option('lyrargon_text_gravatar', 'false') == 'true' && !is_admin()){
 	add_filter('get_avatar_url', 'text_gravatar');
 }
 //说说点赞
@@ -1957,20 +1983,20 @@ function set_shuoshuo_upvotes($ID){
 function upvote_shuoshuo(){
 	header('Content-Type:application/json; charset=utf-8');
 	$ID = $_POST["shuoshuo_id"];
-	$upvotedList = isset( $_COOKIE['argon_shuoshuo_upvoted'] ) ? $_COOKIE['argon_shuoshuo_upvoted'] : '';
+	$upvotedList = isset( $_COOKIE['lyrargon_shuoshuo_upvoted'] ) ? $_COOKIE['lyrargon_shuoshuo_upvoted'] : '';
 	if (in_array($ID, explode(',', $upvotedList))){
 		exit(json_encode(array(
 			'status' => 'failed',
-			'msg' => __('该说说已被赞过', 'argon'),
+			'msg' => __('该说说已被赞过', 'lyrargon'),
 			'total_upvote' => get_shuoshuo_upvotes($ID)
 		)));
 	}
 	set_shuoshuo_upvotes($ID);
-	setcookie('argon_shuoshuo_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
+	setcookie('lyrargon_shuoshuo_upvoted', $upvotedList . $ID . "," , time() + 3153600000 , '/');
 	exit(json_encode(array(
 		'ID' => $ID,
 		'status' => 'success',
-		'msg' => __('点赞成功', 'argon'),
+		'msg' => __('点赞成功', 'lyrargon'),
 		'total_upvote' => get_shuoshuo_upvotes($ID)
 	)));
 }
@@ -2112,49 +2138,49 @@ function checkHEX($hex){
 }
 //编辑文章界面新增 Meta 编辑模块
 function argon_meta_box_1(){
-	wp_nonce_field("argon_meta_box_nonce_action", "argon_meta_box_nonce");
+	wp_nonce_field("lyrargon_meta_box_nonce_action", "lyrargon_meta_box_nonce");
 	global $post;
 	?>
-		<h4><?php _e("显示字数和预计阅读时间", 'argon');?></h4>
-		<?php $argon_meta_hide_readingtime = get_post_meta($post->ID, "argon_hide_readingtime", true);?>
-		<select name="argon_meta_hide_readingtime" id="argon_meta_hide_readingtime">
-			<option value="false" <?php if ($argon_meta_hide_readingtime=='false'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
-			<option value="true" <?php if ($argon_meta_hide_readingtime=='true'){echo 'selected';} ?>><?php _e("不显示", 'argon');?></option>
+		<h4><?php _e("显示字数和预计阅读时间", 'lyrargon');?></h4>
+		<?php $argon_meta_hide_readingtime = get_post_meta($post->ID, "lyrargon_hide_readingtime", true);?>
+		<select name="lyrargon_meta_hide_readingtime" id="lyrargon_meta_hide_readingtime">
+			<option value="false" <?php if ($argon_meta_hide_readingtime=='false'){echo 'selected';} ?>><?php _e("跟随全局设置", 'lyrargon');?></option>
+			<option value="true" <?php if ($argon_meta_hide_readingtime=='true'){echo 'selected';} ?>><?php _e("不显示", 'lyrargon');?></option>
 		</select>
-		<p style="margin-top: 15px;"><?php _e("是否显示字数和预计阅读时间 Meta 信息", 'argon');?></p>
-		<h4><?php _e("Meta 中隐藏发布时间和分类", 'argon');?></h4>
-		<?php $argon_meta_simple = get_post_meta($post->ID, "argon_meta_simple", true);?>
-		<select name="argon_meta_simple" id="argon_meta_simple">
-			<option value="false" <?php if ($argon_meta_simple=='false'){echo 'selected';} ?>><?php _e("不隐藏", 'argon');?></option>
-			<option value="true" <?php if ($argon_meta_simple=='true'){echo 'selected';} ?>><?php _e("隐藏", 'argon');?></option>
+		<p style="margin-top: 15px;"><?php _e("是否显示字数和预计阅读时间 Meta 信息", 'lyrargon');?></p>
+		<h4><?php _e("Meta 中隐藏发布时间和分类", 'lyrargon');?></h4>
+		<?php $argon_meta_simple = get_post_meta($post->ID, "lyrargon_meta_simple", true);?>
+		<select name="lyrargon_meta_simple" id="lyrargon_meta_simple">
+			<option value="false" <?php if ($argon_meta_simple=='false'){echo 'selected';} ?>><?php _e("不隐藏", 'lyrargon');?></option>
+			<option value="true" <?php if ($argon_meta_simple=='true'){echo 'selected';} ?>><?php _e("隐藏", 'lyrargon');?></option>
 		</select>
-		<p style="margin-top: 15px;"><?php _e("适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。", 'argon');?></p>
-		<h4><?php _e("使用文章中第一张图作为头图", 'argon');?></h4>
-		<?php $argon_first_image_as_thumbnail = get_post_meta($post->ID, "argon_first_image_as_thumbnail", true);?>
-		<select name="argon_first_image_as_thumbnail" id="argon_first_image_as_thumbnail">
-			<option value="default" <?php if ($argon_first_image_as_thumbnail=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
-			<option value="true" <?php if ($argon_first_image_as_thumbnail=='true'){echo 'selected';} ?>><?php _e("使用", 'argon');?></option>
-			<option value="false" <?php if ($argon_first_image_as_thumbnail=='false'){echo 'selected';} ?>><?php _e("不使用", 'argon');?></option>
+		<p style="margin-top: 15px;"><?php _e("适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。", 'lyrargon');?></p>
+		<h4><?php _e("使用文章中第一张图作为头图", 'lyrargon');?></h4>
+		<?php $argon_first_image_as_thumbnail = get_post_meta($post->ID, "lyrargon_first_image_as_thumbnail", true);?>
+		<select name="lyrargon_first_image_as_thumbnail" id="lyrargon_first_image_as_thumbnail">
+			<option value="default" <?php if ($argon_first_image_as_thumbnail=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'lyrargon');?></option>
+			<option value="true" <?php if ($argon_first_image_as_thumbnail=='true'){echo 'selected';} ?>><?php _e("使用", 'lyrargon');?></option>
+			<option value="false" <?php if ($argon_first_image_as_thumbnail=='false'){echo 'selected';} ?>><?php _e("不使用", 'lyrargon');?></option>
 		</select>
-		<h4><?php _e("显示文章过时信息", 'argon');?></h4>
-		<?php $argon_show_post_outdated_info = get_post_meta($post->ID, "argon_show_post_outdated_info", true);?>
+		<h4><?php _e("显示文章过时信息", 'lyrargon');?></h4>
+		<?php $argon_show_post_outdated_info = get_post_meta($post->ID, "lyrargon_show_post_outdated_info", true);?>
 		<div style="display: flex;">
-			<select name="argon_show_post_outdated_info" id="argon_show_post_outdated_info">
-				<option value="default" <?php if ($argon_show_post_outdated_info=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'argon');?></option>
-				<option value="always" <?php if ($argon_show_post_outdated_info=='always'){echo 'selected';} ?>><?php _e("一直显示", 'argon');?></option>
-				<option value="never" <?php if ($argon_show_post_outdated_info=='never'){echo 'selected';} ?>><?php _e("永不显示", 'argon');?></option>
+			<select name="lyrargon_show_post_outdated_info" id="lyrargon_show_post_outdated_info">
+				<option value="default" <?php if ($argon_show_post_outdated_info=='default'){echo 'selected';} ?>><?php _e("跟随全局设置", 'lyrargon');?></option>
+				<option value="always" <?php if ($argon_show_post_outdated_info=='always'){echo 'selected';} ?>><?php _e("一直显示", 'lyrargon');?></option>
+				<option value="never" <?php if ($argon_show_post_outdated_info=='never'){echo 'selected';} ?>><?php _e("永不显示", 'lyrargon');?></option>
 			</select>
-			<button id="apply_show_post_outdated_info" type="button" class="components-button is-primary" style="height: 22px; display: none;"><?php _e("应用", 'argon');?></button>
+			<button id="apply_show_post_outdated_info" type="button" class="components-button is-primary" style="height: 22px; display: none;"><?php _e("应用", 'lyrargon');?></button>
 		</div>
-		<p style="margin-top: 15px;"><?php _e("单独控制该文章的过时信息显示。", 'argon');?></p>
-		<h4><?php _e("文末附加内容", 'argon');?></h4>
-		<?php $argon_after_post = get_post_meta($post->ID, "argon_after_post", true);?>
-		<textarea name="argon_after_post" id="argon_after_post" rows="3" cols="30" style="width:100%;"><?php if (!empty($argon_after_post)){echo $argon_after_post;} ?></textarea>
-		<p style="margin-top: 15px;"><?php _e("给该文章设置单独的文末附加内容，留空则跟随全局，设为 <code>--none--</code> 则不显示。", 'argon');?></p>
-		<h4><?php _e("自定义 CSS", 'argon');?></h4>
-		<?php $argon_custom_css = get_post_meta($post->ID, "argon_custom_css", true);?>
-		<textarea name="argon_custom_css" id="argon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
-		<p style="margin-top: 15px;"><?php _e("给该文章添加单独的 CSS", 'argon');?></p>
+		<p style="margin-top: 15px;"><?php _e("单独控制该文章的过时信息显示。", 'lyrargon');?></p>
+		<h4><?php _e("文末附加内容", 'lyrargon');?></h4>
+		<?php $argon_after_post = get_post_meta($post->ID, "lyrargon_after_post", true);?>
+		<textarea name="lyrargon_after_post" id="lyrargon_after_post" rows="3" cols="30" style="width:100%;"><?php if (!empty($argon_after_post)){echo $argon_after_post;} ?></textarea>
+		<p style="margin-top: 15px;"><?php _e("给该文章设置单独的文末附加内容，留空则跟随全局，设为 <code>--none--</code> 则不显示。", 'lyrargon');?></p>
+		<h4><?php _e("自定义 CSS", 'lyrargon');?></h4>
+		<?php $argon_custom_css = get_post_meta($post->ID, "lyrargon_custom_css", true);?>
+		<textarea name="lyrargon_custom_css" id="lyrargon_custom_css" rows="5" cols="30" style="width:100%;"><?php if (!empty($argon_custom_css)){echo $argon_custom_css;} ?></textarea>
+		<p style="margin-top: 15px;"><?php _e("给该文章添加单独的 CSS", 'lyrargon');?></p>
 
 		<script>$ = window.jQuery;</script>
 		<script>
@@ -2179,7 +2205,7 @@ function argon_meta_box_1(){
 					action: 'update_post_meta_ajax',
 					argon_meta_box_nonce: $("#argon_meta_box_nonce").val(),
 					post_id: <?php echo $post->ID; ?>,
-					meta_key: 'argon_show_post_outdated_info',
+					meta_key: 'lyrargon_show_post_outdated_info',
 					meta_value: $("select[name=argon_show_post_outdated_info]").val()
 				};
 				$.ajax({
@@ -2190,16 +2216,16 @@ function argon_meta_box_1(){
 						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
 						$("#argon_show_post_outdated_info").removeAttr("disabled");
 						if (response.status == "failed"){
-							showAlert("failed", "<?php _e("应用失败", 'argon');?>");
+							showAlert("failed", "<?php _e("应用失败", 'lyrargon');?>");
 							return;
 						}
 						$("#apply_show_post_outdated_info").css("display", "none");
-						showAlert("success", "<?php _e("应用成功", 'argon');?>");
+						showAlert("success", "<?php _e("应用成功", 'lyrargon');?>");
 					},
 					error: function(response) {
 						$("#apply_show_post_outdated_info").removeClass("is-busy").removeAttr("disabled").css("opacity", "1");
 						$("#argon_show_post_outdated_info").removeAttr("disabled");
-						showAlert("failed", "<?php _e("应用失败", 'argon');?>");
+						showAlert("failed", "<?php _e("应用失败", 'lyrargon');?>");
 					}
 				});
 			});
@@ -2207,15 +2233,15 @@ function argon_meta_box_1(){
 	<?php
 }
 function argon_add_meta_boxes(){
-	add_meta_box('argon_meta_box_1', __("文章设置", 'argon'), 'argon_meta_box_1', array('post', 'page'), 'side', 'low');
+	add_meta_box('lyrargon_meta_box_1', __("文章设置", 'lyrargon'), 'lyrargon_meta_box_1', array('post', 'page'), 'side', 'low');
 }
-add_action('admin_menu', 'argon_add_meta_boxes');
+add_action('admin_menu', 'lyrargon_add_meta_boxes');
 function argon_save_meta_data($post_id){
-	if (!isset($_POST['argon_meta_box_nonce'])){
+	if (!isset($_POST['lyrargon_meta_box_nonce'])){
 		return $post_id;
 	}
-	$nonce = $_POST['argon_meta_box_nonce'];
-	if (!wp_verify_nonce($nonce, 'argon_meta_box_nonce_action')){
+	$nonce = $_POST['lyrargon_meta_box_nonce'];
+	if (!wp_verify_nonce($nonce, 'lyrargon_meta_box_nonce_action')){
 		return $post_id;
 	}
 	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
@@ -2231,20 +2257,20 @@ function argon_save_meta_data($post_id){
 			return $post_id;
 		}
 	}
-	update_post_meta($post_id, 'argon_hide_readingtime', $_POST['argon_meta_hide_readingtime']);
-	update_post_meta($post_id, 'argon_meta_simple', $_POST['argon_meta_simple']);
-	update_post_meta($post_id, 'argon_first_image_as_thumbnail', $_POST['argon_first_image_as_thumbnail']);
-	update_post_meta($post_id, 'argon_show_post_outdated_info', $_POST['argon_show_post_outdated_info']);
-	update_post_meta($post_id, 'argon_after_post', $_POST['argon_after_post']);
-	update_post_meta($post_id, 'argon_custom_css', $_POST['argon_custom_css']);
+	update_post_meta($post_id, 'lyrargon_hide_readingtime', $_POST['lyrargon_meta_hide_readingtime']);
+	update_post_meta($post_id, 'lyrargon_meta_simple', $_POST['lyrargon_meta_simple']);
+	update_post_meta($post_id, 'lyrargon_first_image_as_thumbnail', $_POST['lyrargon_first_image_as_thumbnail']);
+	update_post_meta($post_id, 'lyrargon_show_post_outdated_info', $_POST['lyrargon_show_post_outdated_info']);
+	update_post_meta($post_id, 'lyrargon_after_post', $_POST['lyrargon_after_post']);
+	update_post_meta($post_id, 'lyrargon_custom_css', $_POST['lyrargon_custom_css']);
 }
-add_action('save_post', 'argon_save_meta_data');
+add_action('save_post', 'lyrargon_save_meta_data');
 function update_post_meta_ajax(){
-	if (!isset($_POST['argon_meta_box_nonce'])){
+	if (!isset($_POST['lyrargon_meta_box_nonce'])){
 		return;
 	}
-	$nonce = $_POST['argon_meta_box_nonce'];
-	if (!wp_verify_nonce($nonce, 'argon_meta_box_nonce_action')){
+	$nonce = $_POST['lyrargon_meta_box_nonce'];
+	if (!wp_verify_nonce($nonce, 'lyrargon_meta_box_nonce_action')){
 		return;
 	}
 	header('Content-Type:application/json; charset=utf-8');
@@ -2280,41 +2306,41 @@ function argon_home_add_post_type_shuoshuo($query){
 	}
 	return $query;
 }
-if (get_option("argon_home_show_shuoshuo") == "true"){
-	add_action('pre_get_posts', 'argon_home_add_post_type_shuoshuo');
+if (get_option("lyrargon_home_show_shuoshuo") == "true"){
+	add_action('pre_get_posts', 'lyrargon_home_add_post_type_shuoshuo');
 }
 //首页隐藏特定分类文章
 function argon_home_hide_categories($query){
 	if (is_home() && $query -> is_main_query()){
-		$excludeCategories = explode(",", get_option("argon_hide_categories"));
+		$excludeCategories = explode(",", get_option("lyrargon_hide_categories"));
 		$excludeCategories = array_map(function($cat) { return -$cat; }, $excludeCategories);
 		$query -> set('category__not_in', $excludeCategories);
 		$query -> set('tag__not_in', $excludeCategories);
 	}
 	return $query;
 }
-if (get_option("argon_hide_categories") != ""){
-	add_action('pre_get_posts', 'argon_home_hide_categories');
+if (get_option("lyrargon_hide_categories") != ""){
+	add_action('pre_get_posts', 'lyrargon_home_hide_categories');
 }
 //文章过时信息显示
 function argon_get_post_outdated_info(){
 	global $post;
-	$post_show_outdated_info_status = strval(get_post_meta($post -> ID, 'argon_show_post_outdated_info', true));
-	if (get_option("argon_outdated_info_tip_type") == "toast"){
+	$post_show_outdated_info_status = strval(get_post_meta($post -> ID, 'lyrargon_show_post_outdated_info', true));
+	if (get_option("lyrargon_outdated_info_tip_type") == "toast"){
 		$before = "<div id='post_outdate_toast' style='display:none;' data-text='";
 		$after = "'></div>";
 	}else{
 		$before = "<div class='post-outdated-info'><i class='fa fa-info-circle' aria-hidden='true'></i>";
 		$after = "</div>";
 	}
-	$content = get_option('argon_outdated_info_tip_content') == '' ? '本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。' : get_option('argon_outdated_info_tip_content');
-	$delta = get_option('argon_outdated_info_days') == '' ? (-1) : get_option('argon_outdated_info_days');
+	$content = get_option('lyrargon_outdated_info_tip_content') == '' ? '本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。' : get_option('lyrargon_outdated_info_tip_content');
+	$delta = get_option('lyrargon_outdated_info_days') == '' ? (-1) : get_option('lyrargon_outdated_info_days');
 	if ($delta == -1){
 		$delta = 2147483647;
 	}
 	$post_date_delta = floor((current_time('timestamp') - get_the_time("U")) / (60 * 60 * 24));
 	$modify_date_delta = floor((current_time('timestamp') - get_the_modified_time("U")) / (60 * 60 * 24));
-	if (get_option("argon_outdated_info_time_type") == "createdtime"){
+	if (get_option("lyrargon_outdated_info_time_type") == "createdtime"){
 		$date_delta = $post_date_delta;
 	}else{
 		$date_delta = $modify_date_delta;
@@ -2362,11 +2388,11 @@ function argon_init_gutenberg_blocks() {
 		return '';
 	}
 
-	register_block_type('argon/friendlinks', array('render_callback' => 'argon_render_gutenberg_shortcode_block'));
-	register_block_type('argon/sfriendlinks', array('render_callback' => 'argon_render_gutenberg_shortcode_block'));
-	register_block_type('argon/video', array('render_callback' => 'argon_render_gutenberg_shortcode_block'));
+	register_block_type('argon/friendlinks', array('render_callback' => 'lyrargon_render_gutenberg_shortcode_block'));
+	register_block_type('argon/sfriendlinks', array('render_callback' => 'lyrargon_render_gutenberg_shortcode_block'));
+	register_block_type('argon/video', array('render_callback' => 'lyrargon_render_gutenberg_shortcode_block'));
 }
-add_action('init', 'argon_init_gutenberg_blocks');
+add_action('init', 'lyrargon_init_gutenberg_blocks');
 
 function argon_enqueue_extra_blocks() {
 	wp_enqueue_script(
@@ -2377,14 +2403,14 @@ function argon_enqueue_extra_blocks() {
 		true
 	);
 }
-add_action('enqueue_block_editor_assets', 'argon_enqueue_extra_blocks');
+add_action('enqueue_block_editor_assets', 'lyrargon_enqueue_extra_blocks');
 
 function argon_add_gutenberg_category($block_categories, $editor_context) {
 	if (!empty($editor_context->post)){
 		array_push(
 			$block_categories,
 			array(
-				'slug'  => 'argon',
+				'slug'  => 'lyrargon',
 				'title' => 'Lyrargon',
 				'icon'  => null,
 			)
@@ -2392,11 +2418,11 @@ function argon_add_gutenberg_category($block_categories, $editor_context) {
 	}
 	return $block_categories;
 }
-add_filter('block_categories_all', 'argon_add_gutenberg_category', 10, 2);
+add_filter('block_categories_all', 'lyrargon_add_gutenberg_category', 10, 2);
 function argon_admin_i18n_info(){
 	echo "<script>var argon_language = '" . argon_get_locate() . "';</script>";
 }
-add_filter('admin_head', 'argon_admin_i18n_info');
+add_filter('admin_head', 'lyrargon_admin_i18n_info');
 //主题文章短代码解析
 function shortcode_content_preprocess($attr, $content = ""){
 	if ( isset( $attr['nested'] ) ? $attr['nested'] : 'true' != 'false' ){
@@ -2495,7 +2521,7 @@ function shortcode_alert($attr,$content=""){
 	$content = shortcode_content_preprocess($attr, $content);
 
 	// 未定义颜色时使用后台设置的主题色
-	$theme_color = get_option('argon_theme_color', '#2196f3');
+	$theme_color = get_option('lyrargon_theme_color', '#2196f3');
 	$color = isset( $attr['color'] ) ? $attr['color'] : $theme_color;
 
 	// color=blue 使用 #2196F3
@@ -3016,7 +3042,7 @@ function get_reference_list(){
 		return "";
 	}
 	$res = "<div class='reference-list-container'>";
-	$res .= "<h3>" . (get_option('argon_reference_list_title') == "" ? __('参考', 'argon') : get_option('argon_reference_list_title')) . "</h3>";
+	$res .= "<h3>" . (get_option('lyrargon_reference_list_title') == "" ? __('参考', 'lyrargon') : get_option('lyrargon_reference_list_title')) . "</h3>";
 	$res .= "<ol class='reference-list'>";
 		foreach ($post_references as $index => $ref) {
 			$res .= "<li id='ref_" . ($index + 1)  . "'><div>";
@@ -3042,12 +3068,12 @@ function argon_tinymce_extra_buttons(){
 		return;
 	}
 	if(get_user_option('rich_editing') == 'true'){
-		add_filter('mce_external_plugins', 'argon_tinymce_add_plugin');
-		add_filter('mce_buttons', 'argon_tinymce_register_button');
+		add_filter('mce_external_plugins', 'lyrargon_tinymce_add_plugin');
+		add_filter('mce_buttons', 'lyrargon_tinymce_register_button');
 		add_editor_style($GLOBALS['assets_path'] . "/assets/tinymce_assets/tinymce_editor_codeblock.css");
 	}
 }
-add_action('init', 'argon_tinymce_extra_buttons');
+add_action('init', 'lyrargon_tinymce_extra_buttons');
 function argon_tinymce_register_button($buttons){
 	array_push($buttons, "|", "codeblock");
 	array_push($buttons, "|", "label");
@@ -3079,20 +3105,22 @@ function argon_tinymce_add_plugin($plugins){
 //主题选项页面
 function themeoptions_admin_menu(){
 	/*后台管理面板侧栏添加选项*/
-	add_menu_page(__("Lyrargon 主题设置", 'argon'), __("Lyrargon 主题选项", 'argon'), 'edit_theme_options', basename(__FILE__), 'themeoptions_page');
-	add_submenu_page(basename(__FILE__), __("Lyrargon 表情管理", 'argon'), __("表情管理", 'argon'), 'edit_theme_options', 'argon_emoji_manager', 'argon_emoji_manager_page');
+	add_menu_page(__("Lyrargon 主题设置", 'lyrargon'), __("Lyrargon 主题选项", 'lyrargon'), 'edit_theme_options', basename(__FILE__), 'themeoptions_page');
+	add_submenu_page(basename(__FILE__), __("Lyrargon 表情管理", 'lyrargon'), __("表情管理", 'lyrargon'), 'edit_theme_options', 'lyrargon_emoji_manager', 'lyrargon_emoji_manager_page');
+	add_submenu_page(basename(__FILE__), __("从 Argon 迁移", 'lyrargon'), __("从 Argon 迁移", 'lyrargon'), 'edit_theme_options', 'lyrargon_migration', 'lyrargon_migration_page');
 }
 include_once(get_template_directory() . '/settings.php');
 include_once(get_template_directory() . '/settings-emojis.php');
+include_once(get_template_directory() . '/settings-migrate.php');
 	
 /*主题菜单*/
 add_action('init', 'init_nav_menus');
 function init_nav_menus(){
 	register_nav_menus( array(
-		'toolbar_menu' => __('顶部导航', 'argon'),
-		'leftbar_menu' => __('左侧栏菜单', 'argon'),
-		'leftbar_author_links' => __('左侧栏作者个人链接', 'argon'),
-		'leftbar_friend_links' => __('左侧栏友情链接', 'argon')
+		'toolbar_menu' => __('顶部导航', 'lyrargon'),
+		'leftbar_menu' => __('左侧栏菜单', 'lyrargon'),
+		'leftbar_author_links' => __('左侧栏作者个人链接', 'lyrargon'),
+		'leftbar_friend_links' => __('左侧栏友情链接', 'lyrargon')
 	));
 }
 
@@ -3103,18 +3131,18 @@ function init_nav_menus(){
 add_action('init', 'init_shuoshuo');
 function init_shuoshuo(){
 	$labels = array(
-		'name' => __('说说', 'argon'),
-		'singular_name' => __('说说', 'argon'),
-		'add_new' => __('发表说说', 'argon'),
-		'add_new_item' => __('发表说说', 'argon'),
-		'edit_item' => __('编辑说说', 'argon'),
-		'new_item' => __('新说说', 'argon'),
-		'view_item' => __('查看说说', 'argon'),
-		'search_items' => __('搜索说说', 'argon'),
-		'not_found' => __('暂无说说', 'argon'),
-		'not_found_in_trash' => __('没有已遗弃的说说', 'argon'),
+		'name' => __('说说', 'lyrargon'),
+		'singular_name' => __('说说', 'lyrargon'),
+		'add_new' => __('发表说说', 'lyrargon'),
+		'add_new_item' => __('发表说说', 'lyrargon'),
+		'edit_item' => __('编辑说说', 'lyrargon'),
+		'new_item' => __('新说说', 'lyrargon'),
+		'view_item' => __('查看说说', 'lyrargon'),
+		'search_items' => __('搜索说说', 'lyrargon'),
+		'not_found' => __('暂无说说', 'lyrargon'),
+		'not_found_in_trash' => __('没有已遗弃的说说', 'lyrargon'),
 		'parent_item_colon' => '',
-		'menu_name' => __('说说', 'argon')
+		'menu_name' => __('说说', 'lyrargon')
 	);
 	$args = array(
 		'labels' => $labels,
@@ -3139,7 +3167,7 @@ function init_shuoshuo(){
 }
 
 function argon_get_search_post_type_array(){
-	$search_filters_type = get_option("argon_search_filters_type", "*post,*page,shuoshuo");
+	$search_filters_type = get_option("lyrargon_search_filters_type", "*post,*page,shuoshuo");
 	$search_filters_type = explode(',', $search_filters_type);
 	if (!isset($_GET['post_type'])) {
 		$default = array_filter($search_filters_type, function ($str) {	return $str[0] == '*'; });
@@ -3163,7 +3191,7 @@ function search_filter($query) {
 	if (!$query -> is_search || is_admin()) {
 		return $query;
 	}
-	if (get_option('argon_enable_search_filters', 'true') == 'false'){
+	if (get_option('lyrargon_enable_search_filters', 'true') == 'false'){
 		return $query;
 	}
 	$query -> set('post_type', argon_get_search_post_type_array());
@@ -3176,15 +3204,15 @@ add_filter('pre_option_link_manager_enabled', '__return_true');
 
 /*登录界面 CSS*/
 function argon_login_page_style() {
-	wp_enqueue_style("argon_login_css", $GLOBALS['assets_path'] . "/login.css", null, $GLOBALS['theme_version']);
+	wp_enqueue_style("lyrargon_login_css", $GLOBALS['assets_path'] . "/login.css", null, $GLOBALS['theme_version']);
 }
-if (get_option('argon_enable_login_css') == 'true'){
-	add_action('login_head', 'argon_login_page_style');
+if (get_option('lyrargon_enable_login_css') == 'true'){
+	add_action('login_head', 'lyrargon_login_page_style');
 }
 
 // 注入自定义表情包
 function argon_inject_custom_emojis($emotionListDefault) {
-    $custom_emojis = get_option('argon_custom_emojis', array());
+    $custom_emojis = get_option('lyrargon_custom_emojis', array());
     if (!empty($custom_emojis) && is_array($custom_emojis)) {
         foreach ($custom_emojis as $pack) {
             $emotionListDefault[] = $pack;
@@ -3192,4 +3220,4 @@ function argon_inject_custom_emojis($emotionListDefault) {
     }
     return $emotionListDefault;
 }
-add_filter('argon_emotion_list', 'argon_inject_custom_emojis');
+add_filter('lyrargon_emotion_list', 'lyrargon_inject_custom_emojis');

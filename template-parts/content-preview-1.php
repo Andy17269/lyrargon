@@ -1,9 +1,9 @@
-<article class="post card bg-white shadow-sm border-0 <?php if (get_option('argon_enable_into_article_animation') == 'true'){echo 'post-preview';} ?>" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article class="post card bg-white shadow-sm border-0 <?php if (get_option('lyrargon_enable_into_article_animation') == 'true'){echo 'post-preview';} ?>" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="post-header text-center<?php if (argon_has_post_thumbnail()){echo " post-header-with-thumbnail";}?>">
 		<?php
 			if (argon_has_post_thumbnail()){
 				$thumbnail_url = argon_get_post_thumbnail();
-				if (get_option('argon_enable_lazyload') != 'false'){
+				if (get_option('lyrargon_enable_lazyload') != 'false'){
 					echo "<img class='post-thumbnail lazyload' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABBJREFUeNpi+P//PwNAgAEACPwC/tuiTRYAAAAASUVORK5CYII=' data-original='" . $thumbnail_url . "' alt='thumbnail' style='opacity: 0;'></img>";
 				}else{
 					echo "<img class='post-thumbnail' src='" . $thumbnail_url . "'></img>";
@@ -14,7 +14,7 @@
 		<a class="post-title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		<div class="post-meta">
 			<?php
-				$metaList = explode('|', get_option('argon_article_meta', 'time|views|comments|categories'));
+				$metaList = explode('|', get_option('lyrargon_article_meta', 'time|views|comments|categories'));
 				if (is_sticky() && is_home() && ! is_paged()){
 					array_unshift($metaList, "sticky");
 				}
@@ -33,7 +33,7 @@
 				$post_content_full = apply_filters('the_content', preg_replace( '<!--more(.*?)-->', '', $post -> post_content));
 				$post_content_with_more = apply_filters('the_content', $post -> post_content);
 			?>
-			<?php if (!post_password_required() && get_option("argon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) {
+			<?php if (!post_password_required() && get_option("lyrargon_show_readingtime") != "false" && is_readingtime_meta_hidden() == False) {
 				echo get_article_reading_time_meta($post_content_full);
 			} ?>
 		</div>
@@ -45,21 +45,21 @@
 	</header>
 
 	<?php
-		$trim_words_count = get_option('argon_trim_words_count', 175);
+		$trim_words_count = get_option('lyrargon_trim_words_count', 175);
 	?>
 	<?php if ($trim_words_count > 0){ ?>
 		<div class="post-content">
 			<?php
-				if (get_option("argon_hide_shortcode_in_preview") == 'true'){
+				if (get_option("lyrargon_hide_shortcode_in_preview") == 'true'){
 					$preview = wp_trim_words(do_shortcode(get_the_content('...')), $trim_words_count);
 				}else{
 					$preview = wp_trim_words(get_the_content('...'), $trim_words_count);
 				}
 				if (post_password_required()){
-					$preview = __("这篇文章受密码保护，输入密码才能阅读", 'argon');
+					$preview = __("这篇文章受密码保护，输入密码才能阅读", 'lyrargon');
 				}
 				if ($preview == ""){
-					$preview = __("这篇文章没有摘要", 'argon');
+					$preview = __("这篇文章没有摘要", 'lyrargon');
 				}
 				if ($post -> post_excerpt){
 					$preview = $post -> post_excerpt;

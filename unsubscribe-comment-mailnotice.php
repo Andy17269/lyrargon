@@ -4,30 +4,30 @@
 	$id = intval($_GET['comment'] ?? -1);
 	$token = $_GET['token'] ?? "";
 	if ($id == -1) {
-		$page_title = __('参数错误', 'argon');
-		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("错误", 'argon');
-		$info = __("提供的参数错误", 'argon');
+		$page_title = __('参数错误', 'lyrargon');
+		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("错误", 'lyrargon');
+		$info = __("提供的参数错误", 'lyrargon');
 	}
 	else if (get_comment($id) == null){
-		$page_title = __('评论不存在', 'argon');
-		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("错误", 'argon');
-		$info = __("评论 #", 'argon') . $id . __(" 不存在", 'argon');
+		$page_title = __('评论不存在', 'lyrargon');
+		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("错误", 'lyrargon');
+		$info = __("评论 #", 'lyrargon') . $id . __(" 不存在", 'lyrargon');
 	}
 	else if (get_comment_meta($id, "enable_mailnotice", true) != "true"){
-		$page_title = __('无需退订', 'argon');
-		$title = "<i class='fa fa-info-circle' style='color: #11cdef;margin-right: 12px;'></i>" . __("无需退订", 'argon');
-		$info = __("评论 #", 'argon') . $id . __(" 的邮件通知已被退订或没有开启邮件通知", 'argon');
+		$page_title = __('无需退订', 'lyrargon');
+		$title = "<i class='fa fa-info-circle' style='color: #11cdef;margin-right: 12px;'></i>" . __("无需退订", 'lyrargon');
+		$info = __("评论 #", 'lyrargon') . $id . __(" 的邮件通知已被退订或没有开启邮件通知", 'lyrargon');
 	}
 	else if ($token != get_comment_meta($id, "mailnotice_unsubscribe_key", true)){
-		$page_title = __('退订失败', 'argon');
-		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("退订失败", 'argon');
-		$info = __("Token 不正确", 'argon');
+		$page_title = __('退订失败', 'lyrargon');
+		$title = "<i class='fa fa-close' style='color: #f5365c;margin-right: 12px;'></i>" . __("退订失败", 'lyrargon');
+		$info = __("Token 不正确", 'lyrargon');
 	}
 	else{
 		update_comment_meta($id, "enable_mailnotice", "false");
-		$page_title = __('退订成功', 'argon');
-		$title = "<i class='fa fa-check' style='color: #2dce89;margin-right: 12px;'></i>" . __("退订成功", 'argon');
-		$info = __("您已成功退订评论 #", 'argon') . $id . __(" 的邮件通知<br>该评论下有新回复时您将不会再收到通知", 'argon');
+		$page_title = __('退订成功', 'lyrargon');
+		$title = "<i class='fa fa-check' style='color: #2dce89;margin-right: 12px;'></i>" . __("退订成功", 'lyrargon');
+		$info = __("您已成功退订评论 #", 'lyrargon') . $id . __(" 的邮件通知<br>该评论下有新回复时您将不会再收到通知", 'lyrargon');
 	}
 ?>
 <html>

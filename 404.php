@@ -9,9 +9,9 @@
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/vendor/bootstrap/bootstrap.min.js"></script>
 	<script src="<?php bloginfo('template_url'); ?>/assets/js/argon.min.js"></script>
-	<title><?php _e("404 - 找不到页面", "argon"); ?></title>
+	<title><?php _e("404 - 找不到页面", "lyrargon"); ?></title>
 	<script>
-		var darkmodeAutoSwitch = "<?php echo (get_option("argon_darkmode_autoswitch") == '' ? 'false' : get_option("argon_darkmode_autoswitch"));?>";
+		var darkmodeAutoSwitch = "<?php echo (get_option("lyrargon_darkmode_autoswitch") == '' ? 'false' : get_option("lyrargon_darkmode_autoswitch"));?>";
 		function setDarkmode(enable){
 			if (enable == true){
 				$("html").addClass("darkmode");
@@ -99,18 +99,18 @@
 					<div class="row">
 						<div class="col-lg-6 col-sm-12">
 							<div class="display-1 text-white">404</div>
-							<p class="lead text-white">Page not found.<br><?php _e("这个页面不见了", "argon"); ?></p>
+							<p class="lead text-white">Page not found.<br><?php _e("这个页面不见了", "lyrargon"); ?></p>
 							<div class="btn-wrapper">
 								<a href="javascript:window.history.back(-1);" ondragstart="return false;" class="btn btn-white btn-icon mb-3 mb-sm-0">
 									<span class="btn-inner--icon"><i class="fa fa-chevron-left"></i></span>
-									<span class="btn-inner--text"><?php _e("返回上一页", "argon"); ?></span>
+									<span class="btn-inner--text"><?php _e("返回上一页", "lyrargon"); ?></span>
 								</a>
 								<a href="<?php bloginfo('url'); ?>" class="btn btn-white btn-icon mb-3 mb-sm-0">
 									<span class="btn-inner--icon"><i class="fa fa-home"></i></span>
-									<span class="btn-inner--text"><?php _e("回到首页", "argon"); ?></span>
+									<span class="btn-inner--text"><?php _e("回到首页", "lyrargon"); ?></span>
 								</a>
 							</div>
-							<?php echo apply_filters('argon_404page_extra_html', ''); ?>
+							<?php echo apply_filters('lyrargon_404page_extra_html', ''); ?>
 						</div>
 					</div>
 				</div>
@@ -122,10 +122,10 @@
 
 <style>
 <?php
-	$themecolor = get_option("argon_theme_color", "#2196f3");
-	if (get_option('argon_show_customize_theme_color_picker') == 'true'){
-		if (isset($_COOKIE["argon_custom_theme_color"]) && $_COOKIE["argon_custom_theme_color"] != ""){
-			$themecolor = $_COOKIE["argon_custom_theme_color"];
+	$themecolor = get_option("lyrargon_theme_color", "#2196f3");
+	if (get_option('lyrargon_show_customize_theme_color_picker') == 'true'){
+		if (isset($_COOKIE["lyrargon_custom_theme_color"]) && $_COOKIE["lyrargon_custom_theme_color"] != ""){
+			$themecolor = $_COOKIE["lyrargon_custom_theme_color"];
 		}
 	}
 ?>
@@ -135,7 +135,7 @@
 	html:not(.darkmode) .section-shaped .shape {
 		background: <?php echo $themecolor; ?>;
 	}
-<?php if (get_option('argon_enable_large_radius') == 'true') { ?>
+<?php if (get_option('lyrargon_enable_large_radius') == 'true') { ?>
 	.btn {
 		border-radius: 50rem !important;
 	}

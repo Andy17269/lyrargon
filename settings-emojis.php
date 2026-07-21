@@ -21,8 +21,8 @@ function argon_emoji_manager_page() {
 
     // 处理删除操作
     if (isset($_POST['delete_emoji_pack']) && isset($_POST['emoji_pack_index'])) {
-        check_admin_referer('argon_delete_emoji', 'argon_emoji_nonce');
-        $custom_emojis = get_option('argon_custom_emojis', array());
+        check_admin_referer('lyrargon_delete_emoji', 'lyrargon_emoji_nonce');
+        $custom_emojis = get_option('lyrargon_custom_emojis', array());
         $index = intval($_POST['emoji_pack_index']);
         if (isset($custom_emojis[$index])) {
             $folder_name = $custom_emojis[$index]['folder'];
@@ -39,14 +39,14 @@ function argon_emoji_manager_page() {
             // 从配置中删除
             unset($custom_emojis[$index]);
             $custom_emojis = array_values($custom_emojis);
-            update_option('argon_custom_emojis', $custom_emojis);
+            update_option('lyrargon_custom_emojis', $custom_emojis);
             $messages[] = '<div class="updated"><p>表情包已删除。</p></div>';
         }
     }
 
     // 处理上传操作
     if (isset($_POST['upload_emoji_pack']) && isset($_FILES['emoji_zip'])) {
-        check_admin_referer('argon_upload_emoji', 'argon_emoji_nonce');
+        check_admin_referer('lyrargon_upload_emoji', 'lyrargon_emoji_nonce');
         
         $file = $_FILES['emoji_zip'];
         if ($file['error'] === UPLOAD_ERR_OK) {
@@ -133,7 +133,7 @@ function argon_emoji_manager_page() {
                                     $messages[] = '<div class="error"><p>config.json 中存在重复的 sticker code，已拒绝安装！</p></div>';
                                 } else {
                                     // --- 安全检查：检测是否已有同名表情包 ---
-                                    $existing_emojis = get_option('argon_custom_emojis', array());
+                                    $existing_emojis = get_option('lyrargon_custom_emojis', array());
                                     $duplicate_groupname = false;
                                     foreach ($existing_emojis as $existing_pack) {
                                         if (isset($existing_pack['groupname']) && $existing_pack['groupname'] === $config['groupname']) {
@@ -170,9 +170,9 @@ function argon_emoji_manager_page() {
                                         
                                         // 存入数据库
                                         $config['folder'] = $folder_name;
-                                        $custom_emojis = get_option('argon_custom_emojis', array());
+                                        $custom_emojis = get_option('lyrargon_custom_emojis', array());
                                         $custom_emojis[] = $config;
-                                        update_option('argon_custom_emojis', $custom_emojis);
+                                        update_option('lyrargon_custom_emojis', $custom_emojis);
                                         
                                         $messages[] = '<div class="updated"><p>表情包“' . esc_html($config['groupname']) . '”已安装。</p></div>';
                                     }
@@ -195,12 +195,12 @@ function argon_emoji_manager_page() {
     // 处理编辑表情包名称
     if (isset($_POST['edit_emoji_name']) && isset($_POST['emoji_pack_index']) && isset($_POST['emoji_groupname'])) {
         $edit_index = intval($_POST['emoji_pack_index']);
-        check_admin_referer('argon_edit_emoji_' . $edit_index, 'argon_emoji_edit_nonce');
+        check_admin_referer('lyrargon_edit_emoji_' . $edit_index, 'lyrargon_emoji_edit_nonce');
         $new_name = trim(wp_unslash($_POST['emoji_groupname']));
-        $custom_emojis_temp = get_option('argon_custom_emojis', array());
+        $custom_emojis_temp = get_option('lyrargon_custom_emojis', array());
         if (isset($custom_emojis_temp[$edit_index]) && !empty($new_name)) {
             $custom_emojis_temp[$edit_index]['groupname'] = $new_name;
-            update_option('argon_custom_emojis', $custom_emojis_temp);
+            update_option('lyrargon_custom_emojis', $custom_emojis_temp);
             $messages[] = '<div class="updated"><p>表情包名称已更新。</p></div>';
         } else {
             $messages[] = '<div class="error"><p>名称不能为空！</p></div>';
@@ -210,8 +210,8 @@ function argon_emoji_manager_page() {
     // 处理编辑表情 src
     if (isset($_POST['edit_emoji_stickers']) && isset($_POST['emoji_pack_index']) && isset($_POST['sticker'])) {
         $edit_index = intval($_POST['emoji_pack_index']);
-        check_admin_referer('argon_edit_emoji_' . $edit_index, 'argon_emoji_edit_nonce');
-        $custom_emojis_temp = get_option('argon_custom_emojis', array());
+        check_admin_referer('lyrargon_edit_emoji_' . $edit_index, 'lyrargon_emoji_edit_nonce');
+        $custom_emojis_temp = get_option('lyrargon_custom_emojis', array());
         if (isset($custom_emojis_temp[$edit_index]) && is_array($_POST['sticker'])) {
             $sticker_updates = $_POST['sticker'];
             $updated = false;
@@ -229,13 +229,13 @@ function argon_emoji_manager_page() {
                 }
             }
             if ($updated) {
-                update_option('argon_custom_emojis', $custom_emojis_temp);
+                update_option('lyrargon_custom_emojis', $custom_emojis_temp);
                 $messages[] = '<div class="updated"><p>表情图片已更新。</p></div>';
             }
         }
     }
 
-    $custom_emojis = get_option('argon_custom_emojis', array());
+    $custom_emojis = get_option('lyrargon_custom_emojis', array());
     ?>
     <style>
         .argon-emojis-page {
@@ -618,7 +618,7 @@ function argon_emoji_manager_page() {
 
             <div class="argon-emoji-edit-form-wrap">
                 <form method="post" action="?page=argon_emoji_manager&edit_pack=<?php echo $edit_index; ?>">
-                    <?php wp_nonce_field('argon_edit_emoji_' . $edit_index, 'argon_emoji_edit_nonce'); ?>
+                    <?php wp_nonce_field('lyrargon_edit_emoji_' . $edit_index, 'lyrargon_emoji_edit_nonce'); ?>
                     <input type="hidden" name="emoji_pack_index" value="<?php echo $edit_index; ?>" />
 
                     <div class="edit-field">
@@ -685,7 +685,7 @@ function argon_emoji_manager_page() {
                                             <div class="argon-emojis-actions">
                                                 <a href="?page=argon_emoji_manager&edit_pack=<?php echo $index; ?>" class="argon-emojis-link-edit">编辑</a>
                                                 <form class="argon-emojis-delete-form" method="post" action="" style="display:inline;" onsubmit="return confirm('确定要删除此表情包及相关文件吗？');">
-                                                    <?php wp_nonce_field('argon_delete_emoji', 'argon_emoji_nonce'); ?>
+                                                    <?php wp_nonce_field('lyrargon_delete_emoji', 'lyrargon_emoji_nonce'); ?>
                                                     <input type="hidden" name="emoji_pack_index" value="<?php echo $index; ?>" />
                                                     <button type="submit" name="delete_emoji_pack" class="button-link-delete">删除</button>
                                                 </form>
@@ -704,7 +704,7 @@ function argon_emoji_manager_page() {
                     <h2>添加新表情包</h2>
                 </div>
                 <form class="argon-emojis-upload" method="post" action="" enctype="multipart/form-data">
-                    <?php wp_nonce_field('argon_upload_emoji', 'argon_emoji_nonce'); ?>
+                    <?php wp_nonce_field('lyrargon_upload_emoji', 'lyrargon_emoji_nonce'); ?>
                     <p>
                         <input type="file" name="emoji_zip" accept=".zip" required />
                     </p>
