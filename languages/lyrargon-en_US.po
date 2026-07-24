@@ -1,0 +1,3145 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: argon\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-22 15:27+0800\n"
+"PO-Revision-Date: 2022-02-14 19:14+0800\n"
+"Last-Translator: \n"
+"Language-Team: solstice23\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n;_nx\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets\n"
+"X-Poedit-SearchPathExcluded-1: languages\n"
+"X-Poedit-SearchPathExcluded-2: theme-update-checker\n"
+"X-Poedit-SearchPathExcluded-3: argontheme.js\n"
+"X-Poedit-SearchPathExcluded-4: gutenberg\n"
+
+#: functions.php:41
+msgid "Lyrargon"
+msgstr "Lyrargon"
+
+#: functions.php:41
+msgid "Lyrargon 选项"
+msgstr "Argon Options"
+
+#: functions.php:42
+msgid "Lyrargon 表情管理"
+msgstr "Lyrargon Emoji Manager"
+
+#: functions.php:42
+msgid "表情管理"
+msgstr "Emoji Manager"
+
+#: functions.php:43
+msgid "从 Argon 迁移"
+msgstr "Migrate from Argon"
+
+#: shuoshuo.php:13 inc/features.php:20 inc/features.php:21 inc/features.php:31
+msgid "说说"
+msgstr "Essays"
+
+#: shuoshuo.php:21
+msgid "条说说"
+msgstr "Essays"
+
+#: 404.php:12
+msgid "404 - 找不到页面"
+msgstr "404 - Page Not Found"
+
+#: 404.php:102
+msgid "这个页面不见了"
+msgstr "Please check if the URL is correct."
+
+#: 404.php:106 template-parts/content-none-tag.php:9
+#: template-parts/content-none-search.php:13
+msgid "返回上一页"
+msgstr "Back"
+
+#: 404.php:110
+msgid "回到首页"
+msgstr "Home"
+
+#: inc/shortcodes.php:621 settings.php:1196
+msgid "参考"
+msgstr "References"
+
+#: inc/widgets.php:6
+msgid "左侧栏小工具"
+msgstr "Left sidebar widget"
+
+#: inc/widgets.php:8
+msgid "左侧栏小工具 (如果设置会在侧栏增加一个 Tab)"
+msgstr "Left sidebar widget (if set, a Tab will be added to the sidebar)"
+
+#: inc/widgets.php:17
+msgid "右侧栏小工具"
+msgstr "Right sidebar widget"
+
+#: inc/widgets.php:19
+msgid "右侧栏小工具 (在 \"Lyrargon 主题选项\" 中选择 \"三栏布局\" 才会显示)"
+msgstr ""
+"Right sidebar widget (only displayed when \"three-column layout\" is "
+"selected in \"Argon Theme Options\")"
+
+#: inc/widgets.php:28 inc/widgets.php:30
+msgid "站点概览额外内容"
+msgstr "Extra content of site overview"
+
+#: inc/features.php:6
+msgid "顶部导航"
+msgstr "Toolbar Menu"
+
+#: inc/features.php:7
+msgid "左侧栏菜单"
+msgstr "Left Sidebar Menu"
+
+#: inc/features.php:8
+msgid "左侧栏作者个人链接"
+msgstr "Left Sidebar Author Links"
+
+#: inc/features.php:9
+msgid "左侧栏友情链接"
+msgstr "Left Sidebar Friend Links"
+
+#: inc/features.php:22 inc/features.php:23
+msgid "发表说说"
+msgstr "Post a essay"
+
+#: inc/features.php:24
+msgid "编辑说说"
+msgstr "Edit essay"
+
+#: inc/features.php:25
+msgid "新说说"
+msgstr "Add new essay"
+
+#: inc/features.php:26
+msgid "查看说说"
+msgstr "View essay"
+
+#: inc/features.php:27
+msgid "搜索说说"
+msgstr "Search essays"
+
+#: inc/features.php:28
+msgid "暂无说说"
+msgstr "No essays"
+
+#: inc/features.php:29
+msgid "没有已遗弃的说说"
+msgstr "No trashed essays"
+
+#: inc/metabox.php:7 settings.php:1137
+msgid "显示字数和预计阅读时间"
+msgstr "Display word count and estimated reading time"
+
+#: inc/metabox.php:10 inc/metabox.php:24 inc/metabox.php:32
+msgid "跟随全局设置"
+msgstr "Follow general"
+
+#: inc/metabox.php:11 settings.php:1012 settings.php:1022 settings.php:1033
+#: settings.php:1098 settings.php:1142 settings.php:1209 settings.php:1220
+#: settings.php:1374 settings.php:1434 settings.php:1912 settings.php:1928
+#: settings.php:2160
+msgid "不显示"
+msgstr "Hide"
+
+#: inc/metabox.php:13
+msgid "是否显示字数和预计阅读时间 Meta 信息"
+msgstr "Show meta of word count and estimated reading time"
+
+#: inc/metabox.php:14
+msgid "Meta 中隐藏发布时间和分类"
+msgstr "Hide post time and categories in meta"
+
+#: inc/metabox.php:17 settings.php:1772
+msgid "不隐藏"
+msgstr "Show"
+
+#: inc/metabox.php:18 settings.php:855 settings.php:1773
+msgid "隐藏"
+msgstr "Hide"
+
+#: inc/metabox.php:20
+msgid "适合特定的页面，例如友链页面。开启后文章 Meta 的第一行只显示阅读数和评论数。"
+msgstr ""
+"For special pages, like friend links page. If this option is on, the first "
+"line of the meta will only show the number of reading and comments."
+
+#: inc/metabox.php:21
+msgid "使用文章中第一张图作为头图"
+msgstr "Use the first image of article as the thumbnail by default"
+
+#: inc/metabox.php:25
+msgid "使用"
+msgstr "Use"
+
+#: inc/metabox.php:26 settings.php:740 settings.php:1570
+msgid "不使用"
+msgstr "Do not use"
+
+#: inc/metabox.php:28
+msgid "显示文章过时信息"
+msgstr "Show Article Outdated Information"
+
+#: inc/metabox.php:33
+msgid "一直显示"
+msgstr "Always"
+
+#: inc/metabox.php:34
+msgid "永不显示"
+msgstr "Never"
+
+#: inc/metabox.php:36
+msgid "应用"
+msgstr "Apply"
+
+#: inc/metabox.php:38
+msgid "单独控制该文章的过时信息显示。"
+msgstr ""
+"Separately control the display of outdated information for this article."
+
+#: inc/metabox.php:39 settings.php:1234 settings.php:1236
+msgid "文末附加内容"
+msgstr "Additional Content After Post"
+
+#: inc/metabox.php:42
+msgid "给该文章设置单独的文末附加内容，留空则跟随全局，设为 <code>--none--</code> 则不显示。"
+msgstr ""
+"Set a additional content at the end of the article, leave it blank to follow"
+" the global setting, set it to <code>--none--</code> to not display it."
+
+#: inc/metabox.php:43
+msgid "自定义 CSS"
+msgstr "Custom CSS"
+
+#: inc/metabox.php:46
+msgid "给该文章添加单独的 CSS"
+msgstr "Custom CSS for this page."
+
+#: inc/metabox.php:82 inc/metabox.php:91
+msgid "应用失败"
+msgstr "failed"
+
+#: inc/metabox.php:86
+msgid "应用成功"
+msgstr "Successfully applied"
+
+#: inc/metabox.php:99
+msgid "文章设置"
+msgstr "Article Settings"
+
+#: inc/comments.php:113
+msgid "该评论为悄悄话"
+msgstr "This comment is private"
+
+#: inc/comments.php:174
+msgid "最初版本"
+msgstr "First Edition"
+
+#: inc/comments.php:218
+msgid "查看图片"
+msgstr "Show Image"
+
+#: inc/comments.php:287 unsubscribe-comment-mailnotice.php:12
+msgid "评论不存在"
+msgstr "Comment not found."
+
+#: inc/comments.php:295
+msgid "该评论已被赞过"
+msgstr "This comment has been voted"
+
+#: inc/comments.php:304 inc/helpers.php:42
+msgid "点赞成功"
+msgstr "Vote success"
+
+#: inc/comments.php:354 inc/comments.php:413
+msgid "博主"
+msgstr "Owner"
+
+#: inc/comments.php:358 inc/post-media.php:361
+#: template-parts/content-shuoshuo-preview.php:24
+#: template-parts/content-shuoshuo.php:16
+#: template-parts/content-shuoshuo-details.php:16
+msgctxt "pinned"
+msgid "置顶"
+msgstr "Pinned"
+
+#: inc/comments.php:361 comments.php:188
+msgid "悄悄话"
+msgstr "Private Comment"
+
+#: inc/comments.php:364 inc/comments.php:416
+msgid "待审核"
+msgstr "Pending"
+
+#: inc/comments.php:373
+msgid "已编辑"
+msgstr "Edited"
+
+#: inc/comments.php:377
+msgid "前"
+msgstr " ago"
+
+#: inc/comments.php:390
+msgid "取消置顶"
+msgstr "Unpin"
+
+#: inc/comments.php:392
+msgctxt "to pin"
+msgid "置顶"
+msgstr "Pin"
+
+#: inc/comments.php:396 comments.php:201
+msgid "编辑"
+msgstr "Edit"
+
+#: inc/comments.php:398
+msgid "回复"
+msgstr "Reply"
+
+#: inc/post-media.php:169
+msgid "这是一个加密页面，需要密码来查看"
+msgstr "This page requires a password to view"
+
+#: inc/post-media.php:328
+msgid "几秒读完"
+msgstr "Few seconds"
+
+#: inc/post-media.php:331
+msgid "1 分钟内"
+msgstr "A minute"
+
+#: inc/post-media.php:334
+msgid "分钟"
+msgstr "minutes"
+
+#: inc/post-media.php:336
+msgid "小时"
+msgstr "hour"
+
+#: inc/post-media.php:367
+msgid "需要密码"
+msgstr "Password Required"
+
+#: inc/post-media.php:373 inc/post-media.php:381
+msgid "发布于"
+msgstr "Posted at"
+
+#: inc/post-media.php:373 inc/post-media.php:381
+msgid "编辑于"
+msgstr "Edited at"
+
+#: inc/post-media.php:432
+#, php-format
+msgid "包含 %d 行代码"
+msgstr "Includes %d lines of code"
+
+#: inc/post-media.php:436
+msgid "字"
+msgstr "Words"
+
+#: inc/helpers.php:33
+msgid "该说说已被赞过"
+msgstr "This essay has been voted"
+
+#: inc/comments-ajax.php:93
+msgid "验证码错误"
+msgstr "CAPTCHA Wrong"
+
+#: inc/comments-ajax.php:140
+msgid "不能回复其他人的悄悄话评论"
+msgstr "Cannot reply to other's private comments"
+
+#: inc/comments-ajax.php:270 inc/comments-ajax.php:271
+msgid "您在"
+msgstr "Your Comment on"
+
+#: inc/comments-ajax.php:270 inc/comments-ajax.php:271
+msgid "的评论有了新的回复"
+msgstr "Has a New Reply"
+
+#: inc/comments-ajax.php:287
+msgid "回复了你"
+msgstr "Replys"
+
+#: inc/comments-ajax.php:298
+msgid "前往查看"
+msgstr "View"
+
+#: inc/comments-ajax.php:315
+msgid "退订该评论的邮件提醒"
+msgstr "Unsubscribe"
+
+#: inc/comments-ajax.php:398
+msgid "博主关闭了编辑评论功能"
+msgstr "Comment editing unavailable"
+
+#: inc/comments-ajax.php:407
+msgid "您不是这条评论的作者或 Token 已过期"
+msgstr "You are not the author of this comment or the token has expired"
+
+#: inc/comments-ajax.php:413
+msgid "新的评论为空"
+msgstr "New comment is empty"
+
+#: inc/comments-ajax.php:439
+msgid "编辑评论成功"
+msgstr "Comment Edited"
+
+#: inc/comments-ajax.php:447
+msgid "编辑评论失败，可能原因: 与原评论相同"
+msgstr "Failed, possible reason: same as old comment"
+
+#: inc/comments-ajax.php:459
+msgid "博主关闭了评论置顶功能"
+msgstr "Comment pinning unavailable"
+
+#: inc/comments-ajax.php:465
+msgid "您没有权限进行此操作"
+msgstr "You have no permission to do this"
+
+#: inc/comments-ajax.php:474
+msgid "评论已经是置顶状态"
+msgstr "The comment is already pinned"
+
+#: inc/comments-ajax.php:474
+msgid "评论已经是取消置顶状态"
+msgstr "The comment is already unpinned"
+
+#: inc/comments-ajax.php:480
+msgid "不能置顶子评论"
+msgstr "Cannot pin a sub-comment"
+
+#: inc/comments-ajax.php:486
+msgid "不能置顶悄悄话"
+msgstr "Cannot pin a private comment"
+
+#: inc/comments-ajax.php:492
+msgid "置顶评论成功"
+msgstr "Pinned successfully"
+
+#: inc/comments-ajax.php:492
+msgid "取消置顶成功"
+msgstr "Unpinned successfully"
+
+#: inc/core.php:3
+msgid "Lyrargon 主题不支持 Wordpress 4.4 以下版本，请更新 Wordpress"
+msgstr ""
+"Argon theme does not support Wordpress version below 4.4, please update "
+"Wordpress"
+
+#: msgboard.php:42
+msgid "留言板"
+msgstr "Message Board"
+
+#: msgboard.php:53
+msgid "发送留言"
+msgstr "Send Message"
+
+#: unsubscribe-comment-mailnotice.php:7
+msgid "参数错误"
+msgstr "Wrong parameters"
+
+#: unsubscribe-comment-mailnotice.php:8 unsubscribe-comment-mailnotice.php:13
+msgid "错误"
+msgstr "Error"
+
+#: unsubscribe-comment-mailnotice.php:9
+msgid "提供的参数错误"
+msgstr "Wrong parameters were given."
+
+#: unsubscribe-comment-mailnotice.php:14 unsubscribe-comment-mailnotice.php:19
+msgid "评论 #"
+msgstr "Comment #"
+
+#: unsubscribe-comment-mailnotice.php:14
+msgid " 不存在"
+msgstr "not found"
+
+#: unsubscribe-comment-mailnotice.php:17 unsubscribe-comment-mailnotice.php:18
+msgid "无需退订"
+msgstr "No Need To Unsubscribe"
+
+#: unsubscribe-comment-mailnotice.php:19
+msgid " 的邮件通知已被退订或没有开启邮件通知"
+msgstr " is already unsubscribed."
+
+#: unsubscribe-comment-mailnotice.php:22 unsubscribe-comment-mailnotice.php:23
+msgid "退订失败"
+msgstr "Unsubscribe Failed"
+
+#: unsubscribe-comment-mailnotice.php:24
+msgid "Token 不正确"
+msgstr "Wrong Token."
+
+#: unsubscribe-comment-mailnotice.php:28 unsubscribe-comment-mailnotice.php:29
+msgid "退订成功"
+msgstr "Unsubscribed"
+
+#: unsubscribe-comment-mailnotice.php:30
+msgid "您已成功退订评论 #"
+msgstr "Email notification of comment #"
+
+#: unsubscribe-comment-mailnotice.php:30
+msgid " 的邮件通知<br>该评论下有新回复时您将不会再收到通知"
+msgstr " is unsubscribed successfully."
+
+#: settings.php:381
+msgid "搜索设置..."
+msgstr "Search Settings..."
+
+#: settings.php:418 settings.php:1587 settings.php:1588 settings.php:2356
+msgid "展开"
+msgstr "Show"
+
+#: settings.php:469
+msgid "全局"
+msgstr "General"
+
+#: settings.php:471
+msgid "界面语言"
+msgstr "Interface Language"
+
+#: settings.php:475
+msgid "跟随 WordPress"
+msgstr "Follow WordPress"
+
+#: settings.php:476
+msgid "简体中文"
+msgstr "Simplified Chinese"
+
+#: settings.php:477
+msgid "繁體中文"
+msgstr "Traditional Chinese"
+
+#: settings.php:478
+msgid "English"
+msgstr "English"
+
+#: settings.php:480
+msgid "默认跟随 WordPress 站点语言。请注意，若选择除简体中文以外的语言，中国（大陆）的本地化加速/功能可能无法正常工作。"
+msgstr ""
+"By default it follows the WordPress site language. Note that if you choose a"
+" language other than Simplified Chinese, China (mainland) localization "
+"acceleration/features may not work properly."
+
+#: settings.php:483 header.php:638
+msgid "主题色"
+msgstr "Theme Color"
+
+#: settings.php:485
+msgid "主题颜色"
+msgstr "Theme Color"
+
+#: settings.php:489
+msgid "选择预置颜色 或"
+msgstr "Choose preset colors or"
+
+#: settings.php:489
+msgid "自定义色值"
+msgstr "custom color"
+
+#: settings.php:490
+msgid "预置颜色："
+msgstr "Presets"
+
+#: settings.php:492
+msgid "默认"
+msgstr "Default"
+
+#: settings.php:493
+msgid "粉"
+msgstr "Pink"
+
+#: settings.php:494
+msgid "水鸭青"
+msgstr "Teal"
+
+#: settings.php:495
+msgid "蓝灰"
+msgstr "Bluegrey"
+
+#: settings.php:496
+msgid "天蓝"
+msgstr "Blue"
+
+#: settings.php:497
+msgid "靛蓝"
+msgstr "Indigo"
+
+#: settings.php:498
+msgid "橙"
+msgstr "Orange"
+
+#: settings.php:499
+msgid "绿"
+msgstr "Green"
+
+#: settings.php:500
+msgid "红"
+msgstr "Red"
+
+#: settings.php:501
+msgid "紫"
+msgstr "Purple"
+
+#: settings.php:502
+msgid "黑"
+msgstr "Black"
+
+#: settings.php:503
+msgid "棕"
+msgstr "Brown"
+
+#: settings.php:505
+msgid "主题色与 \"Banner 渐变背景样式\" 选项搭配使用效果更佳"
+msgstr ""
+"Use this option with \"Banner gradient background style\" for better effects"
+
+#: settings.php:534
+msgid "允许用户自定义主题色（位于博客浮动操作栏设置菜单中）"
+msgstr "Allow custom theme color (at blog floating settings menu)"
+
+#: settings.php:540
+msgid "沉浸式主题色"
+msgstr "Immersive theme color"
+
+#: settings.php:544 settings.php:825 settings.php:866 settings.php:1891
+#: settings.php:2183
+msgid "开启"
+msgstr "Enabled"
+
+#: settings.php:545 settings.php:597 settings.php:824 settings.php:865
+#: settings.php:1248 settings.php:1890 settings.php:2182 header.php:624
+msgid "关闭"
+msgstr "Disabled"
+
+#: settings.php:547
+msgid "开启后，主题色将会全局沉浸。<br/>页面背景、卡片及页面上的其它元素会变为沉浸式主题色（气氛色）。类似 Material You。"
+msgstr ""
+"If turn it on, the theme color will be globally immersed. </br>The "
+"background, cards, and other elements on the page change to the immersive "
+"theme color. Just like Material You."
+
+#: settings.php:556 header.php:594 header.php:603
+msgid "夜间模式"
+msgstr "Dark Mode"
+
+#: settings.php:558
+msgid "夜间模式切换方案"
+msgstr "Darkmode Toggle Plan"
+
+#: settings.php:562
+msgid "默认使用日间模式"
+msgstr "Lightmode as default"
+
+#: settings.php:563
+msgid "默认使用夜间模式"
+msgstr "Darkmode as default"
+
+#: settings.php:564
+msgid "跟随系统夜间模式"
+msgstr "Follow system"
+
+#: settings.php:565
+msgid "根据时间切换夜间模式 (22:00 ~ 7:00)"
+msgstr "Toggle by time (22.p.m to 7.a.m)"
+
+#: settings.php:567
+msgid "Lyrargon 主题会根据这里的选项来决定是否默认使用夜间模式。"
+msgstr ""
+"Theme will decide whether to use darkmode by default according to the "
+"options here."
+
+#: settings.php:567
+msgid "用户也可以手动切换夜间模式，用户的设置将保留到标签页关闭为止。"
+msgstr ""
+"Users can also manually switch the darkmode, and the user's settings will be"
+" retained until the tab is closed."
+
+#: settings.php:571
+msgid "夜间模式颜色方案"
+msgstr "Darkmode Color Scheme"
+
+#: settings.php:575
+msgid "灰黑"
+msgstr "Dark Grey"
+
+#: settings.php:576
+msgid "暗黑 (AMOLED Black)"
+msgstr "Black (For AMOLED)"
+
+#: settings.php:578
+msgid "夜间模式默认的配色方案。"
+msgstr "The default color scheme of darkmode."
+
+#: settings.php:581
+msgid "卡片"
+msgstr "Cards"
+
+#: settings.php:583
+msgid "组件圆角"
+msgstr "Component Rounded Corners"
+
+#: settings.php:587
+msgid "开启圆角组件"
+msgstr "Enable Rounded Components"
+
+#: settings.php:589
+msgid "开启后将把搜索框、按钮等组件变为胶囊形，将小部件变为圆形。"
+msgstr ""
+"After enabling, search boxes, buttons and other components will become pill-"
+"shaped, and widgets will become circular."
+
+#: settings.php:593
+msgid "卡片毛玻璃效果 (Lite)"
+msgstr "Toolbar Blur Effect"
+
+#: settings.php:598
+msgid "弱"
+msgstr "Weak"
+
+#: settings.php:599 settings.php:1654
+msgid "中"
+msgstr "function"
+
+#: settings.php:600
+msgid "强"
+msgstr "Strong"
+
+#: settings.php:602
+msgid "为卡片添加半透明的毛玻璃模糊效果，开启后有微小的性能损耗。"
+msgstr ""
+"Adds a semi-transparent frosted-glass blur effect to cards. Enabling it "
+"incurs a small performance cost."
+
+#: settings.php:606
+msgid "卡片圆角大小"
+msgstr "Card radius"
+
+#: settings.php:609
+msgid "卡片的圆角大小，默认为"
+msgstr "The default radius of card, default is"
+
+#: settings.php:609
+msgid "。建议设置为"
+msgstr ". Recommend :"
+
+#: settings.php:613
+msgid "卡片阴影"
+msgstr "Card Shadow"
+
+#: settings.php:619 header.php:618
+msgid "浅阴影"
+msgstr "Small"
+
+#: settings.php:623 header.php:618
+msgid "深阴影"
+msgstr "Large"
+
+#: settings.php:626
+msgid "卡片默认阴影大小。"
+msgstr "Default shadow size of cards."
+
+#: settings.php:629 settings.php:700 settings.php:706 settings.php:712
+msgid "布局"
+msgstr "Layouts"
+
+#: settings.php:631
+msgid "页面布局"
+msgstr "Page Layout"
+
+#: settings.php:638
+msgid "双栏"
+msgstr "Double-Column"
+
+#: settings.php:644
+msgid "单栏"
+msgstr "Single-Column"
+
+#: settings.php:650
+msgid "三栏"
+msgstr "Triple-Column"
+
+#: settings.php:656
+msgid "双栏(反转)"
+msgstr "Double-Column (Reverse)"
+
+#: settings.php:658
+msgid "使用单栏时，关于左侧栏的设置将失效。"
+msgstr ""
+"If using single column mod, the settings about the left sidebar will take no"
+" effect."
+
+#: settings.php:658
+msgid "使用三栏时，请前往 \"外观-小工具\" 设置页面配置右侧栏内容。"
+msgstr ""
+"If using three columns, please go to the \"Appearance - Widgets\" setting "
+"page to configure the content of the right column."
+
+#: settings.php:662
+msgid "文章列表布局"
+msgstr "Article list layout"
+
+#: settings.php:669
+msgid "单列"
+msgstr "Single Column"
+
+#: settings.php:675
+msgid "瀑布流 (2 列)"
+msgstr "Waterfall (2 Columns)"
+
+#: settings.php:681
+msgid "瀑布流 (3 列)"
+msgstr "Waterfall (3 Columns)"
+
+#: settings.php:687
+msgid "瀑布流 (列数自适应)"
+msgstr "Waterfall (Adaptive)"
+
+#: settings.php:689
+msgid "列数自适应的瀑布流会根据可视区宽度自动调整瀑布流列数。"
+msgstr ""
+"The adaptive waterfall will automatically adjust the count of columns "
+"according to the width of the view."
+
+#: settings.php:689
+msgid "建议只有使用单栏页面布局时才开启 3 列瀑布流。"
+msgstr ""
+"It is recommended to enable the 3-column waterfall flow only when using "
+"single-column page layout."
+
+#: settings.php:689
+msgid "所有瀑布流布局都会在屏幕宽度过小时变为单列布局。"
+msgstr ""
+"All waterfall layouts will change to single-column when the screen is too "
+"narrow."
+
+#: settings.php:693
+msgid "文章列表卡片布局"
+msgstr "Article list card layout"
+
+#: settings.php:716 header.php:610
+msgid "字体"
+msgstr "Font"
+
+#: settings.php:718
+msgid "默认字体"
+msgstr "Default Font"
+
+#: settings.php:731
+msgid "默认使用无衬线字体/衬线字体。"
+msgstr "Default font style"
+
+#: settings.php:742
+msgid "自定义..."
+msgstr "Custom..."
+
+#: settings.php:745
+msgid "选择主题资源文件的引用地址。使用 CDN 可以加速资源文件的访问并减少服务器压力。"
+msgstr ""
+"The address of the theme resource file. Using CDN can speed up access to "
+"resource files and reduce server pressure."
+
+#: settings.php:746
+msgid "在自定义路径中使用 <code>%theme_version%</code> 来表示主题版本号。"
+msgstr ""
+"Use <code>%theme_version%</code> in the custom path to represent the theme "
+"version number."
+
+#: settings.php:760
+msgid "子目录"
+msgstr "Sub Path"
+
+#: settings.php:762
+msgid "Wordpress 安装目录"
+msgstr "WordPress Installation Directory"
+
+#: settings.php:765
+msgid "如果 Wordpress 安装在子目录中，请在此填写子目录地址（例如"
+msgstr ""
+"If Wordpress is installed in a subdirectory, please fill in the subdirectory"
+" address here (for example"
+
+#: settings.php:765
+msgid "），注意前后各有一个斜杠。默认为"
+msgstr "), there is a slash before and after each. The default is"
+
+#: settings.php:765
+msgid "。"
+msgstr "."
+
+#: settings.php:765
+msgid "如果不清楚该选项的用处，请保持默认。"
+msgstr "If you don't know about this option, keep the default."
+
+#: settings.php:768 settings.php:770
+msgid "日期格式"
+msgstr "Date Format"
+
+#: settings.php:781
+msgid "顶栏"
+msgstr "Toolbar"
+
+#: settings.php:782
+msgid "状态"
+msgstr "Status"
+
+#: settings.php:784
+msgid "顶栏显示状态"
+msgstr "Toolbar Display Status"
+
+#: settings.php:788
+msgid "始终固定悬浮"
+msgstr "Fixed"
+
+#: settings.php:789
+msgid "滚动时自动折叠"
+msgstr "Collapse when scrolling"
+
+#: settings.php:790
+msgid "不固定"
+msgstr "Absolute"
+
+#: settings.php:792
+msgid "始终固定悬浮: 永远固定悬浮在页面最上方"
+msgstr "Fixed: Always show on the top of the page"
+
+#: settings.php:792
+msgid "滚动时自动折叠: 在页面向下滚动时隐藏顶栏，向上滚动时显示顶栏"
+msgstr ""
+"Collapse when scrolling: hide the top bar when the page is scrolling down, "
+"and show the top bar when scrolling up"
+
+#: settings.php:792
+msgid "不固定: 只有在滚动到页面最顶端时才显示顶栏"
+msgstr ""
+"Absolute: The top bar is only displayed when scrolled to the top of the page"
+
+#: settings.php:795 settings.php:1264
+msgid "标题"
+msgstr "Title"
+
+#: settings.php:797
+msgid "顶栏标题"
+msgstr "Toolbar Title"
+
+#: settings.php:800
+msgid "留空则显示博客名称，输入 <code>--hidden--</code> 可以隐藏标题"
+msgstr ""
+"Leave it blank to display the blog name, enter <code>--hidden--</code> to "
+"hide the title"
+
+#: settings.php:803
+msgid "顶栏图标"
+msgstr "Toolbar Icon"
+
+#: settings.php:805
+msgid "图标地址"
+msgstr "Icon URL"
+
+#: settings.php:808
+msgid "图片地址，留空则不显示"
+msgstr "The URL of the icon, if this option is empty, it will not show."
+
+#: settings.php:812
+msgid "图标链接"
+msgstr "Icon Link"
+
+#: settings.php:815
+msgid "点击图标后会跳转到的链接，留空则不跳转"
+msgstr ""
+"The link that will jump to when clicking the icon, if this option is empty, "
+"it will not jump when clicking."
+
+#: settings.php:818 settings.php:846 settings.php:1367
+msgid "外观"
+msgstr "Appearance"
+
+#: settings.php:820
+msgid "顶栏毛玻璃效果"
+msgstr "Toolbar Blur Effect"
+
+#: settings.php:827
+msgid "开启会带来微小的性能损失。"
+msgstr "There will be a small performance loss if turned it on."
+
+#: settings.php:830
+msgid "顶部 Banner (封面)"
+msgstr "Banner"
+
+#: settings.php:831
+msgid "内容"
+msgstr "Content"
+
+#: settings.php:833
+msgid "Banner 标题"
+msgstr "Banner Title"
+
+#: settings.php:836 settings.php:965
+msgid "留空则显示博客名称"
+msgstr "If this option is empty, theme will show the blog name."
+
+#: settings.php:840
+msgid "Banner 副标题"
+msgstr "Banner Subtitle"
+
+#: settings.php:843
+msgid "显示在 Banner 标题下，留空则不显示"
+msgstr ""
+"Show below the banner title, if this option is empty, it will not show."
+
+#: settings.php:848
+msgid "Banner 显示状态"
+msgstr "Banner Size"
+
+#: settings.php:852
+msgid "完整"
+msgstr "Full"
+
+#: settings.php:853
+msgid "迷你"
+msgstr "Mini"
+
+#: settings.php:854
+msgid "全屏"
+msgstr "Full screen"
+
+#: settings.php:857
+msgid "完整: Banner 高度占用半屏"
+msgstr "Full: Banner takes up half the screen height"
+
+#: settings.php:857
+msgid "迷你: 减小 Banner 的内边距"
+msgstr "Mini: Reduce the padding of the banner"
+
+#: settings.php:857
+msgid "全屏: Banner 占用全屏作为封面（仅在首页生效）"
+msgstr ""
+"Full screen: Banner occupies the full screen as the cover (only active on "
+"the homepage)"
+
+#: settings.php:857
+msgid "隐藏: 完全隐藏 Banner"
+msgstr "Hide: Hide Banner"
+
+#: settings.php:861
+msgid "Banner 透明化"
+msgstr "Banner Transparent"
+
+#: settings.php:871
+msgid "在顶栏添加浅色遮罩，Banner 标题添加阴影（当背景过亮影响文字阅读时勾选）"
+msgstr ""
+"Add a light overlay to the top bar and a shadow to the Banner title (check "
+"when the background is too bright to read the text)."
+
+#: settings.php:874
+msgid "Banner 透明化可以使博客背景沉浸。建议在设置背景时开启此选项。该选项仅会在设置页面背景时生效。"
+msgstr ""
+"Banner transparent option can immerse the blog background. It is recommended"
+" to enable this option when setting the background. This option will only "
+"take effect when setting the page background."
+
+#: settings.php:874
+msgid "开启后，Banner 背景图和渐变背景选项将失效。"
+msgstr "When turned on, the Banner background options will be disabled."
+
+#: settings.php:878
+msgid "Banner 背景图 (地址)"
+msgstr "Banner Background URL"
+
+#: settings.php:881
+msgid "需带上 http(s) ，留空则显示默认背景"
+msgstr "With http(s) prefix, leave it blank to show the default background."
+
+#: settings.php:881 settings.php:972
+msgid "输入"
+msgstr "Input"
+
+#: settings.php:881
+msgid "调用必应每日一图"
+msgstr "to use everyday background of Bing."
+
+#: settings.php:885
+msgid "Banner 渐变背景样式"
+msgstr "Banner gradient background style"
+
+#: settings.php:889 settings.php:890 settings.php:891 settings.php:892
+#: settings.php:893 settings.php:894 settings.php:895 settings.php:904
+#: settings.php:905 settings.php:906 settings.php:907 settings.php:908
+#: settings.php:909 settings.php:910
+msgid "样式"
+msgstr "Style"
+
+#: settings.php:899
+msgid "隐藏背景半透明圆"
+msgstr "Hide background semi-transparent circle"
+
+#: settings.php:901
+msgid "如果设置了背景图则不生效"
+msgstr "If the background image is set, it will not take effect"
+
+#: settings.php:902
+msgid "样式预览 (推荐选择前三个样式)"
+msgstr "Style preview (recommended to choose the first three styles)"
+
+#: settings.php:919 settings.php:1678
+msgid "动画"
+msgstr "Animation"
+
+#: settings.php:921
+msgid "Banner 标题打字动画"
+msgstr "Banner Title Typing Animation"
+
+#: settings.php:925 settings.php:1401 settings.php:1443 settings.php:1475
+#: settings.php:1698 settings.php:2032 settings.php:2091 settings.php:2140
+msgid "不启用"
+msgstr "Disabled"
+
+#: settings.php:926 settings.php:1187 settings.php:1402 settings.php:1444
+#: settings.php:1529 settings.php:1581 settings.php:1602 settings.php:1699
+#: settings.php:1761 settings.php:1795 settings.php:1902 settings.php:1957
+#: settings.php:1969 settings.php:2028 settings.php:2090 settings.php:2141
+msgid "启用"
+msgstr "Enabled"
+
+#: settings.php:928
+msgid "启用后 Banner 标题会以打字的形式出现。"
+msgstr "When enabled, the Banner title will appear as typing effect."
+
+#: settings.php:932
+msgid "Banner 标题打字动画时长"
+msgstr "Banner Title Typing Animation Speed"
+
+#: settings.php:934
+msgid "ms/字"
+msgstr "ms/letter"
+
+#: settings.php:938 settings.php:940
+msgid "页面背景"
+msgstr "Page Background"
+
+#: settings.php:943
+msgid "页面背景的地址，需带上 http(s)。留空则不设置页面背景。如果设置了背景，推荐开启 Banner 透明化。"
+msgstr ""
+"The URL of the page background, with http(s) prefix. Leave it blank to not "
+"set the page background. If the background is set. If background is set, it "
+"is recommended to turn on Banner Transparent."
+
+#: settings.php:947
+msgid "页面背景（夜间模式时）"
+msgstr "Page Background (Darkmode)"
+
+#: settings.php:950
+msgid ""
+"夜间模式时页面背景的地址，需带上 http(s)。设置后日间模式和夜间模式会使用不同的背景。留空则跟随日间模式背景。该选项仅在设置了日间模式背景时生效。"
+msgstr ""
+"The URL of the page background at darkmode, with http(s) prefix. If set, day"
+" mode and night mode will use different backgrounds. Leave blank to follow "
+"the background of day mode. This option only takes effect when the day mode "
+"background is set."
+
+#: settings.php:954
+msgid "背景不透明度"
+msgstr "Background Opacity"
+
+#: settings.php:957
+msgid "0 ~ 1 的小数，越小透明度越高，默认为 1 不透明"
+msgstr ""
+"Decimal from 0 to 1, the smaller the higher the transparency, the default is"
+" 1."
+
+#: settings.php:960
+msgid "左侧栏"
+msgstr "Left Sidebar"
+
+#: settings.php:962
+msgid "左侧栏标题"
+msgstr "Left Sidebar Title"
+
+#: settings.php:969
+msgid "左侧栏子标题（格言）"
+msgstr "Left Sidebar Subtitle"
+
+#: settings.php:972 settings.php:993
+msgid "留空则不显示"
+msgstr "Leave blank to not show."
+
+#: settings.php:972
+msgid "调用一言 API"
+msgstr "to use Hitokoto API."
+
+#: settings.php:976
+msgid "左侧栏作者名称"
+msgstr "Left Sidebar Author Name"
+
+#: settings.php:979
+msgid "留空则显示博客名"
+msgstr "If this option is empty, theme will show the blog name."
+
+#: settings.php:983
+msgid "左侧栏作者头像地址"
+msgstr "Left Sidebar Author Avatar URL"
+
+#: settings.php:986
+msgid "需带上 http(s) 开头"
+msgstr "With http(s) prefix"
+
+#: settings.php:990
+msgid "左侧栏作者简介"
+msgstr "Left Sidebar Author Description"
+
+#: settings.php:996
+msgid "博客公告"
+msgstr "Blog Announcement"
+
+#: settings.php:998
+msgid "公告内容"
+msgstr "Announcement Content"
+
+#: settings.php:1001
+msgid "显示在左侧栏顶部，留空则不显示，支持 HTML 标签"
+msgstr ""
+"Display at the top of the left sidebar, leave blank to not display, HTML "
+"tags are supported."
+
+#: settings.php:1004
+msgid "浮动操作按钮"
+msgstr "Float Action Buttons"
+
+#: settings.php:1005
+msgid "浮动操作按钮位于页面右下角（或左下角）"
+msgstr ""
+"Floating action buttons is placed in the right bottom corner (or lower left "
+"corner) of the page."
+
+#: settings.php:1007
+msgid "显示设置按钮"
+msgstr "Show Settings Button"
+
+#: settings.php:1011 settings.php:1023 settings.php:1034 settings.php:1094
+#: settings.php:1141 settings.php:1221 settings.php:1373 settings.php:1433
+#: settings.php:1927 settings.php:2161
+msgid "显示"
+msgstr "Show"
+
+#: settings.php:1014
+msgid "是否在浮动操作按钮栏中显示设置按钮。点击设置按钮可以唤出设置菜单修改夜间模式/字体/滤镜等外观选项。"
+msgstr ""
+"Whether to display the setting button in the floating action buttons bar. "
+"Click the settings button to call up the settings menu to modify appearance "
+"options such as darkmode/font/filter."
+
+#: settings.php:1018
+msgid "显示夜间模式切换按钮"
+msgstr "Display Darkmode Switch Button"
+
+#: settings.php:1025
+msgid "如果开启了设置按钮显示，建议关闭此选项。（夜间模式选项在设置菜单中已经存在）"
+msgstr ""
+"If the setting button display option is turned on, it is recommended to turn"
+" off this option. (The darkmode option already exists in the settings menu)"
+
+#: settings.php:1029
+msgid "显示跳转到评论按钮"
+msgstr "Show Jump To Comment Area Button"
+
+#: settings.php:1036
+msgid "仅在允许评论的文章中显示"
+msgstr "Only show in articles that allow comments"
+
+#: settings.php:1041
+msgid "网站描述 (Description Meta 标签)"
+msgstr "SEO Description Meta"
+
+#: settings.php:1044
+msgid "设置针对搜索引擎的 Description Meta 标签内容。"
+msgstr "Set the description meta content for the search engine spiders."
+
+#: settings.php:1044
+msgid ""
+"在文章中，Lyrargon 会自动根据文章内容生成描述。在其他页面中，Lyrargon 将使用这里设置的内容。如不填，Lyrargon "
+"将不会在其他页面输出 Description Meta 标签。"
+msgstr ""
+"In the article, Argon will automatically generate a description based on the"
+" content of the article. In other pages, Argon will use the content set "
+"here. If you leave it blank, Argon will not output Description Meta tags on "
+"other pages."
+
+#: settings.php:1048
+msgid "搜索引擎关键词（Keywords Meta 标签）"
+msgstr "SEO Keywords Meta tag"
+
+#: settings.php:1051
+msgid "设置针对搜索引擎使用的关键词（Keywords Meta 标签内容）。用英文逗号隔开。不设置则不输出该 Meta 标签。"
+msgstr ""
+"Set keyword meta tags for search engine spiders. Separate with commas. If "
+"not set, the meta tags will not be output."
+
+#: settings.php:1054 sidebar.php:134
+msgid "文章"
+msgstr "Articles"
+
+#: settings.php:1055
+msgid "文章 Meta 信息"
+msgstr "Article Meta Information"
+
+#: settings.php:1057
+msgid "第一行"
+msgstr "First Line"
+
+#: settings.php:1092
+msgid "拖动来自定义文章 Meta 信息的显示和顺序"
+msgstr ""
+"Drag to customize the display and order of the meta information of the "
+"article."
+
+#: settings.php:1100 settings.php:1260 settings.php:1344
+msgid "发布时间"
+msgstr "Post time"
+
+#: settings.php:1101 settings.php:1261
+msgid "修改时间"
+msgstr "Edit time"
+
+#: settings.php:1102
+msgid "浏览量"
+msgstr "Views"
+
+#: settings.php:1103
+msgid "评论数"
+msgstr "Comments"
+
+#: settings.php:1104
+msgid "所属分类"
+msgstr "Categories"
+
+#: settings.php:1105 settings.php:1265
+msgid "作者"
+msgstr "Author"
+
+#: settings.php:1135
+msgid "第二行"
+msgstr "Second Line"
+
+#: settings.php:1147
+msgid "每分钟阅读字数（中文）"
+msgstr "Number of CJK words read per minute"
+
+#: settings.php:1150
+msgid "字/分钟"
+msgstr "words/minute"
+
+#: settings.php:1155
+msgid "每分钟阅读单词数（英文）"
+msgstr "Number of English words read per minute"
+
+#: settings.php:1158
+msgid "单词/分钟"
+msgstr "words/minute"
+
+#: settings.php:1162
+msgid "每分钟阅读代码行数"
+msgstr "Number of Code lines read per minute"
+
+#: settings.php:1165
+msgid "行/分钟"
+msgstr "lines/minute"
+
+#: settings.php:1166
+msgid "预计阅读时间由每分钟阅读字数计算"
+msgstr ""
+"Estimated reading time is calculated by the number of words read per minute"
+
+#: settings.php:1169
+msgid "文章头图 (特色图片)"
+msgstr "Featured Picture"
+
+#: settings.php:1171
+msgid "文章头图的位置"
+msgstr "Featured Picture Position"
+
+#: settings.php:1175
+msgid "文章卡片顶端"
+msgstr "Top of article card"
+
+#: settings.php:1176
+msgid "Banner (顶部背景)"
+msgstr "Banner Background"
+
+#: settings.php:1178
+msgid "阅读界面中文章头图的位置"
+msgstr "The position of the article header image in the article page"
+
+#: settings.php:1182
+msgid "默认使用文章中第一张图作为头图"
+msgstr "Use the first image of article as the thumbnail by default"
+
+#: settings.php:1186 settings.php:1530 settings.php:1582 settings.php:1603
+#: settings.php:1637 settings.php:1710 settings.php:1762 settings.php:1794
+#: settings.php:1901 settings.php:1956 settings.php:1970 settings.php:2223
+#: settings.php:2234
+msgid "禁用"
+msgstr "Disabled"
+
+#: settings.php:1189
+msgid "也可以针对每篇文章单独设置"
+msgstr "Also can be set separately for every article."
+
+#: settings.php:1192
+msgid "脚注(引用)"
+msgstr "Footnote (References)"
+
+#: settings.php:1194
+msgid "脚注列表标题"
+msgstr "Footnote List Title"
+
+#: settings.php:1197
+msgid "脚注列表显示在文末，在文章中有脚注的时候会显示。<br/>使用 <code>ref</code> 短代码可以在文中插入脚注。"
+msgstr ""
+"The footnotes list is shown at the end of the post, and is displayed when "
+"there are footnotes in the article. </br> Use the <code>ref</code> shortcode"
+" to insert footnotes into the post."
+
+#: settings.php:1200 template-parts/share.php:53
+msgid "分享"
+msgstr "Share"
+
+#: settings.php:1202
+msgid "显示文章分享按钮"
+msgstr "Show Share Button"
+
+#: settings.php:1206
+msgid "显示全部社交媒体"
+msgstr "All social media"
+
+#: settings.php:1207
+msgid "显示国内社交媒体"
+msgstr "Chinese social media"
+
+#: settings.php:1208
+msgid "显示国外社交媒体"
+msgstr "Non-Chinese social media"
+
+#: settings.php:1214
+msgid "左侧栏文章目录"
+msgstr "Catalog In Left Sidebar"
+
+#: settings.php:1216
+msgid "在目录中显示序号"
+msgstr "Show chapter number in the catalog"
+
+#: settings.php:1223
+msgid "例：3.2.5"
+msgstr "For example: 3.2.5"
+
+#: settings.php:1226 template-parts/content-single.php:100
+msgid "赞赏"
+msgstr "Donate"
+
+#: settings.php:1228
+msgid "赞赏二维码图片链接"
+msgstr "Donating QR code image link"
+
+#: settings.php:1231
+msgid "赞赏二维码图片链接，填写后会在文章最后显示赞赏按钮，留空则不显示赞赏按钮"
+msgstr ""
+"After filling in, the donate button will be displayed at the end of the "
+"article, leave it blank to not display the donate button"
+
+#: settings.php:1239
+msgid "将会显示在每篇文章末尾，支持 HTML 标签，留空则不显示。"
+msgstr ""
+"Will be displayed at the end of each article, support HTML tags, leave it "
+"blank to not display."
+
+#: settings.php:1239
+msgid ""
+"使用 <code>%url%</code> 来代替当前页面 URL，<code>%link%</code> "
+"来代替当前页面链接，<code>%title%</code> 来代替当前文章标题，<code>%author%</code> 来代替当前文章作者。"
+msgstr ""
+"Use <code>%url%</code> to replace the current page URL, <code>%link%</code> "
+"to replace the current page link, and <code>%title%</code> to replace the "
+"current article title,< code>%author%</code> to replace the current article "
+"author."
+
+#: settings.php:1242 settings.php:1244
+msgid "相似文章推荐"
+msgstr "Related Posts Recommending"
+
+#: settings.php:1249
+msgid "根据分类推荐"
+msgstr "Recommend by categories"
+
+#: settings.php:1250
+msgid "根据标签推荐"
+msgstr "Recommend by tags"
+
+#: settings.php:1251
+msgid "根据分类和标签推荐"
+msgstr "Recommend by both tags and categories"
+
+#: settings.php:1252
+msgid "显示在文章卡片后"
+msgstr "The related posts card will be displayed after post."
+
+#: settings.php:1256
+msgid "排序依据"
+msgstr "Sort by"
+
+#: settings.php:1262
+msgid "阅读量"
+msgstr "Views"
+
+#: settings.php:1266
+msgid "随机"
+msgstr "Random"
+
+#: settings.php:1271
+msgid "顺序"
+msgstr "Order"
+
+#: settings.php:1275
+msgid "倒序"
+msgstr "DESC"
+
+#: settings.php:1276
+msgid "正序"
+msgstr "ASC"
+
+#: settings.php:1281
+msgid "推荐文章数"
+msgstr "Related Posts Limit"
+
+#: settings.php:1284
+msgid "最多推荐多少篇文章"
+msgstr "The limit number of related posts."
+
+#: settings.php:1287 settings.php:1289
+msgid "文章内标题样式"
+msgstr "Header style in articles"
+
+#: settings.php:1293 settings.php:1298
+msgid "默认样式"
+msgstr "Default Style"
+
+#: settings.php:1294 settings.php:1299
+msgid "样式 1"
+msgstr "Style 1"
+
+#: settings.php:1295 settings.php:1300
+msgid "样式 2"
+msgstr "Style 2"
+
+#: settings.php:1297
+msgid "样式预览"
+msgstr "Styles Preview"
+
+#: settings.php:1336
+msgid "其他"
+msgstr "Other"
+
+#: settings.php:1338
+msgid "文章过时信息显示"
+msgstr "Article outdated information"
+
+#: settings.php:1340
+msgid "当一篇文章的"
+msgstr "When the"
+
+#: settings.php:1343
+msgid "最后修改时间"
+msgstr "Last Modified Time"
+
+#: settings.php:1346
+msgid "距离现在超过"
+msgstr "of an article from now more then"
+
+#: settings.php:1348
+msgid "天时，用"
+msgstr "days, show a tip by"
+
+#: settings.php:1351
+msgid "在文章顶部显示信息条"
+msgstr "Showing a information bar at the top of the article"
+
+#: settings.php:1352
+msgid "在页面右上角弹出提示条"
+msgstr "Popping up a alert bar at the right top of the page"
+
+#: settings.php:1354
+msgid "的方式提示"
+msgstr "."
+
+#: settings.php:1356
+msgid "本文最后更新于 %date_delta% 天前，其中的信息可能已经有所发展或是发生改变。"
+msgstr ""
+"This article was last updated %date_delta% days ago. The information in it "
+"may have been changed."
+
+#: settings.php:1357
+msgid "天数为 -1 表示永不提示。"
+msgstr "Set days to -1 to never show it."
+
+#: settings.php:1357
+msgid "表示文章发布/修改时间与当前时间的差距，"
+msgstr ""
+"means the gap between the post/modify time of the article and the current "
+"time,"
+
+#: settings.php:1357
+msgid "表示文章发布时间与当前时间的差距，"
+msgstr ""
+"means the gap between the post time of the article and the current time,"
+
+#: settings.php:1357
+msgid "表示文章修改时间与当前时间的差距（单位: 天）。"
+msgstr ""
+"means the gap between the modify time of the article and the current time,"
+
+#: settings.php:1360
+msgid "归档页面"
+msgstr "Archive page"
+
+#: settings.php:1362
+msgid "介绍"
+msgstr "Description"
+
+#: settings.php:1364
+msgid "新建一个页面，并将其模板设为 \"归档时间轴\"，即可创建一个归档页面。归档页面会按照时间顺序在时间轴上列出博客的所有文章。"
+msgstr ""
+"Create a new page and set its template to \"Archive Timeline\" to create an "
+"archive page. The archive page will list all the blog posts on the timeline "
+"in chronological order."
+
+#: settings.php:1369
+msgid "在时间轴上显示月份"
+msgstr "Show month on timeline"
+
+#: settings.php:1376
+msgid "关闭后，时间轴只会按年份分节"
+msgstr "If disabled, the timeline will only be divided into sections by year"
+
+#: settings.php:1379
+msgid "配置"
+msgstr "Configuration"
+
+#: settings.php:1381
+msgid "归档页面链接"
+msgstr "Archive page link"
+
+#: settings.php:1384
+msgid "归档页面的 URL。点击左侧栏 \"博客概览\" 中的 \"博文总数\" 一栏时可跳转到该地址。"
+msgstr ""
+"The URL of the archive page. You can jump to this address when you click on "
+"the \"Total Number of Blog Posts\" column in the \"Blog Overview\" on the "
+"left column."
+
+#: settings.php:1387
+msgid "页脚"
+msgstr "Footer"
+
+#: settings.php:1389
+msgid "页脚内容"
+msgstr "Footer"
+
+#: settings.php:1392 settings.php:1668 settings.php:1675
+msgid "HTML , 支持 script 等标签"
+msgstr "HTML, script and other tags are supported."
+
+#: settings.php:1392 settings.php:1668 settings.php:1675
+msgid "安全提示：仅管理员可填写；此处内容存入数据库后会原样输出到前台，请仅填入可信代码。"
+msgstr ""
+"Security notice: only administrators may fill this in; the content is stored"
+" in the database and output to the front end as-is, so only enter trusted "
+"code."
+
+#: settings.php:1395
+msgid "代码高亮"
+msgstr "Code Highlight"
+
+#: settings.php:1397
+msgid "启用 Highlight.js 代码高亮"
+msgstr "Enable Highlight.js code highlighting"
+
+#: settings.php:1404
+msgid "所有 pre 下的 code 标签会被自动解析"
+msgstr "All code tags under pre will be automatically parsed"
+
+#: settings.php:1408
+msgid "高亮配色方案（主题）"
+msgstr "Highlight color scheme"
+
+#: settings.php:1429
+msgid "默认显示行号"
+msgstr "Show Line Numbers as Default"
+
+#: settings.php:1439
+msgid "默认启用自动折行"
+msgstr "Enable Line Break as Default"
+
+#: settings.php:1449
+msgid "行号背景透明"
+msgstr "Enable line number background transparent as Default"
+
+#: settings.php:1453
+msgid "不透明"
+msgstr "Opaque"
+
+#: settings.php:1454
+msgid "透明"
+msgstr "Transparent"
+
+#: settings.php:1456
+msgid "适用于某些背景渐变的高亮主题"
+msgstr "For some highlight themes which has gradient background."
+
+#: settings.php:1460
+msgid "如果您想使用其他代码高亮插件，而非 Lyrargon 自带高亮，请前往 \"杂项\" 打开 \"禁用 Lyrargon 代码块样式\" 来防止样式冲突"
+msgstr ""
+"If you want to use other code highlighting plugins instead of Argon's "
+"highlighting, go to the Misc section and turn on \"Disable Argon code block "
+"styles\" to prevent style conflicts"
+
+#: settings.php:1464
+msgid "数学公式"
+msgstr "Formulas Rendering"
+
+#: settings.php:1466
+msgid "数学公式渲染方案"
+msgstr "Formula rendering library"
+
+#: settings.php:1485 settings.php:1498 settings.php:1511
+msgid "地址"
+msgstr "URL"
+
+#: settings.php:1487 settings.php:1500
+msgid "，默认为"
+msgstr ", Default is"
+
+#: settings.php:1513
+msgid "Argon 会同时引用"
+msgstr "Argon will import both"
+
+#: settings.php:1513
+msgid "和"
+msgstr "and"
+
+#: settings.php:1513
+msgid "两个文件，所以在此填写的是上层的路径，而不是具体的文件。注意路径后要带一个斜杠。"
+msgstr ""
+"two files, so input the parent directory path in here, not the specific "
+"file. There is a slash after the path."
+
+#: settings.php:1513
+msgid "默认为"
+msgstr "Default is"
+
+#: settings.php:1525
+msgid "是否启用 Lazyload"
+msgstr "Enable Lazyload"
+
+#: settings.php:1532
+msgid "是否启用 Lazyload 加载文章内图片"
+msgstr "Lazyload will load images when the page is about to scroll to them."
+
+#: settings.php:1536
+msgid "提前加载阈值"
+msgstr "Lazyload threshold"
+
+#: settings.php:1539
+msgid "图片距离页面底部还有多少距离就开始提前加载"
+msgstr ""
+"The distance from the bottom of the screen when the image start loading."
+
+#: settings.php:1543
+msgid "LazyLoad 图片加载完成过渡"
+msgstr "Transition after the image is loaded"
+
+#: settings.php:1549
+msgid "不使用过渡"
+msgstr "No transitions"
+
+#: settings.php:1555
+msgid "LazyLoad 图片加载动效"
+msgstr "Lazyload Loading Animation"
+
+#: settings.php:1559 settings.php:1560 settings.php:1561 settings.php:1562
+#: settings.php:1563 settings.php:1564 settings.php:1565 settings.php:1566
+#: settings.php:1567 settings.php:1568 settings.php:1569
+msgid "加载动画"
+msgstr "Loading Animation"
+
+#: settings.php:1572
+msgid "在图片被加载之前显示的加载效果"
+msgstr "The loading animation displayed before the image is loaded."
+
+#: settings.php:1572
+msgid "预览所有效果"
+msgstr "Preview all animations"
+
+#: settings.php:1575
+msgid "图片放大浏览"
+msgstr "Image zooming in"
+
+#: settings.php:1577
+msgid "是否启用图片放大浏览 (Fancybox)"
+msgstr "Enable Fancybox"
+
+#: settings.php:1584
+msgid "开启后，文章中图片被单击时会放大预览"
+msgstr ""
+"If enabled, the image in the article will be enlarged and previewed when "
+"clicked"
+
+#: settings.php:1587 settings.php:2275
+msgid "收起"
+msgstr "Hide"
+
+#: settings.php:1588
+msgid "旧版图片放大浏览 (Zoomify) 设置"
+msgstr "Expand Zoomify Settings (Old) ▼"
+
+#: settings.php:1598
+msgid "是否启用旧版图片放大浏览 (Zoomify)"
+msgstr "Enable Zoomify"
+
+#: settings.php:1605
+msgid "Zoomify 和 Fancybox 不能同时开启。"
+msgstr "Zoomify and Fancybox cannot be enabled at the same time."
+
+#: settings.php:1609
+msgid "缩放动画长度"
+msgstr "Zooming Transition Duration"
+
+#: settings.php:1612
+msgid "图片被单击后缩放到全屏动画的时间长度"
+msgstr "The duration of the image is clicked to zoom to full screen animation"
+
+#: settings.php:1616
+msgid "缩放动画曲线"
+msgstr "Zooming Transition Timing Function"
+
+#: settings.php:1620
+msgid "例："
+msgstr "For example: "
+
+#: settings.php:1620
+msgid "如果你不知道这是什么，参考"
+msgstr "If you don‘t know what this is, see"
+
+#: settings.php:1620
+msgid "这里"
+msgstr "here"
+
+#: settings.php:1625
+msgid "图片最大缩放比例"
+msgstr "Image maximum zoom ratio"
+
+#: settings.php:1628
+msgid "图片相对于页面的最大缩放比例 (0 ~ 1 的小数)"
+msgstr ""
+"The maximum zoom ratio of the image relative to the page (decimal from 0 to "
+"1)"
+
+#: settings.php:1633
+msgid "启用 Pangu.js (自动在中英文之间添加空格)"
+msgstr ""
+"Enable Pangu.js (automatically add spaces between Chinese and English)"
+
+#: settings.php:1638
+msgid "格式化文章内容"
+msgstr "Format article content"
+
+#: settings.php:1639
+msgid "格式化说说"
+msgstr "Format essays"
+
+#: settings.php:1640
+msgid "格式化评论区"
+msgstr "Format comments"
+
+#: settings.php:1641
+msgid "格式化文章内容和评论区"
+msgstr "Format articles and comments"
+
+#: settings.php:1642
+msgid "格式化文章内容和说说"
+msgstr "Format articles and essays"
+
+#: settings.php:1643
+msgid "格式化说说和评论区"
+msgstr "Format essays and comments"
+
+#: settings.php:1644
+msgid "格式化文章内容、说说和评论区"
+msgstr "Format article, essays and comments"
+
+#: settings.php:1646
+msgid "开启后，会自动在中文和英文之间添加空格"
+msgstr ""
+"After opening, it will automatically add space between CJK Characters and "
+"English"
+
+#: settings.php:1649
+msgid "脚本"
+msgstr "Scripts"
+
+#: settings.php:1651
+msgid "注意"
+msgstr "Attention"
+
+#: settings.php:1653
+msgid "Lyrargon 使用 pjax 方式加载页面 (无刷新加载) , 所以除非页面手动刷新，否则您的脚本只会被执行一次。"
+msgstr ""
+"Argon uses Pjax to load the page (loading without refresh), so unless the "
+"page is manually refreshed, your script will only be executed once."
+
+#: settings.php:1654
+msgid "如果您想让每次页面跳转(加载新页面)时都执行脚本，请将脚本写入"
+msgstr ""
+"If you want to execute the script every time loading a new page, please "
+"write the script into"
+
+#: settings.php:1654
+msgid "示例写法"
+msgstr "For example"
+
+#: settings.php:1657
+msgid "页面每次跳转都会执行这里的代码"
+msgstr "The code here will be executed every time the page loads"
+
+#: settings.php:1661
+msgid "当页面第一次载入时，"
+msgstr "When the page loads for the first time, the script in"
+
+#: settings.php:1661
+msgid "中的脚本不会执行，所以您可以手动执行"
+msgstr "will not be executed, so you can manually execute"
+
+#: settings.php:1661
+msgid "来让页面初次加载时也执行脚本"
+msgstr "to execute the script when the page first loads."
+
+#: settings.php:1665
+msgid "页头脚本"
+msgstr "Header script"
+
+#: settings.php:1668
+msgid "插入到 body 之前"
+msgstr "Will be inserted before body"
+
+#: settings.php:1672
+msgid "页尾脚本"
+msgstr "Footer script"
+
+#: settings.php:1675
+msgid "插入到 body 之后"
+msgstr "Will be inserted after body"
+
+#: settings.php:1680
+msgid "是否启用平滑滚动"
+msgstr "Enable Smooth Scroll"
+
+#: settings.php:1684
+msgid "使用平滑滚动方案 1 (平滑) (推荐)"
+msgstr "Smooth Scroll Scheme 1 (Smooth)(Recommend)"
+
+#: settings.php:1685
+msgid "使用平滑滚动方案 1 (脉冲式滚动) (仿 Edge) (推荐)"
+msgstr "Smooth Scroll Scheme 1 (Impulsive, Edge like)(Recommend)"
+
+#: settings.php:1686
+msgid "使用平滑滚动方案 2 (较稳)"
+msgstr "Smooth Scroll Scheme 2"
+
+#: settings.php:1687
+msgid "使用平滑滚动方案 3"
+msgstr "Smooth Scroll Scheme 3"
+
+#: settings.php:1688
+msgid "不使用平滑滚动"
+msgstr "Disabled"
+
+#: settings.php:1690
+msgid "能增强浏览体验，但可能出现一些小问题，如果有问题请切换方案或关闭平滑滚动"
+msgstr ""
+"Can enhance the scrolling experience, but some minor problems may occur. If "
+"there is a problem, please switch the scheme or turn off smooth scrolling."
+
+#: settings.php:1694
+msgid "是否启用进入文章动画"
+msgstr "Enable Entering Article Animation"
+
+#: settings.php:1701
+msgid "从首页或分类目录进入文章时，使用平滑过渡（可能影响加载文章时的性能）"
+msgstr ""
+"Use transition when entering articles from the homepage or category "
+"directory (may affect the performance when loading articles)"
+
+#: settings.php:1705
+msgid "禁用 Pjax 加载后的页面滚动动画"
+msgstr "Disable Pjax Scroll Animation"
+
+#: settings.php:1709 settings.php:2222 settings.php:2233
+msgid "不禁用"
+msgstr "Do not disable"
+
+#: settings.php:1712
+msgid "Pjax 替换页面内容后会平滑滚动到页面顶部，如果你不喜欢，可以禁用这个选项"
+msgstr ""
+"After Pjax replaces page content it will smoothly scroll to the top of the "
+"page. If you don't like it, you can disable this option."
+
+#: settings.php:1715 comments.php:12 header.php:591
+#: template-parts/shuoshuo-operations.php:10
+msgid "评论"
+msgstr "Comments"
+
+#: settings.php:1716
+msgid "评论分页"
+msgstr "Comment pagination"
+
+#: settings.php:1718
+msgid "评论分页方式"
+msgstr "Comment pagination"
+
+#: settings.php:1722
+msgid "无限加载"
+msgstr "Append"
+
+#: settings.php:1723
+msgid "页码"
+msgstr "Page Number"
+
+#: settings.php:1726
+msgid "无限加载：点击 \"加载更多\" 按钮来加载更多评论。"
+msgstr "Append: Click the \"Load more\" button to load more comments."
+
+#: settings.php:1727
+msgid "页码：显示页码来分页。"
+msgstr "Page Number: Display the page number buttons."
+
+#: settings.php:1728
+msgid ""
+"选择\"无限加载\"时，如果开启了评论分页，请将 Wordpress 的讨论设置设为 "
+"\"默认显示<b>最后</b>一页，在每个页面顶部显示<b>新的</b>评论\"。"
+msgstr ""
+"When selecting \"Append\", it is recommended to set the discussion setting "
+"item in WordPress settings to \"Display the last page by default, and "
+"display new comments at the top of each page\"."
+
+#: settings.php:1728
+msgid "去设置"
+msgstr "Settings"
+
+#: settings.php:1755 comments.php:76
+msgid "发送评论"
+msgstr "Send Comment"
+
+#: settings.php:1757
+msgid "评论表情面板"
+msgstr "Comment Emotions Keyboard"
+
+#: settings.php:1764
+msgid "开启后评论支持插入表情，会在评论输入框下显示表情键盘按钮。"
+msgstr ""
+"When enabled, comments support inserting emoticons, and emoticon keyboard "
+"buttons will be displayed under the comment box."
+
+#: settings.php:1764
+msgid "如何添加新的表情或修改已有表情列表？"
+msgstr "How to add new emoticons or modify default emoticon list?"
+
+#: settings.php:1768
+msgid "是否隐藏 \"昵称\"、\"邮箱\"、\"网站\" 输入框"
+msgstr "Hide the \"name\", \"mail\", and \"website\" fields"
+
+#: settings.php:1775
+msgid ""
+"选项仅在 \"设置-评论-评论作者必须填入姓名和电子邮件地址\" 选项未勾选的前提下生效。如勾选了 \"评论作者必须填入姓名和电子邮件地址\"，则只有 "
+"\"网站\" 输入框会被隐藏。"
+msgstr ""
+"The option only takes effect if the option \"Settings-Comment-Comment author"
+" must fill in name and email address\" is not checked. If the \"Comment "
+"author must fill in the name and email address\" is checked, only the "
+"\"Website\" input box will be hidden."
+
+#: settings.php:1779
+msgid "评论是否需要验证码"
+msgstr "Comment CAPTCHA"
+
+#: settings.php:1783
+msgid "需要"
+msgstr "Required"
+
+#: settings.php:1784
+msgid "不需要"
+msgstr "Not Required"
+
+#: settings.php:1790
+msgid "使用 Ajax 获取评论验证码"
+msgstr "Get CAPTCHA by ajax"
+
+#: settings.php:1797
+msgid "如果使用了 CDN 缓存，验证码不会刷新，请开启此选项，否则请不要开启。"
+msgstr ""
+"If the CAPTCHA is cached by the CDN and will not be refreshed, enable this "
+"option, otherwise please do not enable it."
+
+#: settings.php:1801
+msgid "是否允许在评论中使用 Markdown 语法"
+msgstr "Allow Markdown In Comment"
+
+#: settings.php:1805 settings.php:1816 settings.php:1828 settings.php:1839
+#: settings.php:1856
+msgid "允许"
+msgstr "Allow"
+
+#: settings.php:1806 settings.php:1817 settings.php:1827 settings.php:1838
+#: settings.php:1855
+msgid "不允许"
+msgstr "Disallow"
+
+#: settings.php:1812
+msgid "是否允许评论者再次编辑评论"
+msgstr "Allow Comment Editing"
+
+#: settings.php:1819
+msgid "同一个评论者可以再次编辑评论。"
+msgstr "Commenter can edit the comment again."
+
+#: settings.php:1823
+msgid "是否允许评论者使用悄悄话模式"
+msgstr "Allow private comment mode"
+
+#: settings.php:1830
+msgid "评论者使用悄悄话模式发送的评论和其下的所有回复只有发送者和博主能看到。"
+msgstr ""
+"Only the sender and blog owner can see the comment sent using the private "
+"comment mode and all the replies under it."
+
+#: settings.php:1834
+msgid "是否允许评论者接收评论回复邮件提醒"
+msgstr "Allow comment reply email notification"
+
+#: settings.php:1844
+msgid "评论时默认勾选 \"启用邮件通知\" 复选框"
+msgstr "check the \"Enable Email Notification\" checkbox by default"
+
+#: settings.php:1847
+msgid "评论者开启邮件提醒后，其评论有回复时会有邮件通知。"
+msgstr ""
+"If the commenter enable the email notification, there will be an email "
+"notification when the comment has a reply."
+
+#: settings.php:1851
+msgid "允许评论者使用 QQ 头像"
+msgstr "Allow Using QQ Avatars"
+
+#: settings.php:1858
+msgid "开启后，评论者可以使用 QQ 号代替邮箱输入，头像会根据评论者的 QQ 号获取。"
+msgstr ""
+"If this option is enabled, commenters can use QQ number instead of email, "
+"and the avatar will auto get from the commenter‘s QQ number."
+
+#: settings.php:1861
+msgid "评论区"
+msgstr "Comments"
+
+#: settings.php:1863
+msgid "评论头像垂直位置"
+msgstr "Avatar vertical position"
+
+#: settings.php:1867
+msgid "居上"
+msgstr "Top"
+
+#: settings.php:1868
+msgid "居中"
+msgstr "Middle"
+
+#: settings.php:1874
+msgid "谁可以查看评论编辑记录"
+msgstr "Who can see comment edit history"
+
+#: settings.php:1878
+msgid "只有博主"
+msgstr "Only blog owner"
+
+#: settings.php:1879
+msgid "评论发送者和博主"
+msgstr "Comment sender and blog owner"
+
+#: settings.php:1880
+msgid "任何人"
+msgstr "Everyone"
+
+#: settings.php:1882
+msgid "点击评论右侧的 \"已编辑\" 标记来查看编辑记录"
+msgstr ""
+"Click the \"Edited\" mark on the right side of the comment to view the edit "
+"history"
+
+#: settings.php:1886
+msgid "开启评论置顶功能"
+msgstr "Enable comment pinning"
+
+#: settings.php:1893
+msgid "开启后，博主将可以置顶评论。已置顶的评论将会在评论区顶部显示。如果关闭，评论将以正常顺序显示。"
+msgstr ""
+"If enabled, blog owner can pin comments. Pinned comments will be displayed "
+"at the top of the comment block. If disabled, comments will appear in their "
+"normal order."
+
+#: settings.php:1897
+msgid "评论点赞"
+msgstr "Comment Upvoting"
+
+#: settings.php:1904
+msgid "开启后，每一条评论的头像下方会出现点赞按钮"
+msgstr "A upvote button will appear below the avatar of each comment."
+
+#: settings.php:1908
+msgid "评论者 UA 显示"
+msgstr "Show commenters' User Agent"
+
+#: settings.php:1913
+msgid "浏览器"
+msgstr "Browser"
+
+#: settings.php:1914
+msgid "浏览器+版本号"
+msgstr "Browser+Version"
+
+#: settings.php:1915
+msgid "平台+浏览器+版本号"
+msgstr "Platform+Browser+Version"
+
+#: settings.php:1916
+msgid "平台+浏览器"
+msgstr "Platform+Browser"
+
+#: settings.php:1917
+msgid "平台"
+msgstr "Platform"
+
+#: settings.php:1919
+msgid "设置是否在评论区显示评论者 UA 及显示哪些部分"
+msgstr ""
+"Whether to display the commenter's UA in the comment area and which parts "
+"are displayed"
+
+#: settings.php:1923
+msgid "在子评论中显示被回复者用户名"
+msgstr "Display respondent username in sub-comments"
+
+#: settings.php:1930
+msgid "开启后，被回复的评论者昵称会显示在子评论中，鼠标移上后会高亮被回复的评论"
+msgstr ""
+"When enabled, the commenter's nickname will be displayed in the sub-"
+"comments, and the commented will be highlighted when the mouse is moved up"
+
+#: settings.php:1934
+msgid "折叠过长评论"
+msgstr "Fold Long Comments"
+
+#: settings.php:1938 settings.php:2171
+msgid "不折叠"
+msgstr "Do not fold"
+
+#: settings.php:1939 settings.php:2172
+msgid "折叠"
+msgstr "Fold"
+
+#: settings.php:1941
+msgid "开启后，过长的评论会被折叠，需要手动展开"
+msgstr "After opening, comments that are too long will be collapsed"
+
+#: settings.php:1948
+msgid "使用 CDN 来加速 Gravatar 在某些地区的访问，填写 CDN 地址，留空则不使用。"
+msgstr ""
+"Use CDN to speed up Gravatar's access in some areas, fill in the CDN "
+"address, leave it blank to not use CDN."
+
+#: settings.php:1952
+msgid "评论文字头像"
+msgstr "Comment Text Avatar"
+
+#: settings.php:1959
+msgid ""
+"在评论者没有设置 Gravatar 时自动生成文字头像，头像颜色由邮箱哈希计算。生成时会在 Console 中抛出 404 错误，但没有影响。"
+msgstr ""
+"When the commenter does not set Gravatar, theme will generate a text avatar "
+"for them. The color of the avatar is calculated by the hash of email. Error "
+"404 will be thrown in the Console but no problem."
+
+#: settings.php:1962 header.php:459 sidebar.php:66 searchform.php:11
+msgid "搜索"
+msgstr "Search"
+
+#: settings.php:1963
+msgid "搜索过滤器"
+msgstr "Search Filters"
+
+#: settings.php:1965
+msgid "启用过滤器"
+msgstr "Enable Filters"
+
+#: settings.php:1972
+msgid "开启后，将会在搜索结果界面显示一个过滤器，支持搜索说说及其他类型文章"
+msgstr ""
+"After enabling, a filter will be displayed on the search results page , "
+"which supports search essays"
+
+#: settings.php:1985
+msgid "过滤器类型"
+msgstr "Filter Type"
+
+#: settings.php:2026
+msgid "拖动来自定义启用的过滤器，单击来切换默认勾选状态"
+msgstr ""
+"Drag to customize enabled filters, click to toggle the default checked "
+"state."
+
+#: settings.php:2084
+msgid "杂项"
+msgstr "Misc"
+
+#: settings.php:2086
+msgid "是否启用 Pjax"
+msgstr "Enable Pjax"
+
+#: settings.php:2093
+msgid "Pjax 可以增强页面的跳转体验"
+msgstr "Pjax can enhance the page jumping experience"
+
+#: settings.php:2097
+msgid "首页隐藏特定 分类/Tag 下的文章"
+msgstr "Hide specific categories/tags articles in home page"
+
+#: settings.php:2100
+msgid "输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏"
+msgstr ""
+"Enter the IDs of the categories/Tags to be hidden, separated by commas, "
+"leave blank to not hide"
+
+#: settings.php:2100
+msgid "点此查看"
+msgstr "Click Here"
+
+#: settings.php:2100
+msgid "所有分类和 Tag 的 ID"
+msgstr "to view IDs of all categories and tags"
+
+#: settings.php:2102 sidebar.php:140 sidebar.php:271
+msgid "分类"
+msgstr "Categories"
+
+#: settings.php:2136
+msgid "美化登录界面"
+msgstr "Beautify the login page"
+
+#: settings.php:2143
+msgid "使用 Lyrargon Design 风格的登录界面"
+msgstr "Use Argon Design Style login interface"
+
+#: settings.php:2147
+msgid "美化后台界面"
+msgstr "Beautify the background interface"
+
+#: settings.php:2150
+msgid "使用 Lyrargon Design 风格的后台界面"
+msgstr "Use Argon Design Style background interface"
+
+#: settings.php:2151
+#, php-format
+msgid "前往<a href=\"%s\" target=\"_blank\">个人资料</a>页面将 \"管理界面配色方案\" 设为 \"Lyrargon\" 即可开启。"
+msgstr ""
+"Go to the <a href=\"%s\" target=\"_blank\">profile</a> page and set the "
+"\"Admin UI Color Scheme\" to \"Argon\" to enable it."
+
+#: settings.php:2156
+msgid "博客首页是否显示说说"
+msgstr "Show essays on the homepage"
+
+#: settings.php:2163
+msgid "开启后，博客首页文章和说说穿插显示"
+msgstr ""
+"If enabled, articles and essays will be displayed on the homepage at the "
+"same time"
+
+#: settings.php:2167
+msgid "折叠长说说"
+msgstr "Collapse long essay"
+
+#: settings.php:2174
+msgid "开启后，长说说在预览状态下会被折叠，需要手动展开"
+msgstr "After opening, essay that are too long will be collapsed"
+
+#: settings.php:2178
+msgid "是否修正时区错误"
+msgstr "Time zone fix"
+
+#: settings.php:2185
+msgid "如遇到时区错误（例如一条刚发的评论显示 8 小时前），这个选项"
+msgstr ""
+"If you encounter a time zone problem (for example, a comment is just posted "
+"but displays 8 hours ago), this option"
+
+#: settings.php:2185
+msgid "可能"
+msgstr "may"
+
+#: settings.php:2185
+msgid "可以修复这个问题"
+msgstr " can fix this problem"
+
+#: settings.php:2189
+msgid "是否在文章列表内容预览中隐藏短代码"
+msgstr "Hide shortcodes in preview"
+
+#: settings.php:2193 settings.php:2211
+msgid "否"
+msgstr "No"
+
+#: settings.php:2194 settings.php:2212
+msgid "是"
+msgstr "Yes"
+
+#: settings.php:2200
+msgid "文章内容预览截取字数"
+msgstr "Article Content Preview Trim Word Count"
+
+#: settings.php:2203
+msgid "设为 0 来隐藏文章内容预览"
+msgstr "Set to 0 to hide article content preview."
+
+#: settings.php:2207
+msgid "是否允许移动端缩放页面"
+msgstr "Allow mobile browser zoom the page"
+
+#: settings.php:2218
+msgid "禁用 Google 字体"
+msgstr "Disable Google Fonts"
+
+#: settings.php:2225
+msgid "Google 字体在中国大陆访问可能会阻塞，禁用可以解决页面加载被阻塞的问题。禁用后，Serif 字体将失效。"
+msgstr ""
+"Google Fonts may be blocked when accessed in China Mainland, disabling it "
+"will fix the blocked page load. By disabling it, Serif Fonts will be "
+"disabled."
+
+#: settings.php:2229
+msgid "禁用 Lyrargon 代码块样式"
+msgstr "Disable Argon code block styles"
+
+#: settings.php:2236
+msgid "如果您启用了其他代码高亮插件，发现代码块样式被 Lyrargon 覆盖，出现了显示错误，请将此选项设为禁用"
+msgstr ""
+"If you enabled other code highlighting plugins and the code block style is "
+"covered by Argon, please disabled this option."
+
+#: settings.php:2240
+msgid "检测更新源"
+msgstr "Theme update source"
+
+#: settings.php:2246
+msgid "暂停更新 (不推荐)"
+msgstr "Stop Update"
+
+#: settings.php:2248
+msgid "如更新主题速度较慢，可考虑更换更新源。"
+msgstr "If updating theme is slow, you can changing the update source."
+
+#: settings.php:2252
+msgid "页脚附加内容"
+msgstr "Additional content in footer"
+
+#: settings.php:2267
+msgid "保存更改"
+msgstr "Save Changes"
+
+#: settings.php:2268
+msgid "导入设置"
+msgstr "Import"
+
+#: settings.php:2269
+msgid "导出设置"
+msgstr "Export"
+
+#: settings.php:2278
+msgid "到顶部"
+msgstr "To the top"
+
+#: settings.php:2278
+msgid "到底部"
+msgstr "To the bottom"
+
+#: settings.php:2279
+msgid "请复制并保存导出后的 JSON"
+msgstr "Copy and save the JSON"
+
+#: settings.php:2279
+msgid "确定"
+msgstr "OK"
+
+#: settings.php:2566
+msgid "字段导入失败"
+msgstr "Option Import Failed"
+
+#: settings.php:2577
+msgid "请输入要导入的备份 JSON"
+msgstr "Input JSON"
+
+#: settings.php:2585
+msgid "JSON 格式错误，请检查后重试。"
+msgstr "JSON format error, please check and try again."
+
+#: settings.php:2601
+msgid ""
+"导入的 JSON 似乎为 Argon-Theme 的设置选项。请前往「Lyrargon 选项 - 从 Argon 迁移」页面导入此 JSON。"
+msgstr ""
+"The imported JSON appears to be Argon-Theme settings. Please go to the "
+"\"Lyrargon Options - Migrate from Argon\" page to import this JSON."
+
+#: settings.php:2602
+msgid "是否立即前往「从 Argon 迁移」页面？"
+msgstr "Go to the \"Migrate from Argon\" page now?"
+
+#: settings.php:2611
+msgid "已导入，请保存更改。"
+msgstr "Imported, Place save changes."
+
+#: settings.php:2649
+msgid "正在保存"
+msgstr "Saving"
+
+#: settings.php:2650
+msgid "保存中..."
+msgstr "Saving..."
+
+#: settings.php:2658 settings.php:2851
+msgid "已保存"
+msgstr "Saved"
+
+#: settings.php:2663
+msgid "保存失败"
+msgstr "Save Failed"
+
+#: settings.php:2667
+msgid "保存失败，请重试。"
+msgstr "Save failed, please try again."
+
+#: settings.php:2696 settings.php:2703
+msgid "校验失败，请重试。"
+msgstr "Validation failed, please try again."
+
+#: archive.php:14
+msgid "篇文章"
+msgstr "Posts"
+
+#: settings-migrate.php:6 settings-emojis.php:6
+msgid "您没有权限访问此页面。"
+msgstr "You have no permission to do this"
+
+#: settings-migrate.php:24
+msgid "文件上传失败，请重试。"
+msgstr "File upload failed, please try again."
+
+#: settings-migrate.php:26
+msgid "请上传 JSON 文件或粘贴 JSON 内容。"
+msgstr "Please upload a JSON file or paste JSON content."
+
+#: settings-migrate.php:33
+msgid "JSON 格式错误，请检查。"
+msgstr "JSON format error, please check."
+
+#: settings-migrate.php:50
+#, php-format
+msgid "成功处理 %d 项设置，其中 %d 项已导入到 Lyrargon（未覆盖已存在的设置）。"
+msgstr ""
+"Successfully processed %d settings, of which %d were imported into Lyrargon "
+"(without overwriting existing settings)."
+
+#: settings-migrate.php:64
+msgid "旧主题设置已经成功迁移到 Lyrargon。"
+msgstr "The old theme settings have been successfully migrated to Lyrargon."
+
+#: settings-migrate.php:76
+#, php-format
+msgid "数据库已清理完成，删除 %d 项旧主题设置。"
+msgstr "Database cleanup complete, %d old theme settings deleted."
+
+#: settings-migrate.php:93
+msgid "从 Argon 迁移到 Lyrargon"
+msgstr "Migrate from Argon to Lyrargon"
+
+#: settings-migrate.php:94
+msgid "如果之前使用的是 Argon-Theme 主题，可以通过此页面将 Argon 原有设置迁移到 Lyrargon。"
+msgstr ""
+"If you previously used the Argon-Theme, you can migrate Argon's original "
+"settings to Lyrargon via this page."
+
+#: settings-migrate.php:95
+msgid "在从 Argon 迁移到 Lyrargon 之前，请先将 Argon-Theme 升级至最新版本。"
+msgstr ""
+"Before migrating from Argon to Lyrargon, please upgrade Argon-Theme to the "
+"latest version."
+
+#: settings-migrate.php:110
+msgid "通过数据库迁移"
+msgstr "Migrate via Database"
+
+#: settings-migrate.php:113
+msgid "通过 JSON 导入"
+msgstr "Import via JSON"
+
+#: settings-migrate.php:116
+msgid "迁移日志"
+msgstr "Migration Log"
+
+#: settings-migrate.php:124
+msgid "设置迁移"
+msgstr "Settings Migration"
+
+#: settings-migrate.php:129
+msgid "你的 Argon 主题设置已经迁移到 Lyrargon。"
+msgstr "Your Argon theme settings have been migrated to Lyrargon."
+
+#: settings-migrate.php:140
+msgid "原 Argon-Theme 设置选项"
+msgstr "Original Argon-Theme Settings"
+
+#: settings-migrate.php:143
+msgid "已清理"
+msgstr "Cleaned"
+
+#: settings-migrate.php:145
+msgid "已迁移"
+msgstr "Migrated"
+
+#: settings-migrate.php:147
+msgid "待处理"
+msgstr "Pending"
+
+#: settings-migrate.php:156 settings-migrate.php:288
+msgid "显示详情"
+msgstr "Show Details"
+
+#: settings-migrate.php:159 settings-migrate.php:292
+msgid "旧设置数量"
+msgstr "Old Settings Count"
+
+#: settings-migrate.php:160 settings-migrate.php:293
+msgid "当前设置数量"
+msgstr "Current Settings Count"
+
+#: settings-migrate.php:166
+msgid "在正常情况下，Lyrargon 会尝试自动导入 Argon 的设置选项。但若显示「待处理」，可尝试进行手动迁移。"
+msgstr ""
+"Normally Lyrargon attempts to import Argon's settings automatically. If "
+"\"Pending\" is shown, you can try a manual migration."
+
+#: settings-migrate.php:173
+msgid "开始迁移"
+msgstr "Start Migration"
+
+#: settings-migrate.php:181
+msgid "如果确定不再使用 Argon 主题，可以把这些旧设置彻底删除："
+msgstr ""
+"If you are sure you no longer use the Argon theme, you can permanently "
+"delete these old settings:"
+
+#: settings-migrate.php:182 settings-migrate.php:276
+msgid "确定要删除旧主题设置吗？此操作不可撤销。"
+msgstr ""
+"Are you sure you want to delete the old theme settings? This action cannot "
+"be undone."
+
+#: settings-migrate.php:186 settings-migrate.php:280
+msgid "删除旧主题设置"
+msgstr "Argon Theme Options"
+
+#: settings-migrate.php:198
+msgid "从 Argon 备份 JSON 导入"
+msgstr "Import from Argon Backup JSON"
+
+#: settings-migrate.php:201
+msgid "如果您之前从 Argon 导出了设置备份（JSON 文件），可以在这里上传，系统会自动转成 Lyrargon 的格式。"
+msgstr ""
+"If you previously exported a settings backup (JSON file) from Argon, you can"
+" upload it here and the system will automatically convert it to Lyrargon's "
+"format."
+
+#: settings-migrate.php:204
+msgid "仅导入尚未存在的设置项，不会覆盖您当前在 Lyrargon 中已配置的值。"
+msgstr ""
+"Only imports settings that do not yet exist and will not overwrite the "
+"values you have already configured in Lyrargon."
+
+#: settings-migrate.php:214 settings-migrate.php:229
+msgid "导入并映射到 Lyrargon"
+msgstr "Import and Map to Lyrargon"
+
+#: settings-migrate.php:221
+msgid "或者直接粘贴 JSON"
+msgstr "Or paste JSON directly"
+
+#: settings-migrate.php:225
+msgid "在此粘贴 JSON 内容…"
+msgstr "Paste JSON content here…"
+
+#: settings-migrate.php:240
+msgid "迁移结果报告"
+msgstr "Migration Result Report"
+
+#: settings-migrate.php:261
+msgid "✅ 没有需要处理的旧设置，一切就绪。"
+msgstr "✅ No old settings need to be processed, all set."
+
+#: settings-migrate.php:267
+#, php-format
+msgid "已把 %d 项旧设置迁移到 Lyrargon。"
+msgstr "Migrated %d old settings to Lyrargon."
+
+#: settings-migrate.php:269
+#, php-format
+msgid "还有 %d 项旧设置待处理。"
+msgstr "There are still %d old settings pending."
+
+#: settings-migrate.php:289
+msgid "概览"
+msgstr "Site"
+
+#: settings-migrate.php:298
+msgid "残留的旧设置"
+msgstr "Remaining Old Settings"
+
+#: settings-migrate.php:311
+msgid "当前设置预览"
+msgstr "Current Settings Preview"
+
+#: settings-migrate.php:322
+msgid "… 仅显示前 50 项"
+msgstr "… showing only the first 50 items"
+
+#: comments.php:51
+msgid "暂无评论"
+msgstr "No Comments"
+
+#: comments.php:59
+msgid "本文评论已关闭"
+msgstr "Commenting is disabled"
+
+#: comments.php:77
+msgid "编辑评论"
+msgstr "Edit Comment"
+
+#: comments.php:80
+msgid "正在回复"
+msgstr "Replying"
+
+#: comments.php:80
+msgid " 的评论"
+msgstr "'s comment"
+
+#: comments.php:82
+msgid "取消回复"
+msgstr "Cancel"
+
+#: comments.php:87
+msgid "评论内容"
+msgstr "Your comment..."
+
+#: comments.php:123
+msgid "昵称"
+msgstr "Name"
+
+#: comments.php:129
+msgid "邮箱"
+msgstr "Email"
+
+#: comments.php:129
+msgid " / QQ 号"
+msgstr "/ QQ Number"
+
+#: comments.php:135
+msgid "验证码"
+msgstr "CAPTCHA"
+
+#: comments.php:155
+msgid "获取验证码失败"
+msgstr "Failed to get CAPTCHA"
+
+#: comments.php:167
+msgid "网站"
+msgstr "Website"
+
+#: comments.php:173
+msgid "展开附加字段"
+msgstr "Show Extra Field"
+
+#: comments.php:173
+msgid "折叠附加字段"
+msgstr "Hide Extra Field"
+
+#: comments.php:186
+msgid "评论仅发送者和博主可见"
+msgstr "Only sender and blog owner can see the comment"
+
+#: comments.php:192
+msgid "有回复时邮件通知我"
+msgstr "Email me when comment is replied"
+
+#: comments.php:194
+msgid "邮件提醒"
+msgstr "Email Notification"
+
+#: comments.php:200
+msgid "发送"
+msgstr "Send"
+
+#: comments.php:205
+msgid "取消"
+msgstr "Cancel"
+
+#: comments.php:208
+msgid "表情"
+msgstr "Emotions"
+
+#: search.php:8
+msgid "的搜索结果"
+msgstr "Search Results"
+
+#: search.php:41
+msgid "个结果"
+msgstr "Results"
+
+#: header.php:381 header.php:441 sidebar.php:67 searchform.php:7
+msgid "搜索什么..."
+msgstr "Search..."
+
+#: header.php:584
+msgid "移至左侧"
+msgstr "Move To Left"
+
+#: header.php:584
+msgid "移至右侧"
+msgstr "Move To Right"
+
+#: header.php:588
+msgid "回到顶部"
+msgstr "Back To Top"
+
+#: header.php:594 header.php:603
+msgid "暗黑模式"
+msgstr "Black Mode"
+
+#: header.php:594
+msgid "日间模式"
+msgstr "Light Mode"
+
+#: header.php:597
+msgid "设置"
+msgstr "Settings"
+
+#: header.php:603
+msgid "切换到夜间模式"
+msgstr "Switch To Dark Mode"
+
+#: header.php:603
+msgid "切换到暗黑模式"
+msgstr "Switch To Black Mode"
+
+#: header.php:616
+msgid "阴影"
+msgstr "Shadow"
+
+#: header.php:622
+msgid "滤镜"
+msgstr "Filter"
+
+#: header.php:625
+msgid "日落"
+msgstr "Sunset"
+
+#: header.php:626
+msgid "暗化"
+msgstr "Brightless"
+
+#: header.php:627
+msgid "灰度"
+msgstr "Greyscale"
+
+#: header.php:631
+msgid "恢复默认"
+msgstr "Set To Default"
+
+#: header.php:631
+msgid "圆角"
+msgstr "Radius"
+
+#: header.php:643
+msgid "阅读进度"
+msgstr "Reading Progress"
+
+#: template-parts/shuoshuo-operations.php:10
+msgid "已关闭"
+msgstr " Disabled"
+
+#: template-parts/content-none-tag.php:4
+msgid "此分类没有文章"
+msgstr "No Posts In This Category"
+
+#: template-parts/content-none-tag.php:5
+msgid "这里什么都没有"
+msgstr "Nothing here."
+
+#: template-parts/content-timeline.php:57 template-parts/content-single.php:57
+#: template-parts/content-page.php:60
+msgid "这是一篇受密码保护的文章，您需要提供访问密码"
+msgstr "Password Required"
+
+#: template-parts/content-timeline.php:64 template-parts/content-single.php:64
+#: template-parts/content-page.php:67
+msgid "密码"
+msgstr "Password"
+
+#: template-parts/content-timeline.php:68 template-parts/content-single.php:74
+#: template-parts/content-page.php:77
+msgid "确认"
+msgstr "Submit"
+
+#: template-parts/content-shuoshuo-preview.php:13
+#: template-parts/content-shuoshuo.php:5
+#: template-parts/content-shuoshuo-details.php:5
+msgid "月"
+msgstr "/"
+
+#: template-parts/content-shuoshuo-preview.php:14
+#: template-parts/content-shuoshuo.php:6
+#: template-parts/content-shuoshuo-details.php:6
+msgid "日"
+msgstr "th"
+
+#: template-parts/share.php:4 template-parts/share.php:61
+msgid "分享到微信"
+msgstr "Share to Wechat"
+
+#: template-parts/share.php:9
+msgid "分享到豆瓣"
+msgstr "Share To Douban"
+
+#: template-parts/share.php:14
+msgid "分享到 QQ"
+msgstr "Share To QQ"
+
+#: template-parts/share.php:19
+msgid "分享到 QQ 空间"
+msgstr "Share To QQ Qzone"
+
+#: template-parts/share.php:24
+msgid "分享到微博"
+msgstr "Share to Weibo"
+
+#: template-parts/share.php:30
+msgid "分享到 Facebook"
+msgstr "Share To Facebook"
+
+#: template-parts/share.php:35
+msgid "分享到 Twitter"
+msgstr "Share To Twitter"
+
+#: template-parts/share.php:41
+msgid "分享到 Telegram"
+msgstr "Share To Telegram"
+
+#: template-parts/share.php:47
+msgid "复制链接"
+msgstr "Copy Link"
+
+#: template-parts/share.php:62
+msgid "微信扫描二维码"
+msgstr "Scan QR Code"
+
+#: template-parts/share.php:77
+msgid "链接已复制"
+msgstr "Copied"
+
+#: template-parts/share.php:78
+msgid "链接已复制到剪贴板"
+msgstr "The link has been copied to the clipboard."
+
+#: template-parts/share.php:91
+msgid "复制失败"
+msgstr "Failed"
+
+#: template-parts/share.php:92
+msgid "请手动复制链接"
+msgstr "Please copy the link manually."
+
+#: template-parts/content-preview-2.php:29
+#: template-parts/content-preview-3.php:55
+#: template-parts/content-preview-1.php:59
+msgid "这篇文章受密码保护，输入密码才能阅读"
+msgstr "This article requires a password to view."
+
+#: template-parts/content-preview-2.php:32
+#: template-parts/content-preview-3.php:58
+#: template-parts/content-preview-1.php:62
+msgid "这篇文章没有摘要"
+msgstr "No abstract."
+
+#: template-parts/content-none-search.php:4
+msgid "没有搜索结果"
+msgstr "No Search Results"
+
+#: template-parts/content-none-search.php:6
+msgid "似乎没有勾选任何分类"
+msgstr "No category seems to be checked"
+
+#: template-parts/content-none-search.php:8
+msgid "换个关键词试试 ?"
+msgstr "Try another keyword?"
+
+#: single.php:27
+msgid "上一篇"
+msgstr "Previous"
+
+#: single.php:32
+msgid "下一篇"
+msgstr "Next"
+
+#: single.php:86
+msgid "推荐文章"
+msgstr "Related Posts"
+
+#: sidebar.php:9
+msgid "公告"
+msgstr "Announcement"
+
+#: sidebar.php:83
+msgid "文章目录"
+msgstr "Catalog"
+
+#: sidebar.php:87
+msgid "站点概览"
+msgstr "Site"
+
+#: sidebar.php:91
+msgid "功能"
+msgstr "Functions"
+
+#: sidebar.php:146 sidebar.php:299
+msgid "标签"
+msgstr "Tags"
+
+#~ msgid "默认跟随 WordPress 站点语言；可手动指定主题界面语言，方便调试。"
+#~ msgstr ""
+#~ "By default it follows the WordPress site language; you can manually specify "
+#~ "the theme interface language for debugging."
+
+#~ msgid "颜文字"
+#~ msgstr "ASCII Arts"
+
+#~ msgid "警告：你可能修改了 Argon 主题页脚的版权声明，Argon 主题要求你至少保留主题的 Github 链接或主题的发布文章链接。"
+#~ msgstr ""
+#~ "Alert: The copyright in the footer may have been modified. You should "
+#~ "maintain the GitHub Repo link of the theme."
+
+#~ msgid "按下"
+#~ msgstr "Press"
+
+#~ msgid "或在右侧目录中来查找设置"
+#~ msgstr "or find options in right catalog"
+
+#~ msgid "查看所有主题预览"
+#~ msgstr "View all color scheme previews"
+
+#~ msgid ""
+#~ "自 Argon 1.1.0 版本后，图片缩放预览库由 Zoomify 更换为 Fancybox，如果您还想使用旧版图片预览，请开启此选项。注意: "
+#~ "Zoomify 和 Fancybox 不能同时开启。"
+#~ msgstr ""
+#~ "Since Argon 1.1.0, the image zoom preview library has been replaced by "
+#~ "Fancybox instead of Zoomify, so turn this option on if you still want to use"
+#~ " the old image preview. Note: Zoomify and Fancybox cannot be turned on at "
+#~ "the same time."
+
+#~ msgid "在中国速度较快的一些 CDN :"
+#~ msgstr "Some CDN that are fast in China Mainland:"
+
+#~ msgid "搜索结果类型过滤器"
+#~ msgstr "Search result type filter"
+
+#~ msgid "启用，默认不包括说说"
+#~ msgstr "Enable, exclude essays by default"
+
+#~ msgid "启用，默认包括说说"
+#~ msgstr "Enable, include essays by default"
+
+#~ msgid "启用，隐藏说说分类"
+#~ msgstr "Enable, hide essays checkbox"
+
+#~ msgid "自动折叠顶栏"
+#~ msgstr "Auto Fold Toolbar"
+
+#~ msgid "提示"
+#~ msgstr "Show"
+
+#~ msgid "颜色"
+#~ msgstr "Theme Color"
+
+#~ msgid "时间"
+#~ msgstr "Post time"
+
+#~ msgid "菜单"
+#~ msgstr "Menu"
+
+#~ msgid "是否使用 v2ex CDN 代理的 gravatar"
+#~ msgstr "Use V2EX CDN Gravatar"
+
+#~ msgid "可以大幅增加国内 gravatar 头像加载的速度"
+#~ msgstr "Can increase the loading speed of gravatar in China Mainland."
+
+#~ msgid "评论内容不能为空"
+#~ msgstr "Your comment..."
+
+#~ msgid "发送中"
+#~ msgstr "Send"
+
+#~ msgid "编辑中"
+#~ msgstr "Edit"
+
+#~ msgid "代码已复制到剪贴板"
+#~ msgstr "The link has been copied to the clipboard."
+
+#~ msgid "请手动复制代码"
+#~ msgstr "Please copy the link manually."
+
+#~ msgid "分钟前"
+#~ msgstr "minutes"
+
+#~ msgid "小时前"
+#~ msgstr "hour"
+
+#~ msgid "前天"
+#~ msgstr " ago"
+
+#~ msgid "天前"
+#~ msgstr " ago"
+
+#~ msgid "的评论"
+#~ msgstr "'s comment"
+
+#~ msgid "您在xxx[的评论有了新的回复]"
+#~ msgstr "Has a New Reply"

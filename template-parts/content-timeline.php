@@ -61,11 +61,11 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fa fa-key"></i></span>
 								</div>
-								<input name="post_password" class="form-control" placeholder="密码" type="password">
+								<input name="post_password" class="form-control" placeholder="<?php _e('密码', 'lyrargon');?>" type="password">
 							</div>
 						</div>
 					</div>
-					<input class="btn btn-primary" type="submit" name="Submit" value="确认">
+					<input class="btn btn-primary" type="submit" name="Submit" value="<?php _e('确认', 'lyrargon');?>">
 				</form>
 			</div>
 		<?php

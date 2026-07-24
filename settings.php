@@ -345,6 +345,10 @@ function themeoptions_page(){
 				width: 100% !important;
 				max-width: none !important;
 			}
+			/* 侧边栏切换时的淡入淡出 */
+			#main_form > table.form-table {
+				transition: opacity 0.15s ease;
+			}
 		</style>
 
 		<script>
@@ -390,8 +394,12 @@ function themeoptions_page(){
 
 				// Tab switching logic
 				function showSection(id) {
-					$mainTable.find('> tbody > tr').hide();
-					$mainTable.find('> tbody > tr.' + id).show();
+					$mainTable.css('opacity', '0.35');
+					setTimeout(function() {
+						$mainTable.find('> tbody > tr').hide();
+						$mainTable.find('> tbody > tr.' + id).show();
+						$mainTable.css('opacity', '1');
+					}, 120);
 				}
 				
 				$sidebar.find('li').click(function() {
@@ -459,6 +467,19 @@ function themeoptions_page(){
 			<table class="form-table">
 				<tbody>
 					<tr><th class="subtitle"><h2><?php _e("全局", 'lyrargon');?></h2></th></tr>
+					<tr>
+						<th><label><?php _e("界面语言", 'lyrargon');?></label></th>
+						<td>
+							<select name="lyrargon_language_override">
+								<?php $argon_language_override = get_option('lyrargon_language_override', 'follow'); ?>
+								<option value="follow" <?php if ($argon_language_override=='follow'){echo 'selected';} ?>><?php _e('跟随 WordPress', 'lyrargon');?></option>
+								<option value="zh_CN" <?php if ($argon_language_override=='zh_CN'){echo 'selected';} ?>><?php _e('简体中文', 'lyrargon');?></option>
+								<option value="zh_TW" <?php if ($argon_language_override=='zh_TW'){echo 'selected';} ?>><?php _e('繁體中文', 'lyrargon');?></option>
+								<option value="en_US" <?php if ($argon_language_override=='en_US'){echo 'selected';} ?>><?php _e('English', 'lyrargon');?></option>
+							</select>
+							<p class="description"><?php _e('默认跟随 WordPress 站点语言。请注意，若选择除简体中文以外的语言，中国（大陆）的本地化加速/功能可能无法正常工作。', 'lyrargon');?></p>
+						</td>
+					</tr>
 					<tr><th class="subtitle"><h3><?php _e("主题色", 'lyrargon');?></h3></th></tr>
 					<tr>
 						<th><label><?php _e("主题颜色", 'lyrargon');?></label></th>
@@ -1368,7 +1389,7 @@ function themeoptions_page(){
 						<th><label><?php _e('页脚内容', 'lyrargon');?></label></th>
 						<td>
 							<textarea type="text" rows="15" cols="100" name="lyrargon_footer_html"><?php echo htmlspecialchars(get_option('lyrargon_footer_html')); ?></textarea>
-							<p class="description"><?php _e('HTML , 支持 script 等标签', 'lyrargon');?></p>
+							<p class="description"><?php _e('HTML , 支持 script 等标签', 'lyrargon');?><br/><strong style="color:#a00;"><?php _e('安全提示：仅管理员可填写；此处内容存入数据库后会原样输出到前台，请仅填入可信代码。', 'lyrargon');?></strong></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('代码高亮', 'lyrargon');?></h2></th></tr>
@@ -1644,14 +1665,14 @@ window.pjaxLoaded = function(){
 						<th><label><?php _e('页头脚本', 'lyrargon');?></label></th>
 						<td>
 							<textarea type="text" rows="15" cols="100" name="lyrargon_custom_html_head"><?php echo htmlspecialchars(get_option('lyrargon_custom_html_head')); ?></textarea>
-							<p class="description"><?php _e('HTML , 支持 script 等标签', 'lyrargon');?><br/><?php _e('插入到 body 之前', 'lyrargon');?></p>
+							<p class="description"><?php _e('HTML , 支持 script 等标签', 'lyrargon');?><br/><?php _e('插入到 body 之前', 'lyrargon');?><br/><strong style="color:#a00;"><?php _e('安全提示：仅管理员可填写；此处内容存入数据库后会原样输出到前台，请仅填入可信代码。', 'lyrargon');?></strong></p>
 						</td>
 					</tr>
 					<tr>
 						<th><label><?php _e('页尾脚本', 'lyrargon');?></label></th>
 						<td>
 							<textarea type="text" rows="15" cols="100" name="lyrargon_custom_html_foot"><?php echo htmlspecialchars(get_option('lyrargon_custom_html_foot')); ?></textarea>
-							<p class="description"><?php _e('HTML , 支持 script 等标签', 'lyrargon');?><br/><?php _e('插入到 body 之后', 'lyrargon');?></p>
+							<p class="description"><?php _e('HTML , 支持 script 等标签', 'lyrargon');?><br/><?php _e('插入到 body 之后', 'lyrargon');?><br/><strong style="color:#a00;"><?php _e('安全提示：仅管理员可填写；此处内容存入数据库后会原样输出到前台，请仅填入可信代码。', 'lyrargon');?></strong></p>
 						</td>
 					</tr>
 					<tr><th class="subtitle"><h2><?php _e('动画', 'lyrargon');?></h2></th></tr>
@@ -2078,7 +2099,7 @@ window.pjaxLoaded = function(){
 							<input type="text" class="regular-text" name="lyrargon_hide_categories" value="<?php echo get_option('lyrargon_hide_categories'); ?>"/>
 							<p class="description"><?php _e('输入要隐藏的 分类/Tag 的 ID，用英文逗号分隔，留空则不隐藏', 'lyrargon');?><br/><a onclick="$('#id_of_categories_and_tags').slideDown(500);" style="cursor: pointer;"><?php _e('点此查看', 'lyrargon');?></a><?php _e('所有分类和 Tag 的 ID', 'lyrargon');?>
 								<?php
-									echo "<div id='id_of_categories_and_tags' style='display: none;'><div style='font-size: 22px;margin-bottom: 10px;margin-top: 10px;'>分类</div>";
+									echo "<div id='id_of_categories_and_tags' style='display: none;'><div style='font-size: 22px;margin-bottom: 10px;margin-top: 10px;'>" . __('分类', 'lyrargon') . "</div>";
 									$categories = get_categories(array(
 										'hide_empty' => 0,
 										'hierarchical' => 0,
@@ -2554,10 +2575,40 @@ window.pjaxLoaded = function(){
 		}
 		function importSettings(){
 			let json = prompt("<?php _e('请输入要导入的备份 JSON', 'lyrargon');?>");
-			if (json){
-				let res = importArgonSettings(json);
-				alert("<?php _e('已导入，请保存更改', 'lyrargon');?>\n" + res)
+			if (!json){
+				return;
 			}
+			let parsed;
+			try{
+				parsed = JSON.parse(json);
+			}catch(e){
+				alert("<?php _e('JSON 格式错误，请检查后重试。', 'lyrargon');?>");
+				return;
+			}
+			// 检测是否为 Argon 旧版导出的 JSON（含 argon_ 前缀字段）
+			let isArgon = false;
+			if (parsed !== null && typeof parsed === 'object'){
+				for (let key in parsed){
+					if (key.indexOf('argon_') === 0){
+						isArgon = true;
+						break;
+					}
+				}
+			}
+			if (isArgon){
+				let migrateUrl = "<?php echo esc_js(admin_url('admin.php?page=lyrargon_migration')); ?>";
+				let go = confirm(
+					"<?php _e('导入的 JSON 似乎为 Argon-Theme 的设置选项。请前往「Lyrargon 选项 - 从 Argon 迁移」页面导入此 JSON。', 'lyrargon');?>\n\n" +
+					"<?php _e('是否立即前往「从 Argon 迁移」页面？', 'lyrargon');?>\n" +
+					migrateUrl
+				);
+				if (go){
+					window.location.href = migrateUrl;
+				}
+				return;
+			}
+			let res = importArgonSettings(json);
+			alert("<?php _e('已导入，请保存更改。', 'lyrargon');?>\n" + res)
 		}
 
 		function setThemeoptionsSaveStatus(type, text){
@@ -2601,7 +2652,7 @@ window.pjaxLoaded = function(){
 				url: window.location.href,
 				type: 'POST',
 				dataType: 'json',
-				data: $form.serialize() + '&argon_themeoptions_ajax=1'
+				data: $form.serialize() + '&lyrargon_themeoptions_ajax=1'
 			}).done(function(response){
 				if (response && response.success) {
 					setThemeoptionsSaveStatus('success', response.data && response.data.message ? response.data.message : '<?php _e('已保存', 'lyrargon');?>');
@@ -2613,7 +2664,7 @@ window.pjaxLoaded = function(){
 					setThemeoptionsSaveStatus('error', message);
 				}
 			}).fail(function(){
-				setThemeoptionsSaveStatus('error', '<?php _e('保存失败，请重试', 'lyrargon');?>');
+				setThemeoptionsSaveStatus('error', '<?php _e('保存失败，请重试。', 'lyrargon');?>');
 			}).always(function(){
 				$button.prop('disabled', false).val(originalText);
 			});
@@ -2642,14 +2693,14 @@ function argon_update_themeoptions(){
 	if ($_POST['update_themeoptions'] == 'true'){
 		if (!isset($_POST['lyrargon_update_themeoptions_nonce'])){
 			if (isset($_POST['lyrargon_themeoptions_ajax'])) {
-				wp_send_json_error(array('message' => __('校验失败，请刷新后重试', 'lyrargon')));
+				wp_send_json_error(array('message' => __('校验失败，请重试。', 'lyrargon')));
 			}
 			return;
 		}
 		$nonce = $_POST['lyrargon_update_themeoptions_nonce'];
 		if (!wp_verify_nonce($nonce, 'lyrargon_update_themeoptions')){
 			if (isset($_POST['lyrargon_themeoptions_ajax'])) {
-				wp_send_json_error(array('message' => __('校验失败，请刷新后重试', 'lyrargon')));
+				wp_send_json_error(array('message' => __('校验失败，请重试。', 'lyrargon')));
 			}
 			return;
 		}
@@ -2671,7 +2722,7 @@ function argon_update_themeoptions(){
 		argon_update_option_checkbox('lyrargon_banner_background_hide_shapes');
 		argon_update_option('lyrargon_enable_smoothscroll_type');
 		argon_update_option('lyrargon_gravatar_cdn');
-		argon_update_option_allow_tags('lyrargon_footer_html');
+		if (current_user_can('manage_options')) { argon_update_option_allow_tags('lyrargon_footer_html'); }
 		argon_update_option('lyrargon_show_readingtime');
 		argon_update_option('lyrargon_reading_speed');
 		argon_update_option('lyrargon_reading_speed_en');
@@ -2765,6 +2816,7 @@ function argon_update_themeoptions(){
 		argon_update_option('lyrargon_archives_timeline_show_month');
 		argon_update_option('lyrargon_archives_timeline_url');
 		argon_update_option('lyrargon_enable_immersion_color');
+		argon_update_option('lyrargon_language_override');
 		argon_update_option('lyrargon_enable_comment_pinning');
 		argon_update_option('lyrargon_show_comment_parent_info');
 
@@ -2787,9 +2839,11 @@ function argon_update_themeoptions(){
 		argon_update_option('lyrargon_mathjax_v2_cdn_url');
 		argon_update_option('lyrargon_katex_cdn_url');
 
-		//页头页尾脚本
-		argon_update_option_allow_tags('lyrargon_custom_html_head');
-		argon_update_option_allow_tags('lyrargon_custom_html_foot');
+		//页头页尾脚本（仅管理员可保存，内容会原样输出到前台）
+		if (current_user_can('manage_options')) {
+			argon_update_option_allow_tags('lyrargon_custom_html_head');
+			argon_update_option_allow_tags('lyrargon_custom_html_foot');
+		}
 
 		//公告
 		argon_update_option_allow_tags('lyrargon_sidebar_announcement');

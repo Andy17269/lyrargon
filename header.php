@@ -42,9 +42,7 @@
 		$htmlclasses .= 'toolbar-blur ';
 	}
 	$htmlclasses .= get_option('lyrargon_article_header_style', 'article-header-style-default') . ' ';
-	if(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') === false){
-		$htmlclasses .= ' using-safari';
-	}
+	/* using-safari 类改由客户端 JS 探测（见下方脚本），避免依赖服务端 UA 判断导致缓存/伪造问题 */
 ?>
 <html <?php language_attributes(); ?> class="no-js <?php echo $htmlclasses;?>">
 <?php
@@ -109,27 +107,19 @@
 	<meta name="theme-card-radius" content="<?php echo $cardradius; ?>">
 	<meta name="theme-card-radius-origin" content="<?php echo $cardradius_origin; ?>">
 
-	<meta name="theme-version" content="<?php echo $GLOBALS['theme_version']; ?>">
+	<meta name="theme-version" content="<?php echo lyrargon_theme_version(); ?>">
 
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
 	<link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
 	<?php endif; ?>
-	<?php
-		wp_enqueue_style("lyrargon_css_merged", $GLOBALS['assets_path'] . "/assets/argon_css_merged.css", null, $GLOBALS['theme_version']);
-		wp_enqueue_style("font-awesome-6", $GLOBALS['assets_path'] . "/assets/vendor/fontawesome-free-7.3.0-web/css/all.min.css", null, "7.3.0");
-		wp_enqueue_style("font-awesome-v4-shims", $GLOBALS['assets_path'] . "/assets/vendor/fontawesome-free-7.3.0-web/css/v4-shims.min.css", null, "7.3.0");
-		wp_enqueue_style("style", $GLOBALS['assets_path'] . "/style.css", null, $GLOBALS['theme_version']);
-		if (get_option('lyrargon_disable_googlefont') != 'true') {wp_enqueue_style("googlefont", "//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Serif+SC:300,600&display=swap");}
-		wp_enqueue_script("lyrargon_js_merged", $GLOBALS['assets_path'] . "/assets/argon_js_merged.js", array('jquery'), $GLOBALS['theme_version']);
-		wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/js/argon.min.js", array('jquery'), $GLOBALS['theme_version']);
-	?>
+	<?php /* 前端样式与脚本统一由 inc/core.php 中的 lyrargon_enqueue_scripts()（wp_enqueue_scripts 钩子）入队 */ ?>
 	<?php wp_head(); ?>
-	<?php $GLOBALS['wp_path'] = get_option('lyrargon_wp_path') == '' ? '/' : get_option('lyrargon_wp_path'); ?>
+	<?php /* wp_path 通过 lyrargon_wp_path() 访问 */ ?>
 	<script>
 		document.documentElement.classList.remove("no-js");
 		var argonConfig = {
-			wp_path: "<?php echo $GLOBALS['wp_path']; ?>",
+			wp_path: "<?php echo lyrargon_wp_path(); ?>",
 			language: "<?php echo argon_get_locate(); ?>",
 			dateFormat: "<?php echo get_option('lyrargon_dateformat', 'YMD'); ?>",
 			<?php if (get_option('lyrargon_enable_zoomify') == 'true'){ ?>
@@ -234,19 +224,19 @@
 		}
 	</script>
 	<script>
-		if (navigator.userAgent.indexOf("Safari") !== -1 && navigator.userAgent.indexOf("Chrome") === -1){
+		if (/^((?!chrome|android|crios|fxios|edgios|opios).)*safari/i.test(navigator.userAgent)){
 			$("html").addClass("using-safari");
 		}
 	</script>
 
 	<?php if (get_option('lyrargon_enable_smoothscroll_type') == '2') { /*平滑滚动*/?>
-		<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/smoothscroll/smoothscroll2.js"></script>
+		<script src="<?php echo lyrargon_assets_path(); ?>/assets/vendor/smoothscroll/smoothscroll2.js"></script>
 	<?php }else if (get_option('lyrargon_enable_smoothscroll_type') == '3'){?>
-		<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/smoothscroll/smoothscroll3.min.js"></script>
+		<script src="<?php echo lyrargon_assets_path(); ?>/assets/vendor/smoothscroll/smoothscroll3.min.js"></script>
 	<?php }else if (get_option('lyrargon_enable_smoothscroll_type') == '1_pulse'){?>
-		<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/smoothscroll/smoothscroll1_pulse.js"></script>
+		<script src="<?php echo lyrargon_assets_path(); ?>/assets/vendor/smoothscroll/smoothscroll1_pulse.js"></script>
 	<?php }else if (get_option('lyrargon_enable_smoothscroll_type') != 'disabled'){?>
-		<script src="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/smoothscroll/smoothscroll1.js"></script>
+		<script src="<?php echo lyrargon_assets_path(); ?>/assets/vendor/smoothscroll/smoothscroll1.js"></script>
 	<?php }?>
 </head>
 
@@ -388,7 +378,7 @@ if ($card_blur != 'none' && $card_blur != '') {
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="fa fa-search"></i></span>
 							</div>
-							<input id="navbar_search_input_mobile" class="form-control" placeholder="搜索什么..." type="text" autocomplete="off">
+							<input id="navbar_search_input_mobile" class="form-control" placeholder="<?php _e('搜索什么...', 'lyrargon');?>" type="text" autocomplete="off">
 						</div>
 					</div>
 					<?php

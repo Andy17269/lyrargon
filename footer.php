@@ -8,7 +8,7 @@
 				</main>
 			</div>
 		</div>
-		<script src="<?php echo $GLOBALS['assets_path']; ?>/argontheme.js?v<?php echo $GLOBALS['theme_version']; ?>"></script>
+		<script src="<?php echo lyrargon_assets_path(); ?>/argontheme.js?v<?php echo lyrargon_theme_version(); ?>"></script>
 		<?php if (get_option('lyrargon_math_render') == 'mathjax3') { /*Mathjax V3*/?>
 			<script>
 				window.MathJax = {
@@ -69,14 +69,11 @@
 		<?php }?>
 
 		<?php if (get_option('lyrargon_enable_code_highlight') == 'true') { /*Highlight.js*/?>
-			<link rel="stylesheet" href="<?php echo $GLOBALS['assets_path']; ?>/assets/vendor/highlight/styles/<?php echo get_option('lyrargon_code_theme') == '' ? 'vs2015' : get_option('lyrargon_code_theme'); ?>.css">
+			<link rel="stylesheet" href="<?php echo lyrargon_assets_path(); ?>/assets/vendor/highlight/styles/<?php echo get_option('lyrargon_code_theme') == '' ? 'vs2015' : get_option('lyrargon_code_theme'); ?>.css">
 		<?php }?>
 
 	</div>
 </div>
-<?php 
-	wp_enqueue_script("argonjs", $GLOBALS['assets_path'] . "/assets/js/argon.min.js", array('jquery'), $GLOBALS['theme_version'], true);
-?>
 <?php wp_footer(); ?>
 </body>
 

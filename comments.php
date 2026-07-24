@@ -17,14 +17,14 @@
 					wp_list_comments(
 						array(
 							'type'      => 'comment',
-							'callback'  => 'lyrargon_comment_format'
+							'callback'  => 'argon_comment_format'
 						),
 						argon_get_comments()
 					) :	
 					wp_list_comments(
 						array(
 							'type'      => 'comment',
-							'callback'  => 'lyrargon_comment_format'
+							'callback'  => 'argon_comment_format'
 						)
 					);
 				?>
@@ -132,7 +132,7 @@
 				<div class="<?php echo $col3_class;?>">
 					<div class="form-group mb-4 position-relative post-comment-captcha-container" captcha="<?php echo get_comment_captcha(get_comment_captcha_seed());?>">
 						<i class="fa fa-key position-absolute text-muted" style="left: 15px; top: 50%; transform: translateY(-50%); z-index: 4; pointer-events: none;"></i>
-						<input id="post_comment_captcha" class="form-control form-control-alternative" style="padding-left: 38px;" placeholder="<?php _e('验证码', 'lyrargon');?>" type="text" <?php if (current_user_can('level_7')) {echo('value="' . get_comment_captcha_answer(get_comment_captcha_seed()) . '" disabled');}?>>
+						<input id="post_comment_captcha" class="form-control form-control-alternative" style="padding-left: 38px;" placeholder="<?php _e('验证码', 'lyrargon');?>" type="text" <?php if (current_user_can('moderate_comments')) {echo('value="' . get_comment_captcha_answer(get_comment_captcha_seed()) . '" disabled');}?>>
 						<style>
 							.post-comment-captcha-container:before{
 								content: attr(captcha);
